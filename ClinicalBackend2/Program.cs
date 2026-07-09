@@ -11,6 +11,8 @@ using DatabaseLayer.Repository;
 using SericeLayer.Account.Rgistration;
 using Domain.IUnitOfWork;
 using DatabaseLayer.UnitOfWork;
+using ServiceLayer.Drug.Interfaces;
+using ServiceLayer.Drug;
 
 namespace ClinicalBackend2
 {
@@ -36,7 +38,10 @@ namespace ClinicalBackend2
             builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
             builder.Services.AddScoped<IRgistration, Rgistration>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-                        
+            builder.Services.AddScoped<IDrugImportService,DrugImportService>();
+            builder.Services.AddScoped<IDrugService, DrugService>();
+            builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+
             builder.Services.AddScoped<IJWTModule, JWTModule>(provider =>
             {
                 var config = provider.GetRequiredService<IConfiguration>();
