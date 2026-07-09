@@ -1,19 +1,19 @@
-using DatabaseLayer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using ServiceLayer.JWT;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Domain.Models;
-using Domain.IRepository;
+using DatabaseLayer;
 using DatabaseLayer.Repository;
-using SericeLayer.Account.Rgistration;
-using Domain.IUnitOfWork;
 using DatabaseLayer.UnitOfWork;
+using Domain.IRepository;
+using Domain.IUnitOfWork;
+using Domain.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using SericeLayer.Account.Login;
-using ServiceLayer.Drug.Interfaces;
+using SericeLayer.Account.Rgistration;
 using ServiceLayer.Drug;
+using ServiceLayer.Drug.Interfaces;
+using ServiceLayer.JWT;
 
 namespace ClinicalBackend2
 {
@@ -48,7 +48,6 @@ namespace ClinicalBackend2
                 );
             }); 
 
-            // 4. إعدادات الـ Authentication والـ JWT
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -61,7 +60,7 @@ namespace ClinicalBackend2
                 o.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
-                    ValidateAudience = false, // لو حابب تفعلها خليها true واضبط الـ ValidAudience
+                    ValidateAudience = false, 
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = builder.Configuration["Jwt:Issuer"],
@@ -85,13 +84,9 @@ namespace ClinicalBackend2
             }
 
             app.UseHttpsRedirection();
-
-            // ترتيب الـ Middleware مهم جداً جداً: Authentication أولاً ثم Authorization
             app.UseAuthentication(); 
             app.UseAuthorization();
-
             app.MapControllers();
-
             app.Run();
         }
     }

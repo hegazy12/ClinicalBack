@@ -2,5 +2,4 @@
   <Project Path="ClinicalBackend2/ClinicalBackend2.csproj" />
   <Project Path="DatabaseLayer/DatabaseLayer.csproj" />
   <Project Path="Domain/Domain.csproj" />
-  <Project Path="SericeLayer/ServiceLayer.csproj" />
 </Solution>

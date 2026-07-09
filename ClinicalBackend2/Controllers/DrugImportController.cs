@@ -1,5 +1,5 @@
 ﻿using ServiceLayer.Drug.Interfaces;
-using ServiceLayer.Drug.Dtos;
+using SericeLayer.Drug.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicalBackend2.Controllers

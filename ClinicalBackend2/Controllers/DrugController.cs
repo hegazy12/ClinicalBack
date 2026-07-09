@@ -1,9 +1,9 @@
 ﻿
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using ServiceLayer.Drug.Interfaces; 
 using ServiceLayer.Drug.Dtos;
+using ServiceLayer.Drug.Interfaces; 
 
 
 namespace ClinicalBackend2.Controllers
