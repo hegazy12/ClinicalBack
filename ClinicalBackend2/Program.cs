@@ -1,4 +1,3 @@
-
 using DatabaseLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
@@ -13,8 +12,6 @@ using SericeLayer.Account.Rgistration;
 using Domain.IUnitOfWork;
 using DatabaseLayer.UnitOfWork;
 
-
-
 namespace ClinicalBackend2
 {
     public class Program
@@ -24,23 +21,22 @@ namespace ClinicalBackend2
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllers();
-          
             builder.Services.AddOpenApi();
             
+            // 1. إعداد قاعدة البيانات
+            builder.Services.AddDbContext<AppDbContext>(options => 
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
-
-            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+            // 2. إعداد الـ Identity (تم إزالة السطر المتعارض لعدم حدوث Crash)
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
             
-            builder.Services.AddIdentityApiEndpoints<ApplicationUser>().AddEntityFrameworkStores<AppDbContext>();
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
-
-
+            // 3. تسجيل المستودعات والخدمات (Dependency Injection)
             builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
             builder.Services.AddScoped<IRgistration, Rgistration>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            
+                        
             builder.Services.AddScoped<IJWTModule, JWTModule>(provider =>
             {
                 var config = provider.GetRequiredService<IConfiguration>();
@@ -50,11 +46,10 @@ namespace ClinicalBackend2
                     config["Jwt:Audience"] ?? throw new InvalidOperationException("JWT Audience not found in configuration."),
                     int.Parse(config["Jwt:ExpireMinutes"] ?? throw new InvalidOperationException("JWT ExpireMinutes not found in configuration.")),
                     provider.GetRequiredService<IUnitOfWork>()
-
                 );
             }); 
 
-            
+            // 4. إعدادات الـ Authentication والـ JWT
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -67,7 +62,7 @@ namespace ClinicalBackend2
                 o.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
-                    ValidateAudience = false,
+                    ValidateAudience = false, // لو حابب تفعلها خليها true واضبط الـ ValidAudience
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = builder.Configuration["Jwt:Issuer"],
@@ -78,21 +73,23 @@ namespace ClinicalBackend2
                 };
             });
 
-
-          
-
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // إعدادات الـ Pipeline
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+                app.UseSwaggerUI(options => {
+                options.SwaggerEndpoint("/openapi/v1.json", "v1");
+                options.RoutePrefix = "swagger";
+                });
             }
 
             app.UseHttpsRedirection();
 
+            // ترتيب الـ Middleware مهم جداً جداً: Authentication أولاً ثم Authorization
+            app.UseAuthentication(); 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

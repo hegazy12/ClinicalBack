@@ -10,4 +10,6 @@ public interface IApplicationUserRepository : IBaseRepository<ApplicationUser>
       public Task<ApplicationUser> CreateAsync(ApplicationUser user, string password);
       public Task<ApplicationUser> UpdateAsync(ApplicationUser user);
       public Task<List<IdentityRole>> GetuserRoles(string id);
+     public  Task<bool> AddRoleAsync(string userId, string roleName);
+
 }

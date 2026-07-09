@@ -31,7 +31,7 @@ namespace ClinicalBackend2.Controllers
                 return BadRequest("Registration failed.");
             }
             
-            return Ok("Registration successful.");
+            return Ok(result);
         }
     }
 }

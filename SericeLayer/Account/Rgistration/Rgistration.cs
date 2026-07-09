@@ -18,7 +18,7 @@ public class Rgistration : IRgistration
         _jwtModule = jwtModule;
     }
 
-    public async Task<ApplicationUser> RegisterAsync(RgistrationDTO_0 DTO)
+    public async Task<ReturnRgistrationDTO> RegisterAsync(RgistrationDTO_0 DTO)
     {
         // Check if the username or email already exists
         var existingUserByUsername = await _unitOfWork.AppUserRepository.GetByUsernameAsync(DTO.UserName);
@@ -40,9 +40,19 @@ public class Rgistration : IRgistration
         try
         {
             var createdUser = await _unitOfWork.AppUserRepository.CreateAsync(user, DTO.Password);
-            var R = await _unitOfWork.SaveChangesAsync();
-            _jwtModule.GenerateToken(Guid.Parse(createdUser.Id), createdUser.UserName, createdUser.Email);
-            return createdUser;
+            await _unitOfWork.AppUserRepository.AddRoleAsync(createdUser.Id, "BaseUser");
+            
+            return new ReturnRgistrationDTO
+            {
+                Id = createdUser.Id,
+                UserName = createdUser.UserName,
+                Email = createdUser.Email,
+                FirstName = createdUser.FirstName,
+                LastName = createdUser.LastName,
+                jobTitle = createdUser.jobTitle,
+                Token = _jwtModule.GenerateToken(Guid.Parse(createdUser.Id), createdUser.UserName, createdUser.Email),
+                Roles = new List<string> { "BaseUser" }
+            };
         }
         catch (Exception ex)
         {

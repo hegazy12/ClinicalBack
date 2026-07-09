@@ -46,4 +46,18 @@ public class ApplicationUserRepository : BaseRepository<ApplicationUser>, IAppli
         return roles;
     }
 
+    public async Task<bool> AddRoleAsync(string userId, string roleName)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+        var role = await _context.Roles.FirstOrDefaultAsync(r => r.Name == roleName);
+        
+        if (user == null || role == null)
+        {
+            return false; 
+        }
+
+        var result = await _userManager.AddToRoleAsync(user, role.Name);
+        return result.Succeeded;
+    }
+
 }

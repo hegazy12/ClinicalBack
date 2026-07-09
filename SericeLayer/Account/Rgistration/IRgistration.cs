@@ -7,6 +7,6 @@ namespace SericeLayer.Account.Rgistration;
 public interface IRgistration 
 {
 
-    public Task<ApplicationUser> RegisterAsync(RgistrationDTO_0 user);
+    public Task<ReturnRgistrationDTO> RegisterAsync(RgistrationDTO_0 user);
 
 }
