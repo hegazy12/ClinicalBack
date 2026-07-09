@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
-
+﻿
+using Domain.IRepository;
 namespace Domain.IUnitOfWork
 {
     public interface IUnitOfWork: IDisposable
     {
+        public IApplicationUserRepository AppUserRepository { get; }
         Task<int> SaveChangesAsync();
 
     }

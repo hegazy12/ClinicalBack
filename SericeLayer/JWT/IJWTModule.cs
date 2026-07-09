@@ -8,5 +8,5 @@ public interface IJWTModule
     public string Issuer { get; set; }
     public string Audience { get; set; }
     public int ExpireMinutes { get; set; }
-    public string GenerateToken(Guid guid,string username, string email,AppDbContext dbCon);
+    public string GenerateToken(Guid guid,string username, string email);
 }

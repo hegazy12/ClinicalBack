@@ -1,6 +1,7 @@
 ﻿using Domain.Models;
-using Domain.IRepository;
+using Domain.IUnitOfWork;
 using SericeLayer.Account.Rgistration.DTO;
+using ServiceLayer.JWT;
 
 
 namespace SericeLayer.Account.Rgistration;
@@ -8,17 +9,20 @@ namespace SericeLayer.Account.Rgistration;
 public class Rgistration : IRgistration
 {
 
-    private readonly IApplicationUserRepository _applicationUserRepository;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IJWTModule _jwtModule;
 
-    public Rgistration(IApplicationUserRepository applicationUserRepository)
+    public Rgistration(IUnitOfWork unitOfWork, IJWTModule jwtModule)
     {
-        _applicationUserRepository = applicationUserRepository;
+        _unitOfWork = unitOfWork;
+        _jwtModule = jwtModule;
     }
+
     public async Task<ApplicationUser> RegisterAsync(RgistrationDTO_0 DTO)
     {
         // Check if the username or email already exists
-        var existingUserByUsername = await _applicationUserRepository.GetByUsernameAsync(DTO.UserName);
-        var existingUserByEmail = await _applicationUserRepository.GetByEmailAsync(DTO.Email);
+        var existingUserByUsername = await _unitOfWork.AppUserRepository.GetByUsernameAsync(DTO.UserName);
+        var existingUserByEmail = await _unitOfWork.AppUserRepository.GetByEmailAsync(DTO.Email);
 
         if (existingUserByUsername != null || existingUserByEmail != null)
         {
@@ -33,9 +37,17 @@ public class Rgistration : IRgistration
             LastName = DTO.LastName,
             jobTitle = DTO.jobTitle
         };
-        
-        var createdUser = await _applicationUserRepository.CreateAsync(user, DTO.Password);
-        return createdUser;
+        try
+        {
+            var createdUser = await _unitOfWork.AppUserRepository.CreateAsync(user, DTO.Password);
+            var R = await _unitOfWork.SaveChangesAsync();
+            _jwtModule.GenerateToken(Guid.Parse(createdUser.Id), createdUser.UserName, createdUser.Email);
+            return createdUser;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("An error occurred while creating the user.", ex);
+        }
     }
 
 }

@@ -10,6 +10,8 @@ using Domain.Models;
 using Domain.IRepository;
 using DatabaseLayer.Repository;
 using SericeLayer.Account.Rgistration;
+using Domain.IUnitOfWork;
+using DatabaseLayer.UnitOfWork;
 
 
 
@@ -27,7 +29,7 @@ namespace ClinicalBackend2
             
 
 
-            
+
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             
@@ -37,6 +39,7 @@ namespace ClinicalBackend2
 
             builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
             builder.Services.AddScoped<IRgistration, Rgistration>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             
             builder.Services.AddScoped<IJWTModule, JWTModule>(provider =>
             {
@@ -45,7 +48,9 @@ namespace ClinicalBackend2
                     config["Jwt:Key"] ?? throw new InvalidOperationException("JWT Key not found in configuration."),
                     config["Jwt:Issuer"] ?? throw new InvalidOperationException("JWT Issuer not found in configuration."),
                     config["Jwt:Audience"] ?? throw new InvalidOperationException("JWT Audience not found in configuration."),
-                    int.Parse(config["Jwt:ExpireMinutes"] ?? throw new InvalidOperationException("JWT ExpireMinutes not found in configuration."))
+                    int.Parse(config["Jwt:ExpireMinutes"] ?? throw new InvalidOperationException("JWT ExpireMinutes not found in configuration.")),
+                    provider.GetRequiredService<IUnitOfWork>()
+
                 );
             }); 
 

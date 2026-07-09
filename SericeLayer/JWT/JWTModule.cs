@@ -1,7 +1,8 @@
 ﻿using System.Security.Claims ;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
-using DatabaseLayer;
+using Domain.IUnitOfWork;
+
 
 namespace ServiceLayer.JWT;
 public class JWTModule : IJWTModule
@@ -10,22 +11,22 @@ public class JWTModule : IJWTModule
     public string Issuer { get; set; }
     public string Audience { get; set; }
     public int ExpireMinutes { get; set; }
-    private  AppDbContext _context;
+    private  IUnitOfWork _unitOfWork;
     
-    public JWTModule(string key, string issuer, string audience, int expireMinutes)
+    public JWTModule(string key, string issuer, string audience, int expireMinutes, IUnitOfWork unitOfWork)
     {
         Key = key;
         Issuer = issuer;
         Audience = audience;
         ExpireMinutes = expireMinutes;
+        _unitOfWork = unitOfWork;
         
     }
     
-    public string GenerateToken(Guid userid,string username, string email,AppDbContext dbCon)
+    public string GenerateToken(Guid userid,string username, string email)
     {
-        _context = dbCon;
-        var rolesid = _context.UserRoles.Where(m=> m.UserId  ==  userid.ToString()).Select(m=> m.RoleId).ToList();
-        var roles = _context.Roles.Where(o=> rolesid.Contains(o.Id)).Select(p=> p.Name).ToList();
+        
+        var roles = _unitOfWork.AppUserRepository.GetuserRoles(userid.ToString()).Result.Select(r => r.Name).ToList();
 
         var claims = new List<Claim>
         {

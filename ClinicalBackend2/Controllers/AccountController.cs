@@ -23,14 +23,14 @@ namespace ClinicalBackend2.Controllers
             {
                 return BadRequest(ModelState);
             }
-            
+
             var result = await _registrationService.RegisterAsync(request);
 
             if (result == null)
             {
                 return BadRequest("Registration failed.");
             }
-
+            
             return Ok("Registration successful.");
         }
     }
