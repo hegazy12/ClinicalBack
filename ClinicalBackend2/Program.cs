@@ -1,12 +1,16 @@
 
 using DatabaseLayer;
-using DatabaseLayer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using ServiceLayer.JWT;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Domain.Models;
+using Domain.IRepository;
+using DatabaseLayer.Repository;
+using SericeLayer.Account.Rgistration;
+
 
 
 namespace ClinicalBackend2
@@ -21,13 +25,18 @@ namespace ClinicalBackend2
           
             builder.Services.AddOpenApi();
             
+
+
+            
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             
             builder.Services.AddIdentityApiEndpoints<ApplicationUser>().AddEntityFrameworkStores<AppDbContext>();
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
-            
+
+            builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+            builder.Services.AddScoped<IRgistration, Rgistration>();
             
             builder.Services.AddScoped<IJWTModule, JWTModule>(provider =>
             {
@@ -65,7 +74,7 @@ namespace ClinicalBackend2
             });
 
 
-            builder.Services.AddScoped<classinter, Class1>();
+          
 
             var app = builder.Build();
 
