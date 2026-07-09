@@ -1,0 +1,69 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Auto Open Terminals",
+      "type": "shell",
+      "command": "echo 'Terminals configured successfully!'",
+      "presentation": {
+        "reveal": "never",
+        "panel": "shared"
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "dependsOn": [
+        "WebAPI",
+        "ServiceLayer",
+        "Domain",
+        "DataBase",
+        "git"
+      ]
+    },
+    {
+      "label": "WebAPI",
+      "type": "shell",
+      "command": "cd ./ClinicalBackend2 && echo -e '\\e]777;tabcolor;#4EC9B0\\a\\e]633;P;TaskName=WebAPI\\a' && clear",
+      "presentation": {
+        "group": "project-terminals",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "ServiceLayer",
+      "type": "shell",
+      "command": "cd ./ServiceLayer && echo -e '\\e]777;tabcolor;#CCA700\\a\\e]633;P;TaskName=ServiceLayer\\a' && clear",
+      "presentation": {
+        "group": "project-terminals",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Domain",
+      "type": "shell",
+      "command": "cd ./Domain && echo -e '\\e]777;tabcolor;#2472C8\\a\\e]633;P;TaskName=Domain\\a' && clear",
+      "presentation": {
+        "group": "project-terminals",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "DataBase",
+      "type": "shell",
+      "command": "cd ./DatabaseLayer && echo -e '\\e]777;tabcolor;#CD3131\\a\\e]633;P;TaskName=DataBase\\a' && clear",
+      "presentation": {
+        "group": "project-terminals",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "git",
+      "type": "shell",
+      "command": "echo -e '\\e]777;tabcolor;#D7BA7D\\a\\e]633;P;TaskName=git\\a' && clear",
+      "presentation": {
+        "group": "project-terminals",
+        "reveal": "always"
+      }
+    }
+  ]
+}
