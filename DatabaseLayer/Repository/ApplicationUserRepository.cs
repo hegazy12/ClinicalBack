@@ -59,5 +59,9 @@ public class ApplicationUserRepository : BaseRepository<ApplicationUser>, IAppli
         var result = await _userManager.AddToRoleAsync(user, role.Name);
         return result.Succeeded;
     }
-
+    
+    public async Task<bool> CheckPasswordAsync(ApplicationUser user, string password)
+    {
+        return await _userManager.CheckPasswordAsync(user, password);
+    }
 }

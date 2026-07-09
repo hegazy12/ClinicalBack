@@ -11,6 +11,7 @@ using DatabaseLayer.Repository;
 using SericeLayer.Account.Rgistration;
 using Domain.IUnitOfWork;
 using DatabaseLayer.UnitOfWork;
+using SericeLayer.Account.Login;
 
 namespace ClinicalBackend2
 {
@@ -23,19 +24,16 @@ namespace ClinicalBackend2
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
             
-            // 1. إعداد قاعدة البيانات
-            builder.Services.AddDbContext<AppDbContext>(options => 
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            // 2. إعداد الـ Identity (تم إزالة السطر المتعارض لعدم حدوث Crash)
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
             
-            // 3. تسجيل المستودعات والخدمات (Dependency Injection)
             builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
             builder.Services.AddScoped<IRgistration, Rgistration>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<ILogin, Login>();
                         
             builder.Services.AddScoped<IJWTModule, JWTModule>(provider =>
             {
