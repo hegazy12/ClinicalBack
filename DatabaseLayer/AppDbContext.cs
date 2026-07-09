@@ -20,9 +20,9 @@ namespace DatabaseLayer
         {
            if (!optionsBuilder.IsConfigured)
            {
-                //  var connectionString = "Data Source=RUE-LAP\\SQLEXPRESS;Database=ClinicalBackend2;Integrated Security=True;Trust Server Certificate=True;";
-                var connectionString = "Server=localhost,1433;Database=mvcx;User Id=sa;Password=Abdo7gazy123456##AS;TrustServerCertificate=True;";
-               if (!string.IsNullOrWhiteSpace(connectionString))
+                var connectionString = "Data Source=RUE-LAP\\SQLEXPRESS;Database=ClinicalBackend2;Integrated Security=True;Trust Server Certificate=True;";
+                //var connectionString = "Server=localhost,1433;Database=mvcx;User Id=sa;Password=Abdo7gazy123456##AS;TrustServerCertificate=True;";
+                if (!string.IsNullOrWhiteSpace(connectionString))
                {
                    optionsBuilder.UseSqlServer(connectionString);
                }
