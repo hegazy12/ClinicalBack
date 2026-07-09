@@ -35,7 +35,12 @@ namespace ClinicalBackend2
             builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
             builder.Services.AddScoped<IRgistration, Rgistration>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-                        
+            builder.Services.AddScoped<ILogin, Login>();
+            builder.Services.AddScoped<IDrugService, DrugService>();
+            builder.Services.AddScoped<IDrugImportService, DrugImportService>();
+          
+            builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+          
             builder.Services.AddScoped<IJWTModule, JWTModule>(provider =>
             {
                 var config = provider.GetRequiredService<IConfiguration>();
