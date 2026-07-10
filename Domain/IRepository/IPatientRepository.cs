@@ -1,6 +1,8 @@
-﻿namespace Domain;
+﻿using DatabaseLayer.Models;
+using Domain.Models;
 
-public interface IPatientRepository
+namespace Domain.IRepository;
+public interface IPatientRepository : IBaseRepository<Patient>
 {
 
 }
