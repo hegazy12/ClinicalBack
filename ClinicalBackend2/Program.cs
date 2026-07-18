@@ -42,7 +42,7 @@ namespace ClinicalBackend2
             builder.Services.AddScoped<IDrugService, DrugService>();
             builder.Services.AddScoped<IDrugImportService, DrugImportService>();
             builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-           
+            builder.Services.AddSignalR();
             builder.Services.AddScoped<IJWTModule, JWTModule>(provider =>
             {
                 var config = provider.GetRequiredService<IConfiguration>();
@@ -79,8 +79,7 @@ namespace ClinicalBackend2
             });
 
             var app = builder.Build();
-
-            // إعدادات الـ Pipeline
+            
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
@@ -89,6 +88,8 @@ namespace ClinicalBackend2
                 options.RoutePrefix = "swagger";
                 });
             }
+            
+            app.MapHub<chat>("/chat");
 
             app.UseHttpsRedirection();
             app.UseAuthentication(); 

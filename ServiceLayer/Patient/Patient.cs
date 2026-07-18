@@ -24,18 +24,11 @@ public class Patient : IPatient
             Address = patientDTO_0.Address,
             PhoneNumber = patientDTO_0.PhoneNumber,
         };
-        
+
         patient.Create(Createby);
-        
         _unitOfWork.patientRepository.Add(patient);
         await  _unitOfWork.SaveChangesAsync();
-        
-       return  new GeneralResponse<PatientDTO_0>()
-        {
-              
-        };
-
-       
+        return  new GeneralResponse<PatientDTO_0>(){ Success = true};
     }
 
 }
