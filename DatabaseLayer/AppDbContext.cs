@@ -14,6 +14,8 @@ namespace DatabaseLayer
     public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     public DbSet<Appointment> appointments {get; set;}
     public DbSet<Drug> Drugs { get; set; }
+    public DbSet<Diagnos> diagnos {get; set;}
+    public DbSet<Prescription> prescriptions {get; set;}
     public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
     {
     }

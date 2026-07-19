@@ -3,10 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace Domain.Models
 {
-    public class Drug
+    public class Drug : BaseModule
     {
-        [Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
+
         [JsonPropertyName("commercial_name_en")]
         public string CommercialNameEn { get; set; }
 
