@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Domain.Models;
 
-public class Diagnos : BaseModule
+public class Investigation : BaseModule
 {
         public string Notes {get; set;}   
 
@@ -14,7 +15,7 @@ public class Diagnos : BaseModule
 
         
         [Required]
-        [ForeignKey("DiagnosMaster")]
-        public Guid DiagnosMasterId {get; set;}
-        public DiagnosMaster DiagnosMaster {get; set;}
+        [ForeignKey("InvestigationMaster")]
+        public Guid InvestigationMasterId {get; set;}
+        public InvestigationMaster InvestigationMaster {get; set;}
 }
