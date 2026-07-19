@@ -13,7 +13,7 @@ namespace Domain.IRepository;
 public interface IBaseRepository <T> where T : class
 {
    
-        T GetById(int id);
+        T GetById(Guid id);
         Task<T> GetByIdAsync(int id);
         IEnumerable<T> GetAll();
         Task<IEnumerable<T>> GetAllAsync();
@@ -21,16 +21,8 @@ public interface IBaseRepository <T> where T : class
         Task<T> FindAsync(Expression<Func<T, bool>> criteria, string[] includes = null);
         IEnumerable<T> FindAll(Expression<Func<T, bool>> criteria, string[] includes = null);
         IEnumerable<T> FindAll(Expression<Func<T, bool>> criteria, int take, int skip);
-
-        // IEnumerable<T> FindAll(Expression<Func<T, bool>> criteria, int? take, int? skip, 
-        // Expression<Func<T, object>> orderBy = null, string orderByDirection = OrderBy.Ascending);
-        
         Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> criteria, string[] includes = null);
         Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> criteria, int skip, int take);
-       
-        // Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> criteria, int? skip, int? take,
-        // Expression<Func<T, object>> orderBy = null, string orderByDirection = OrderBy.Ascending);
-
         T Add(T entity);
         Task<T> AddAsync(T entity);
         IEnumerable<T> AddRange(IEnumerable<T> entities);

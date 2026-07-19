@@ -15,17 +15,18 @@ namespace DatabaseLayer.UnitOfWork
         public UnitOfWork(AppDbContext context , 
                         IApplicationUserRepository applicationUserRepository, 
                         IBaseRepository<Domain.Models.Drug> drugRepository, IPatientRepository _patientRepository )
-        {
-            _context = context;
-            AppUserRepository = applicationUserRepository;
-            DrugRepository = drugRepository;
-            patientRepository = _patientRepository;
-        }
+                        {
+                        _context = context;
+                        AppUserRepository = applicationUserRepository;
+                        DrugRepository = drugRepository;
+                        patientRepository = _patientRepository;
+            }
         
         public void Dispose()
         {
             _context.Dispose();
         }
+
         public async Task<int> SaveChangesAsync()
         {
             return await _context.SaveChangesAsync();

@@ -15,6 +15,8 @@ using ServiceLayer.Drug;
 using ServiceLayer.Drug.Interfaces;
 using ServiceLayer.JWT;
 using ServiceLayer.Patient;
+using ServiceLayer.Appointment;
+
 
 namespace ClinicalBackend2
 {
@@ -42,6 +44,8 @@ namespace ClinicalBackend2
             builder.Services.AddScoped<IDrugService, DrugService>();
             builder.Services.AddScoped<IDrugImportService, DrugImportService>();
             builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            //builder.Services.AddScoped(IAppointment,Appointment);
+
             builder.Services.AddSignalR();
             builder.Services.AddScoped<IJWTModule, JWTModule>(provider =>
             {
