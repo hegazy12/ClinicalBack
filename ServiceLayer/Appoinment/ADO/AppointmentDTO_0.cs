@@ -9,3 +9,4 @@ public class AppointmentDTO_0
     public string? Notes { get; set; }
     public double Deposit {get; set;}
 }
+

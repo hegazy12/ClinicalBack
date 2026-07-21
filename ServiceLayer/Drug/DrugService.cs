@@ -30,7 +30,5 @@ namespace ServiceLayer.Drug
             return res;
 
         }
-
-
     }
 }

@@ -8,6 +8,5 @@ public class PatientRepository : BaseRepository<Patient>, IPatientRepository
 {
     public PatientRepository(AppDbContext context) : base(context)
     {
-        
     }
 }

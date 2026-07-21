@@ -14,7 +14,7 @@ public class Patient : IPatient
         _unitOfWork = unitOfWork;
     }
     
-    public async Task<GeneralResponse<PatientDTO_0>>  CreatPatient(PatientDTO_0 patientDTO_0 ,Guid Createby)
+    public async Task<GeneralResponse<PatientDTO_1>>  CreatPatient(PatientDTO_0 patientDTO_0 ,Guid Createby)
     {
         Domain.Models.Patient patient = new Domain.Models.Patient()
         {
@@ -28,7 +28,7 @@ public class Patient : IPatient
         patient.Create(Createby);
         _unitOfWork.patientRepository.Add(patient);
         await  _unitOfWork.SaveChangesAsync();
-        return  new GeneralResponse<PatientDTO_0>(){ Success = true};
+        return  new GeneralResponse<PatientDTO_1>(){ Success = true};
     }
 
 }
