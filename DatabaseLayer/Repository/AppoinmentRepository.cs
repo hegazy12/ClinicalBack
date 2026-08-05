@@ -6,7 +6,7 @@ namespace DatabaseLayer.Repository;
 public class AppoinmentRepository : BaseRepository<Appointment>, IAppoinmentRepository
 {
   
-    public AppoinmentRepository(AppDbContext _context) : base(context)
+    public AppoinmentRepository(AppDbContext context) : base(context)
     {
       
     }

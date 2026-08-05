@@ -1,8 +1,9 @@
 ﻿
 using Domain.IRepository;
 using Domain.Models;
-using Microsoft.EntityFrameworkCore;
+using Domain.Response;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseLayer.Repository;
 
@@ -26,10 +27,19 @@ public class ApplicationUserRepository : BaseRepository<ApplicationUser>, IAppli
         return await _context.ApplicationUsers.FirstOrDefaultAsync(u => u.Email == email);
     }
 
-    public async Task<ApplicationUser> CreateAsync(ApplicationUser user, string password)
+    public async Task<GeneralResponse<ApplicationUser>> CreateAsync(ApplicationUser user, string password)
     {
         var result = await _userManager.CreateAsync(user,password);
-        return result.Succeeded ? user : null;
+
+        var response = new GeneralResponse<ApplicationUser>
+        {
+            Success = result.Succeeded ,
+            Data = result.Succeeded ? user : null ,
+            Message = result.Succeeded ? "User created successfully" : "Failed to create user" ,
+            Errors = result.Succeeded ? null : result.Errors.ToDictionary(e => e.Code, e => new List<string> { e.Description })
+        };
+
+        return response;
     }
     
     public async Task<ApplicationUser> UpdateAsync(ApplicationUser user)

@@ -1,4 +1,4 @@
-﻿namespace ServiceLayer.Response
+﻿namespace Domain.Response
 {
     public class GeneralResponse<T>
     {
@@ -6,5 +6,6 @@
         public T? Data  { get; set; }
         public string? Message {  get; set; }
         public Dictionary<string, List<string>>? Errors { get; set; }=new Dictionary<string, List<string>>();
+        public DateTime dateTime = DateTime.Now;
     }
 }

@@ -1,5 +1,5 @@
 ﻿using ServiceLayer.Patient.DTO;
-using ServiceLayer.Response;
+using Domain.Response;
 
 namespace ServiceLayer.Patient;
 

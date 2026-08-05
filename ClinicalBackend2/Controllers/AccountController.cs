@@ -52,7 +52,7 @@ namespace ClinicalBackend2.Controllers
 
             if (result == null)
             {
-                return BadRequest(result.Error);
+                return BadRequest(result);
             }
             
             return Ok(result);

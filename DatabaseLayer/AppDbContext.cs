@@ -24,7 +24,7 @@ namespace DatabaseLayer
         {
            if (!optionsBuilder.IsConfigured)
            {
-                var connectionString = "Data Source=RUE-LAP\\SQLEXPRESS;Database=ClinicalBackend2;Integrated Security=True;Trust Server Certificate=True;";
+                var connectionString = "Server=192.168.0.148;Database=ClinicalBackend2;User Id=sa;Password=Abdo7gazy123456##AS;TrustServerCertificate=True;";
                 //var connectionString = "Server=localhost,1433;Database=mvcx;User Id=sa;Password=Abdo7gazy123456##AS;TrustServerCertificate=True;";
                 if (!string.IsNullOrWhiteSpace(connectionString))
                {

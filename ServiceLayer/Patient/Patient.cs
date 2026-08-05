@@ -1,6 +1,6 @@
 ﻿using ServiceLayer.Patient.DTO;
 using Domain.IUnitOfWork;
-using ServiceLayer.Response;
+using Domain.Response;
 
 namespace ServiceLayer.Patient;
 
@@ -31,4 +31,5 @@ public class Patient : IPatient
         return  new GeneralResponse<PatientDTO_1>(){ Success = true};
     }
 
+  
 }

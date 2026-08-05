@@ -1,9 +1,9 @@
-﻿using ServiceLayer.Response;
-using ServiceLayer.Appointment.DTO;
+﻿using ServiceLayer.Appointment.DTO;
 using Domain.IUnitOfWork;
+using Domain.Response;
 namespace ServiceLayer.Appointment;
 
-public class AppointmentService : IAppointmentService
+public class AppointmentService //: IAppointmentService
 {
     public IUnitOfWork unitOfWork;
 
@@ -30,7 +30,7 @@ public class AppointmentService : IAppointmentService
         return new GeneralResponse<AppointmentDTO_0>();
     }
 
-    public async Task<GeneralResponse<List<AppointmentDTO_1>>> GetByCreatby(Guid Createby);
-    public async Task<GeneralResponse<List<AppointmentDTO_1>>> GetByDoctor(Guid DoctorId);
-    public async Task<GeneralResponse<List<AppointmentDTO_1>>> GetByPatient(Guid PatientId);
+    //public async Task<GeneralResponse<List<AppointmentDTO_1>>> GetByCreatby(Guid Createby);
+    //public async Task<GeneralResponse<List<AppointmentDTO_1>>> GetByDoctor(Guid DoctorId);
+    //public async Task<GeneralResponse<List<AppointmentDTO_1>>> GetByPatient(Guid PatientId);
 }

@@ -1,5 +1,5 @@
 ﻿using ServiceLayer.vitalSignMaster.Dtos;
-using ServiceLayer.Response;
+using Domain.Response;
 
 namespace ServiceLayer.vitalSignMaster.Interfaces
 {
