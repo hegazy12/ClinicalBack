@@ -14,7 +14,7 @@ public interface IBaseRepository <T> where T : class
 {
    
         T GetById(Guid id);
-        Task<T> GetByIdAsync(int id);
+        Task<T> GetByIdAsync(Guid id);
         IEnumerable<T> GetAll();
         Task<IEnumerable<T>> GetAllAsync();
         T Find(Expression<Func<T, bool>> criteria, string[] includes = null);

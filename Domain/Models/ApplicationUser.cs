@@ -27,4 +27,5 @@ public class Patient : BaseModule
     public string Address { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;
     public DateTime DateOfBirth { get; set; }
+    public string gender { get; set; } = string.Empty;
 }

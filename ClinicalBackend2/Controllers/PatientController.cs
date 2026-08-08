@@ -8,7 +8,7 @@ namespace ClinicalBackend2.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    [Authorize(Roles = "Admin,User")]
+    [Authorize(Roles = "Admin,User,BaseUser")]
     public class PatientController : ControllerBase
     {
        
@@ -19,12 +19,58 @@ namespace ClinicalBackend2.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(PatientDTO_0 patientDTO_0)
+        public async Task<IActionResult> Create(PatientDTO_0 patientDTO_0)
         {
-            var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Guid userid = Guid.Parse(userIdStr);
-            patient.CreatPatient(patientDTO_0,userid);
-            return Ok("Patient endpoint working");
+            try
+            {
+                    var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    Guid userid = Guid.Parse(userIdStr);
+                    var response = await patient.CreatPatient(patientDTO_0, userid);
+                    if(response == null)
+                    {
+                        return BadRequest("Failed to create patient.");
+                    }
+                    return Ok(response);
+            }
+            catch (Exception ex)
+            { 
+                return BadRequest(ex.Message);
+            }
+            
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetPatientsNew()
+        {
+            var response = await patient.GetPatientsNew();
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            return BadRequest(response);
+        }
+
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetPatient(Guid id)
+        {
+            var response = await patient.GetPatient(id);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            return BadRequest(response);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllInfoPatient(Guid id)
+        {
+            var response = await patient.GetAllInfo(id);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            return BadRequest(response);
         }
     }
 }

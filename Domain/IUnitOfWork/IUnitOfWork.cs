@@ -8,6 +8,8 @@ namespace Domain.IUnitOfWork
         public IPatientRepository patientRepository {get;}
         public IBaseRepository<Domain.Models.Drug> DrugRepository { get; }
         public IAppoinmentRepository appoinmentRepository {get;}
+        public IDoctorRepository doctorRepository { get; }
+        public IPrescriptionRepository prescriptionRepository { get; }
         Task<int> SaveChangesAsync();
 
     }

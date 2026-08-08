@@ -40,7 +40,7 @@ namespace ClinicalBackend2.Controllers
             return Ok(result);
         }
 
-         [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginDTO request)
         {
             if (!ModelState.IsValid)
@@ -57,5 +57,7 @@ namespace ClinicalBackend2.Controllers
             
             return Ok(result);
         }
+
+
     }
 }

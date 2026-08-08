@@ -1,4 +1,3 @@
-using System.Text;
 using DatabaseLayer;
 using DatabaseLayer.Repository;
 using DatabaseLayer.UnitOfWork;
@@ -11,11 +10,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SericeLayer.Account.Login;
 using SericeLayer.Account.Rgistration;
+using ServiceLayer.Appointment;
+using ServiceLayer.Doctor;
 using ServiceLayer.Drug;
 using ServiceLayer.Drug.Interfaces;
 using ServiceLayer.JWT;
 using ServiceLayer.Patient;
-using ServiceLayer.Appointment;
+using ServiceLayer.Prescription;
+using System.Text;
 
 
 namespace ClinicalBackend2
@@ -44,10 +46,25 @@ namespace ClinicalBackend2
             builder.Services.AddScoped<IDrugService, DrugService>();
             builder.Services.AddScoped<IDrugImportService, DrugImportService>();
             builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-           // builder.Services.AddScoped<IAppointmentService , AppointmentService>();
+            builder.Services.AddScoped<IAppointmentService , AppointmentService>();
             builder.Services.AddScoped<IAppoinmentRepository, AppoinmentRepository>();
+            builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+            builder.Services.AddScoped<ISDoctor, SDoctor>();
+            builder.Services.AddScoped<ISPrescription, SPrescription>();
+            builder.Services.AddScoped<IPrescriptionRepository, PrescriptionRepository>();
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                });
+            });
 
             builder.Services.AddSignalR();
+            
             builder.Services.AddScoped<IJWTModule, JWTModule>(provider =>
             {
                 var config = provider.GetRequiredService<IConfiguration>();
@@ -97,6 +114,7 @@ namespace ClinicalBackend2
             app.MapHub<chat>("/chat");
 
             app.UseHttpsRedirection();
+            app.UseCors("AllowAll");
             app.UseAuthentication(); 
             app.UseAuthorization();
             app.MapControllers();
