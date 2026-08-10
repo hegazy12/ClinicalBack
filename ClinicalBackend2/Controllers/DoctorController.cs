@@ -6,7 +6,7 @@ namespace ClinicalBackend2.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    [Authorize(Roles = "Admin,User,BaseUser")]
+    [Authorize(Roles = "Doctor")]
     public class DoctorController : Controller
     {
         private ISDoctor doctor;

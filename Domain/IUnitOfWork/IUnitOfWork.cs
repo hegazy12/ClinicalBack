@@ -6,10 +6,12 @@ namespace Domain.IUnitOfWork
     {
         public IApplicationUserRepository AppUserRepository { get; }
         public IPatientRepository patientRepository {get;}
-        public IBaseRepository<Domain.Models.Drug> DrugRepository { get; }
+        public IDrugRepository DrugRepository { get; }
         public IAppoinmentRepository appoinmentRepository {get;}
         public IDoctorRepository doctorRepository { get; }
         public IPrescriptionRepository prescriptionRepository { get; }
+   
+  
         Task<int> SaveChangesAsync();
 
     }

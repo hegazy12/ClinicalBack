@@ -17,7 +17,7 @@ public class PatientRepository : BaseRepository<Patient>, IPatientRepository
 
     public async Task<IEnumerable<Patient>> GetPatientsByCreateByAsync(Guid createBy)
     {
-        return await FindAllAsync(p => p.CreatedBy == createBy);
+        return await FindAllAsync(p => p.CreatedBy == Convert.ToString(createBy));
     }
 
     public async Task<IEnumerable<Patient>> GetPatientsNew()

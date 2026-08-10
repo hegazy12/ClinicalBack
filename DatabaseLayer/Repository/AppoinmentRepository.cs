@@ -6,10 +6,7 @@ namespace DatabaseLayer.Repository;
 public class AppoinmentRepository : BaseRepository<Appointment>, IAppoinmentRepository
 {
   
-    public AppoinmentRepository(AppDbContext context) : base(context)
-    {
-      
-    }
+    public AppoinmentRepository(AppDbContext context) : base(context){}
     
     public  async Task<List<Appointment>> GetByPatientId(Guid PatientId)
     {
@@ -27,7 +24,7 @@ public class AppoinmentRepository : BaseRepository<Appointment>, IAppoinmentRepo
 
     public async  Task<List<Appointment>> GetByCreatby(Guid CreatedBy)
     {
-        var x = await FindAllAsync(s => s.CreatedBy == CreatedBy, new string[] { "Patient", "Doctor" });
+        var x = await FindAllAsync(s => s.CreatedBy == Convert.ToString(CreatedBy), new string[] { "Patient", "Doctor" });
         return x.ToList();
     }
 

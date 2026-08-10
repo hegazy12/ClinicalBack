@@ -19,7 +19,7 @@ public static partial class AdHocMapper
     public static AppointmentDTO_1 ToAppointmentDTO_1(this Domain.Models.Appointment appointment)
     {
         if (appointment == null) return null;
-        return new AppointmentDTO_1
+       var i = new AppointmentDTO_1
         {
             Id = appointment.Id,
             DoctorID = appointment.DoctorId,
@@ -28,10 +28,11 @@ public static partial class AdHocMapper
             Status = appointment.Status,
             Notes = appointment.Notes,
             Deposit = appointment.Deposit ,
-            DoctorSpecialization = appointment.Doctor.Specialization,
-            PatientFirstName = appointment.Patient.FirstName,
-            PatientLastName = appointment.Patient.LastName
+            DoctorSpecialization = (appointment.Doctor != null)?  appointment.Doctor.Specialization : null,
+            PatientFirstName     = (appointment.Patient != null)? appointment.Patient.FirstName     : null,
+            PatientLastName      = (appointment.Patient != null)? appointment.Patient.LastName      : null
         };
+        return i;
     }
 
     public static Domain.Models.Appointment ToAppointment(this AppointmentDTO_1 appointmentDTO)
@@ -61,12 +62,11 @@ public static partial class AdHocMapper
             Status = appointment.Status,
             Notes = appointment.Notes,
             Deposit = appointment.Deposit,
-            DoctorSpecialization = appointment.Doctor.Specialization,
-            PatientFirstName = appointment.Patient.FirstName,
-            PatientLastName = appointment.Patient.LastName,
-           DoctorDTO_1 = appointment.Doctor.ToDoctorDTO_1(),
-            PatientDTO_1 = appointment.Patient.ToPatientDTO_1()
+            DoctorSpecialization = (appointment.Doctor  == null) ? appointment.Doctor.Specialization : null,
+            PatientFirstName     = (appointment.Patient == null) ? appointment.Patient.FirstName : null,
+            PatientLastName      = (appointment.Patient == null) ? appointment.Patient.LastName : null,
+            DoctorDTO_1          = (appointment.Doctor  == null) ? appointment.Doctor.ToDoctorDTO_1() : null,
+            PatientDTO_1         = (appointment.Patient == null) ? appointment.Patient.ToPatientDTO_1() : null
         };
     }
 }
-

@@ -35,9 +35,9 @@ public class Login : ILogin
             return await Task.FromResult(new GeneralResponse<ReturnLoginDTO> { Success=false , Errors =  E, Message = "Password is not valid" });
         }
 
-        var token = _jwtService.GenerateToken(Guid.Parse(user.Id), user.UserName, user.Email);
+        var token = _jwtService.GenerateToken(new Guid(user.Id), user.UserName, user.Email);
 
-        var roles = await _unitOfWork.AppUserRepository.GetuserRoles(user.Id);
+        var roles = await _unitOfWork.AppUserRepository.GetuserRoles(Convert.ToString(user.Id));
 
         
         return await Task.FromResult(new GeneralResponse<ReturnLoginDTO>
@@ -49,7 +49,7 @@ public class Login : ILogin
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Id = user.Id,
+                Id = new Guid(user.Id),
                 UserName = user.UserName,
                 jobTitle = user.jobTitle,
                 Token = token,

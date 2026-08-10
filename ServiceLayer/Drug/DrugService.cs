@@ -23,7 +23,7 @@ namespace ServiceLayer.Drug
             CommercialNameAr=d.CommercialNameAr,
             DrugClass = d.DrugClass,
             CommercialNameEn=d.CommercialNameEn,
-            PriceEgp=d.PriceEgp,
+           // PriceEgp=d.PriceEgp,
             ScientificName=d.ScientificName,
             Route=d.Route
             }).ToList();

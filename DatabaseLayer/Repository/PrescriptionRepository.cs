@@ -19,10 +19,14 @@ namespace DatabaseLayer.Repository
             return prescription;
         }
 
-        public Task<IEnumerable<Prescription>> GetByAppointmentIdAsync(Guid appointmentId)
+        public async Task<IEnumerable<Prescription>> GetByAppointmentIdAsync(Guid appointmentId)
         {
-            throw new NotImplementedException();
+            var x = await FindAllAsync(m => m.AppointmentId == appointmentId, new string[] { "Drug" });
+
+            return x;
         }
+
+     
 
         public Task<IEnumerable<Prescription>> GetByDrugIdAsync(Guid drugId)
         {

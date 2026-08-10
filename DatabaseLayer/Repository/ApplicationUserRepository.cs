@@ -74,4 +74,27 @@ public class ApplicationUserRepository : BaseRepository<ApplicationUser>, IAppli
     {
         return await _userManager.CheckPasswordAsync(user, password);
     }
+
+    public async Task<ApplicationUser> GetUserIdAsync(string userId)
+    {
+        var x = await _userManager.FindByIdAsync(userId);
+        return x;
+    }
+
+    public async Task<Doctor> GetDoctorbyUserIdAsync(string userId)
+    {
+        if (userId != null)
+        {
+            var x = await _context.Doctors.FindAsync(userId);
+
+            x.ApplicationUser = (x != null)? x.ApplicationUser = await _userManager.FindByIdAsync(userId): new ApplicationUser();
+            return x;
+        }
+        else
+        {
+            return new Doctor();
+        }
+
+   
+    }
 }

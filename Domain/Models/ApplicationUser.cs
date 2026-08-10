@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Models;
 
 public class ApplicationUser : IdentityUser
 {
+   
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string jobTitle { get; set; } = string.Empty;
@@ -17,7 +20,11 @@ public class Doctor :BaseModule
     public string ClinicAddress { get; set; } = string.Empty;
     public string ClinicPhoneNumber { get; set; } = string.Empty;
     public string ClinicEmail { get; set; } = string.Empty;
-    public ApplicationUser ApplicationUser { get; set; } 
+
+    [Required]
+    [ForeignKey("ApplicationUser")]
+    public string? UserId { get; set; }
+    public ApplicationUser? ApplicationUser { get; set; } 
 }
 
 public class Patient : BaseModule

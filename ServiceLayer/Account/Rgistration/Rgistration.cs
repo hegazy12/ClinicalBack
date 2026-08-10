@@ -52,19 +52,19 @@ public class Rgistration : IRgistration
             }
             else
             {
-                await _unitOfWork.AppUserRepository.AddRoleAsync(createdUser.Data.Id, "BaseUser");
+                await _unitOfWork.AppUserRepository.AddRoleAsync(Convert.ToString(createdUser.Data.Id), "BaseUser");
                 return new GeneralResponse<ReturnRgistrationDTO>
                     {
                         Success = true,
                         Data = new ReturnRgistrationDTO
                         {
-                            Id        = createdUser.Data.Id,
+                            Id        = Convert.ToString(createdUser.Data.Id),
                             UserName  = createdUser.Data.UserName,
                             Email     = createdUser.Data.Email,
                             FirstName = createdUser.Data.FirstName,
                             LastName  = createdUser.Data.LastName,
                             jobTitle  = createdUser.Data.jobTitle,
-                            Token     = _jwtModule.GenerateToken(Guid.Parse(createdUser.Data.Id), createdUser.Data.UserName, createdUser.Data.Email),
+                            Token     = _jwtModule.GenerateToken(new Guid(createdUser.Data.Id), createdUser.Data.UserName, createdUser.Data.Email),
                             Roles     = new List<string> { "BaseUser" }
                         }
                 };

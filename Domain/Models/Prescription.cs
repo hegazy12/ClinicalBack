@@ -14,12 +14,9 @@ public class Prescription : BaseModule
     public Guid AppointmentId {get; set;}
     public Appointment Appointment {get; set;}
         
-
     public DateOnly from { get; set; }
-    public DateOnly to { get; set; }
-
+    public DateOnly to { get; set; } 
     public int Frequency { get; set; } 
-
     public int type { get; set; } 
 
 

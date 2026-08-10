@@ -52,6 +52,7 @@ namespace ClinicalBackend2
             builder.Services.AddScoped<ISDoctor, SDoctor>();
             builder.Services.AddScoped<ISPrescription, SPrescription>();
             builder.Services.AddScoped<IPrescriptionRepository, PrescriptionRepository>();
+            builder.Services.AddScoped<IDrugRepository, DrugRepository>();
 
             builder.Services.AddCors(options =>
             {

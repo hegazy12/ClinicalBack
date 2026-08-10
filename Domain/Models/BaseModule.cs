@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Models;
 
@@ -11,9 +12,26 @@ public class BaseModule
     public bool IsUpdated { get; set;}
     public bool IsDeleted { get; set; }
     public DateTime? DeletedAt { get; set; }
-    public Guid CreatedBy { get; set; }
-    public Guid? UpdatedBy { get; set; }
-    public Guid? DeletedBy { get; set; }
+
+    
+   
+    [ForeignKey("Created")]
+    public string? CreatedBy { get; set; }
+    public ApplicationUser? Created { get; set; }
+
+    
+
+    [ForeignKey("Updated")]
+    public string? UpdatedBy { get; set; }
+    public ApplicationUser? Updated { get; set; }
+
+
+
+    [ForeignKey("Deleted")]
+    public string? DeletedBy { get; set; }
+    public ApplicationUser? Deleted { get; set; }
+
+
     public bool IsActive { get; set; } // Default to active
    
     public void Create(Guid userId)
@@ -23,14 +41,14 @@ public class BaseModule
         IsActive = false;
         IsDeleted = false;
         CreatedAt = DateTime.UtcNow;
-        CreatedBy = userId;
+        CreatedBy =Convert.ToString(userId);
     }
    
     public void MarkAsUpdated(Guid userId)
     {
         IsUpdated = true;
         UpdatedAt = DateTime.UtcNow;
-        UpdatedBy = userId;
+        UpdatedBy = Convert.ToString(userId);
     }
 
     
@@ -38,7 +56,7 @@ public class BaseModule
     public void MarkAsDeleted(Guid userId){
         IsDeleted = true;
         DeletedAt = DateTime.UtcNow;
-        DeletedBy = userId;
+        DeletedBy = Convert.ToString(userId);
     }
 
 }

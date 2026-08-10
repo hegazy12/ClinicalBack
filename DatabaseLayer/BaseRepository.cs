@@ -80,7 +80,10 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
                 foreach (var include in includes)
                     query = query.Include(include);
 
-            return await query.Where(criteria).ToListAsync();
+            var x =  query.Where(criteria);
+            var m = x.ToQueryString();
+            Console.WriteLine(m);
+            return x.ToList();
         }
 
         public async Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> criteria, int take, int skip)

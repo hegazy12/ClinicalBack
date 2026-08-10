@@ -13,6 +13,20 @@ namespace DatabaseLayer.Repository
         {
         }
 
+        public async Task<List<Doctor>> GetByIdsAsync(List<Guid> guids)
+        {
+            if (guids == null || !guids.Any())
+            {
+                return new List<Doctor>();
+            }
+
+            
+            var stringGuids = guids.Select(g => g.ToString()).ToList();
+
+            var x = await FindAllAsync(m => stringGuids.Contains(m.UserId) , new string[] { "ApplicationUser" } );
+            return x.ToList();
+        }
+
         public async Task<Doctor> addDoctor(Doctor doctor)
         {
             var doctor1 = await AddAsync(doctor);
@@ -32,7 +46,7 @@ namespace DatabaseLayer.Repository
 
         public async Task<IEnumerable<Doctor>> GetDoctors()
         {
-            return await FindAllAsync(m=>m.IsDeleted == false , new string[] { "ApplicationUser" });
+            return await FindAllAsync(m=> false== false , new string[] { "ApplicationUser" });
         }
 
         public async Task<IEnumerable<Doctor>> GetDoctorsBySpecialization(string specialization)

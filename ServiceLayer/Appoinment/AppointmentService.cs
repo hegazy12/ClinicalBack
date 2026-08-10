@@ -34,11 +34,9 @@ public class AppointmentService : IAppointmentService
             await unitOfWork.SaveChangesAsync();
            
             return new GeneralResponse<AppointmentDTO_1>()
-            {
-            Success = true,
-            Data = createdAppointment.ToAppointmentDTO_1(),
-            Message = "Appointment created successfully."
-            };
+            {   Success = true,
+                Data = createdAppointment.ToAppointmentDTO_1(),
+                Message = "Appointment created successfully." };
         }
         catch (Exception ex) 
         { 

@@ -24,8 +24,8 @@ namespace Domain.Models
         [JsonPropertyName("route")]
         public string Route { get; set; }
 
-        [JsonPropertyName("price_egp")]
-        public decimal? PriceEgp { get; set; }
+        //[JsonPropertyName("price_egp")]
+        //public decimal? PriceEgp { get; set; }
     }
 }
 
