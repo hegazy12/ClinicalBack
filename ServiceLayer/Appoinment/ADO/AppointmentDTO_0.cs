@@ -62,11 +62,11 @@ public static partial class AdHocMapper
             Status = appointment.Status,
             Notes = appointment.Notes,
             Deposit = appointment.Deposit,
-            DoctorSpecialization = (appointment.Doctor  == null) ? appointment.Doctor.Specialization : null,
-            PatientFirstName     = (appointment.Patient == null) ? appointment.Patient.FirstName : null,
-            PatientLastName      = (appointment.Patient == null) ? appointment.Patient.LastName : null,
-            DoctorDTO_1          = (appointment.Doctor  == null) ? appointment.Doctor.ToDoctorDTO_1() : null,
-            PatientDTO_1         = (appointment.Patient == null) ? appointment.Patient.ToPatientDTO_1() : null
+            DoctorSpecialization = (appointment.Doctor  != null) ? appointment.Doctor.Specialization : null,
+            PatientFirstName     = (appointment.Patient != null) ? appointment.Patient.FirstName : null,
+            PatientLastName      = (appointment.Patient != null) ? appointment.Patient.LastName : null,
+            DoctorDTO_1          = (appointment.Doctor  != null) ? appointment.Doctor.ToDoctorDTO_1() : null,
+            PatientDTO_1         = (appointment.Patient != null) ? appointment.Patient.ToPatientDTO_1() : null
         };
     }
 }
