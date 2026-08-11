@@ -19,6 +19,8 @@ public class Prescription : BaseModule
     public int Frequency { get; set; } 
     public int type { get; set; } 
 
+    public int dose { get; set; }
+
 
     [Required]
     [ForeignKey("Drug")]

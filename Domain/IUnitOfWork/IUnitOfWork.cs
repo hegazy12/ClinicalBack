@@ -10,7 +10,7 @@ namespace Domain.IUnitOfWork
         public IAppoinmentRepository appoinmentRepository {get;}
         public IDoctorRepository doctorRepository { get; }
         public IPrescriptionRepository prescriptionRepository { get; }
-   
+        public ImedicalExaminationsRepository medicalExaminationsRepository { get; }
   
         Task<int> SaveChangesAsync();
 

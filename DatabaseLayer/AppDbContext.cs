@@ -19,6 +19,8 @@ namespace DatabaseLayer
     public DbSet<Prescription> prescriptions {get; set;}
     public DbSet<VitalSign> vitalSigns {get; set;}
     public DbSet<VitalSignMaster> vitalSignMasters { get; set; }
+    public DbSet<medicalExamination> medicalExaminations {get; set;}
+    public DbSet<classificationMedicalExamination> classificationsMedicalExaminations {get; set;}
     public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
     {
     }

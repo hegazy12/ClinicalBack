@@ -17,6 +17,7 @@ using ServiceLayer.Drug.Interfaces;
 using ServiceLayer.JWT;
 using ServiceLayer.Patient;
 using ServiceLayer.Prescription;
+using ServiceLayer.SmedicalExaminations;
 using System.Text;
 
 
@@ -53,6 +54,9 @@ namespace ClinicalBackend2
             builder.Services.AddScoped<ISPrescription, SPrescription>();
             builder.Services.AddScoped<IPrescriptionRepository, PrescriptionRepository>();
             builder.Services.AddScoped<IDrugRepository, DrugRepository>();
+            builder.Services.AddScoped<ImedicalExaminationsRepository, medicalExaminationsRepository>();
+            builder.Services.AddScoped<ImedicalExaminations, medicalExaminations>();
+
 
             builder.Services.AddCors(options =>
             {

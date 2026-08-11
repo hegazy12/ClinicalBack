@@ -14,6 +14,7 @@ namespace DatabaseLayer.UnitOfWork
         public IAppoinmentRepository appoinmentRepository {get; private set;}
         public IDoctorRepository doctorRepository {get; private set;}
         public IPrescriptionRepository prescriptionRepository { get; private set; }
+        public ImedicalExaminationsRepository medicalExaminationsRepository {get; private set;}
 
         public UnitOfWork(AppDbContext context , 
                         IApplicationUserRepository applicationUserRepository,
@@ -21,7 +22,8 @@ namespace DatabaseLayer.UnitOfWork
                         IPatientRepository _patientRepository,
                         IAppoinmentRepository _appoinmentRepository,
                         IDoctorRepository _doctorRepository,
-                        IPrescriptionRepository _prescriptionRepository)
+                        IPrescriptionRepository _prescriptionRepository,
+                        ImedicalExaminationsRepository _medicalExaminationsRepository)
                         {
                                 _context = context;
                                 AppUserRepository = applicationUserRepository;
@@ -30,6 +32,7 @@ namespace DatabaseLayer.UnitOfWork
                                 appoinmentRepository = _appoinmentRepository;
                                 doctorRepository = _doctorRepository;
                                 prescriptionRepository = _prescriptionRepository;
+                                medicalExaminationsRepository = _medicalExaminationsRepository;
                         }
         
         public void Dispose()
