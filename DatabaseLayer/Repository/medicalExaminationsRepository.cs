@@ -15,15 +15,14 @@ namespace DatabaseLayer.Repository
 
         }
 
-
-        public Task<List<medicalExamination>> GetbyIdsAsync(List<Guid> guids)
+        public Task<IEnumerable<medicalExamination>> GetbyIdsAsync(List<Guid> guids)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<medicalExamination>> GetSearchTearmAsync(string SearchTearm)
+        public async Task<IEnumerable<medicalExamination>> GetSearchTearmAsync(string SearchTearm)
         {
-            throw new NotImplementedException();
+          return  await FindAllAsync(m => m.nameEn.Contains(SearchTearm), new string[] { "classification" });
         }
     }
 }

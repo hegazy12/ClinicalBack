@@ -1,5 +1,6 @@
-﻿using Domain.IUnitOfWork;
+﻿using DatabaseLayer.Repository;
 using Domain.IRepository;
+using Domain.IUnitOfWork;
 
 namespace DatabaseLayer.UnitOfWork
 {
@@ -15,7 +16,8 @@ namespace DatabaseLayer.UnitOfWork
         public IDoctorRepository doctorRepository {get; private set;}
         public IPrescriptionRepository prescriptionRepository { get; private set; }
         public ImedicalExaminationsRepository medicalExaminationsRepository {get; private set;}
-
+        public IsaveExaminationsRepository saveExaminationsRepository {get; private set;}
+        public IClassificationExaminationsRepository ClassificationExaminationsRepository { get; private set;}
         public UnitOfWork(AppDbContext context , 
                         IApplicationUserRepository applicationUserRepository,
                         IDrugRepository drugRepository,
@@ -23,7 +25,9 @@ namespace DatabaseLayer.UnitOfWork
                         IAppoinmentRepository _appoinmentRepository,
                         IDoctorRepository _doctorRepository,
                         IPrescriptionRepository _prescriptionRepository,
-                        ImedicalExaminationsRepository _medicalExaminationsRepository)
+                        ImedicalExaminationsRepository _medicalExaminationsRepository,
+                        IsaveExaminationsRepository _saveExaminationsRepository,
+                        IClassificationExaminationsRepository _ClassificationExaminationsRepository)
                         {
                                 _context = context;
                                 AppUserRepository = applicationUserRepository;
@@ -33,6 +37,8 @@ namespace DatabaseLayer.UnitOfWork
                                 doctorRepository = _doctorRepository;
                                 prescriptionRepository = _prescriptionRepository;
                                 medicalExaminationsRepository = _medicalExaminationsRepository;
+                                saveExaminationsRepository = _saveExaminationsRepository;
+                                ClassificationExaminationsRepository = _ClassificationExaminationsRepository;
                         }
         
         public void Dispose()

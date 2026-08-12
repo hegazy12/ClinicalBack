@@ -4,6 +4,7 @@ using DatabaseLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatabaseLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260811203826_saveExamination")]
+    partial class saveExamination
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -822,7 +825,7 @@ namespace DatabaseLayer.Migrations
                     b.Property<string>("DeletedBy")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("ExaminationId")
+                    b.Property<Guid>("Examination")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsActive")
@@ -852,7 +855,7 @@ namespace DatabaseLayer.Migrations
 
                     b.HasIndex("DeletedBy");
 
-                    b.HasIndex("ExaminationId");
+                    b.HasIndex("Examination");
 
                     b.HasIndex("UpdatedBy");
 
@@ -1321,7 +1324,7 @@ namespace DatabaseLayer.Migrations
 
                     b.HasOne("Domain.Models.medicalExamination", "medicalExamination")
                         .WithMany()
-                        .HasForeignKey("ExaminationId")
+                        .HasForeignKey("Examination")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

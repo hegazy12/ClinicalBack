@@ -56,6 +56,8 @@ namespace ClinicalBackend2
             builder.Services.AddScoped<IDrugRepository, DrugRepository>();
             builder.Services.AddScoped<ImedicalExaminationsRepository, medicalExaminationsRepository>();
             builder.Services.AddScoped<ImedicalExaminations, medicalExaminations>();
+            builder.Services.AddScoped<IsaveExaminationsRepository, saveExaminationsRepository>();
+            builder.Services.AddScoped<IClassificationExaminationsRepository, ClassificationExaminationsRepository>();
 
 
             builder.Services.AddCors(options =>
@@ -106,18 +108,14 @@ namespace ClinicalBackend2
             });
 
             var app = builder.Build();
-            
-            if (app.Environment.IsDevelopment())
-            {
-                app.MapOpenApi();
-                app.UseSwaggerUI(options => {
-                options.SwaggerEndpoint("/openapi/v1.json", "v1");
-                options.RoutePrefix = "swagger";
-                });
-            }
-            
-            app.MapHub<chat>("/chat");
 
+            app.MapOpenApi();
+            app.UseSwaggerUI(options => {
+            options.SwaggerEndpoint("/openapi/v1.json", "v1");
+            options.RoutePrefix = "swagger";
+            });
+
+            app.MapHub<chat>("/chat");
             app.UseHttpsRedirection();
             app.UseCors("AllowAll");
             app.UseAuthentication(); 

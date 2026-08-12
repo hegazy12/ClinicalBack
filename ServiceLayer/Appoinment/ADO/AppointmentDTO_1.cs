@@ -10,7 +10,6 @@ public class AppointmentDTO_1 : AppointmentDTO_0
     public string DoctorFirstName { get; set; } = string.Empty;
     public string DoctorLastName { get; set; } = string.Empty;
     public string DoctorSpecialization { get; set; } = string.Empty;
-    
     public Guid Id {get; set;}
 }
 public class AppointmentDTO_2 : AppointmentDTO_1

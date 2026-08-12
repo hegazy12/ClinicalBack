@@ -11,7 +11,8 @@ namespace Domain.IUnitOfWork
         public IDoctorRepository doctorRepository { get; }
         public IPrescriptionRepository prescriptionRepository { get; }
         public ImedicalExaminationsRepository medicalExaminationsRepository { get; }
-  
+        public IsaveExaminationsRepository saveExaminationsRepository { get; }
+        public IClassificationExaminationsRepository ClassificationExaminationsRepository{ get; }
         Task<int> SaveChangesAsync();
 
     }

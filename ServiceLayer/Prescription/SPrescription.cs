@@ -80,6 +80,7 @@ namespace ServiceLayer.Prescription
                 (List<Domain.Models.Prescription>) await unitOfWork.prescriptionRepository.GetByAppointmentIdAsync(id);
 
             var mm = await unitOfWork.doctorRepository.GetByIdsAsync(prescriptions.Select(m=> new Guid(m.CreatedBy)).ToList());
+
             var d = await unitOfWork.DrugRepository.GetbyIdsasync(prescriptions.Select(m => m.DrugId).ToList());
 
             List<PrescriptionDTO2> dTO2s = new List<PrescriptionDTO2>();
