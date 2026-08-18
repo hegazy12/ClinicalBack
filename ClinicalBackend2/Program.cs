@@ -18,6 +18,8 @@ using ServiceLayer.JWT;
 using ServiceLayer.Patient;
 using ServiceLayer.Prescription;
 using ServiceLayer.SmedicalExaminations;
+using ServiceLayer.vitalSignMaster.Interfaces;
+using ServiceLayer.VitalSignMaster.Interfaces;
 using System.Text;
 
 
@@ -58,7 +60,8 @@ namespace ClinicalBackend2
             builder.Services.AddScoped<ImedicalExaminations, medicalExaminations>();
             builder.Services.AddScoped<IsaveExaminationsRepository, saveExaminationsRepository>();
             builder.Services.AddScoped<IClassificationExaminationsRepository, ClassificationExaminationsRepository>();
-
+            builder.Services.AddScoped<IvitalSignsRepository, vitalSignsRepository>();
+            builder.Services.AddScoped<IVitalSignMasterService, VitalSignMasterService>();
 
             builder.Services.AddCors(options =>
             {

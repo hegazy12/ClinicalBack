@@ -10,14 +10,14 @@ public class AppoinmentRepository : BaseRepository<Appointment>, IAppoinmentRepo
     
     public  async Task<List<Appointment>> GetByPatientId(Guid PatientId)
     {
-        var x = await FindAllAsync(s => s.PatientId == PatientId, new string[] { "Patient", "Doctor" });
+        var x = await FindAllAsync(s => s.PatientId == PatientId && s.Status != "Completed", new string[] { "Patient", "Doctor" });
         return x.ToList();
     }
 
 
     public async Task<List<Appointment>> GetByDoctorId(Guid DoctorId)
     {
-        var x = await FindAllAsync(s => s.DoctorId == DoctorId, new string[] { "Patient", "Doctor" });
+        var x = await FindAllAsync(s => s.DoctorId == DoctorId && s.Status == "Pending", new string[] { "Patient", "Doctor" });
         return x.ToList();
     }
 
@@ -28,4 +28,9 @@ public class AppoinmentRepository : BaseRepository<Appointment>, IAppoinmentRepo
         return x.ToList();
     }
 
+    public async Task<List<Appointment>> GetByPatientIdIsCompleted(Guid PatientId)
+    {
+        var x = await FindAllAsync(s => s.PatientId == PatientId && s.Status == "Completed", new string[] { "Patient", "Doctor" });
+        return x.ToList();
+    }
 }

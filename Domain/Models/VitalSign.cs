@@ -7,10 +7,11 @@ namespace Domain.Models
         [ForeignKey("VitalSignMaster")]
         public Guid VitalSignMasterId { get; set; }
         public VitalSignMaster VitalSignMaster { get; set; }
-        public string Value { get; set; }
-
-        [ForeignKey("Appointment")]
-        public Guid AppointmentId { get; set; }
-        public Appointment Appointment { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public string dataTypeName { get; set; }
+        public string maxValue { get; set; }
+        public string minValue { get; set; }
+        public List<string> listValues { get; set; }
     }
 }

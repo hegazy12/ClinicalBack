@@ -1,11 +1,12 @@
-﻿using ServiceLayer.vitalSignMaster.Dtos;
-using Domain.Response;
+﻿using Domain.Response;
+using ServiceLayer.vitalSignMaster.Dtos;
+using ServiceLayer.VitalSignMaster.Dtos;
 
 namespace ServiceLayer.vitalSignMaster.Interfaces
 {
     public interface IVitalSignMasterService
     {
-        Task<GeneralResponse<VitalSignMasterDto>> CreateVitalSignMasterAsync(Guid UserId,CreateVitalSignMasterDto vitalSignMasterDto);
+       public Task<GeneralResponse<IEnumerable<VitalSignDto1>>> GetSearchTearmAsync(string x);
 
     }
 }

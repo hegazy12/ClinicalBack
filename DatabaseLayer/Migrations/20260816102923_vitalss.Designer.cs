@@ -4,6 +4,7 @@ using DatabaseLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatabaseLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260816102923_vitalss")]
+    partial class vitalss
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -874,64 +877,6 @@ namespace DatabaseLayer.Migrations
                     b.ToTable("saveExamination");
                 });
 
-            modelBuilder.Entity("Domain.Models.saveVitalSign", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AppointmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsUpdated")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<Guid>("VitalSignId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("value")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppointmentId");
-
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("DeletedBy");
-
-                    b.HasIndex("UpdatedBy");
-
-                    b.HasIndex("VitalSignId");
-
-                    b.ToTable("saveVitalSigns");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -1403,43 +1348,6 @@ namespace DatabaseLayer.Migrations
                     b.Navigation("Updated");
 
                     b.Navigation("medicalExamination");
-                });
-
-            modelBuilder.Entity("Domain.Models.saveVitalSign", b =>
-                {
-                    b.HasOne("Domain.Models.Appointment", "Appointment")
-                        .WithMany()
-                        .HasForeignKey("AppointmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.ApplicationUser", "Created")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy");
-
-                    b.HasOne("Domain.Models.ApplicationUser", "Deleted")
-                        .WithMany()
-                        .HasForeignKey("DeletedBy");
-
-                    b.HasOne("Domain.Models.ApplicationUser", "Updated")
-                        .WithMany()
-                        .HasForeignKey("UpdatedBy");
-
-                    b.HasOne("Domain.Models.VitalSignMaster", "VitalSign")
-                        .WithMany()
-                        .HasForeignKey("VitalSignId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Appointment");
-
-                    b.Navigation("Created");
-
-                    b.Navigation("Deleted");
-
-                    b.Navigation("Updated");
-
-                    b.Navigation("VitalSign");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

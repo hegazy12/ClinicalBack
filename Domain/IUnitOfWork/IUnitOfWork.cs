@@ -13,6 +13,7 @@ namespace Domain.IUnitOfWork
         public ImedicalExaminationsRepository medicalExaminationsRepository { get; }
         public IsaveExaminationsRepository saveExaminationsRepository { get; }
         public IClassificationExaminationsRepository ClassificationExaminationsRepository{ get; }
+        public IvitalSignsRepository vitalSignsRepository {  get; }
         Task<int> SaveChangesAsync();
 
     }

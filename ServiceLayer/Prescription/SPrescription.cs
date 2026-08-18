@@ -22,51 +22,64 @@ namespace ServiceLayer.Prescription
 
         public async Task<GeneralResponse<PrescriptionDTO1>> CreatePrescriptionAsync(PrescriptionDTO prescription, Guid userId)
         {
-            Domain.Models.Prescription pres = new Domain.Models.Prescription()
+            var xx = unitOfWork.prescriptionRepository.Find(m => m.DrugId == prescription.DrugId && prescription.AppointmentId == m.AppointmentId);
+            if (xx == null)
             {
-                AppointmentId = prescription.AppointmentId,
-                DrugId = prescription.DrugId,
-                Frequency = prescription.Frequency,
-                from = prescription.from,
-                to = prescription.to,
-                Notes = prescription.Notes,
-                type = prescription.type,
-            };
-            pres.Create(userId);
-
-            try
-            {
-                var p = await unitOfWork.prescriptionRepository.CreateAsync(pres);
-                await unitOfWork.SaveChangesAsync();
-                return new GeneralResponse<PrescriptionDTO1>()
+                Domain.Models.Prescription pres = new Domain.Models.Prescription()
                 {
-                    dateTime = DateTime.Now,
-                    Success = true,
-                    Message = "Prescription created successfully.",
-                    Data = new PrescriptionDTO1()
-                    {
-                        AppointmentId = p.AppointmentId,
-                        DrugId = p.DrugId,
-                        Frequency = p.Frequency,
-                        from =p.from,
-                        to =p.to,
-                        id = p.Id,
-                        Notes = p.Notes,
-                        type = p.type,
-                    }
+                    AppointmentId = prescription.AppointmentId,
+                    DrugId = prescription.DrugId,
+                    Frequency = prescription.Frequency,
+                    from = prescription.from,
+                    to = prescription.to,
+                    Notes = prescription.Notes,
+                    type = prescription.type,
                 };
+                pres.Create(userId);
+
+                try
+                {
+                    var p = await unitOfWork.prescriptionRepository.CreateAsync(pres);
+                    await unitOfWork.SaveChangesAsync();
+                    return new GeneralResponse<PrescriptionDTO1>()
+                    {
+                        dateTime = DateTime.Now,
+                        Success = true,
+                        Message = "Prescription created successfully.",
+                        Data = new PrescriptionDTO1()
+                        {
+                            AppointmentId = p.AppointmentId,
+                            DrugId = p.DrugId,
+                            Frequency = p.Frequency,
+                            from = p.from,
+                            to = p.to,
+                            id = p.Id,
+                            Notes = p.Notes,
+                            type = p.type,
+                        }
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new GeneralResponse<PrescriptionDTO1>()
+                    {
+                        dateTime = DateTime.Now,
+                        Success = false,
+                        Message = ex.Message,
+                        Data = null
+                    };
+                }
             }
-            catch (Exception ex) 
             {
                 return new GeneralResponse<PrescriptionDTO1>()
                 {
                     dateTime = DateTime.Now,
                     Success = false,
-                    Message = ex.Message,
-                    Data = null
+                    Message = "Prescription is created befor",
+                    Data =null
+                    
                 };
             }
-           
         }
 
         public Task<GeneralResponse<bool>> DeletePrescriptionAsync(Guid id)

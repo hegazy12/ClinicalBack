@@ -21,7 +21,6 @@ namespace ServiceLayer.SmedicalExaminations
             this.unitOfWork = unitOfWork;
         }
 
-
         public async Task<GeneralResponse<IEnumerable<saveExaminationDTO1>>> GetByAppointmentIdAsync(Guid AppointmentId)
         {
             try
@@ -72,7 +71,6 @@ namespace ServiceLayer.SmedicalExaminations
             }
         }
 
-
         public async Task<GeneralResponse<IEnumerable<medicalExaminationsDTO1>>> GetbySearchTerm(string SearchTerm)
         {
             try
@@ -99,42 +97,56 @@ namespace ServiceLayer.SmedicalExaminations
             }
         }
 
-
         public async Task<GeneralResponse<saveExaminationDTO1>> saveExaminationAsync(saveExaminationDTO dTO , Guid Createby)
         {
-            try
+            var xx = unitOfWork.saveExaminationsRepository.Find(m => m.ExaminationId == dTO.idExamination && m.AppointmentId == dTO.idAppointment);
+            if (xx == null)
             {
-                var x = new Domain.Models.saveExamination()
+                try
                 {
-                    AppointmentId = dTO.idAppointment,
-                    ExaminationId = dTO.idExamination,
-                };
-
-                x.Create(Createby);
-                x = unitOfWork.saveExaminationsRepository.Add(x);
-                var m = await unitOfWork.SaveChangesAsync();
-                return new GeneralResponse<saveExaminationDTO1>()
-                {
-                    Data = new saveExaminationDTO1()
+                    var x = new Domain.Models.saveExamination()
                     {
-                        id = x.Id,
-                        idExamination = dTO.idExamination,
-                        idAppointment = dTO.idAppointment
-                    },
-                    dateTime = DateTime.Now,
-                    Message = "save is done",
-                    Success = true,
-                };
-            }
-            catch (Exception ex) {
+                        AppointmentId = dTO.idAppointment,
+                        ExaminationId = dTO.idExamination,
+                    };
 
+                    x.Create(Createby);
+                    x = unitOfWork.saveExaminationsRepository.Add(x);
+                    var m = await unitOfWork.SaveChangesAsync();
+                    return new GeneralResponse<saveExaminationDTO1>()
+                    {
+                        Data = new saveExaminationDTO1()
+                        {
+                            id = x.Id,
+                            idExamination = dTO.idExamination,
+                            idAppointment = dTO.idAppointment
+                        },
+                        dateTime = DateTime.Now,
+                        Message = "save is done",
+                        Success = true,
+                    };
+                }
+                catch (Exception ex)
+                {
+
+                    return new GeneralResponse<saveExaminationDTO1>()
+                    {
+                        Data = null,
+                        Success = false,
+                        Message = ex.Message
+                    };
+                }
+            }else
+            {
                 return new GeneralResponse<saveExaminationDTO1>()
                 {
                     Data = null,
                     Success = false,
-                    Message = ex.Message
+                    Message = "you are save this item befor"
                 };
             }
+
         }
+
     }
 }

@@ -32,7 +32,6 @@ namespace ClinicalBackend2.Controllers
             }
         }
 
-
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> getPatientAppointments(Guid Id) { 
             var appointments = await  appointmentService.GetByPatient(Id);
@@ -77,5 +76,50 @@ namespace ClinicalBackend2.Controllers
             }
         }
 
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetHistoryAppointment(Guid id)
+        {
+            var appointment = await appointmentService.GetHistoryAppointment(id);
+
+            if (appointment.Success)
+            {
+                return Ok(appointment);
+            }
+            else
+            {
+                return BadRequest(appointment);
+            }
+        }
+
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> makeItComplete(Guid id)
+        {
+            var appointment = await appointmentService.makeItComplete(id);
+
+            if (appointment.Success)
+            {
+                return Ok(appointment);
+            }
+            else
+            {
+                return BadRequest(appointment);
+            }
+        }
+
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetAllIsCompleted(Guid id)
+        {
+            var appointment = await appointmentService.GetAllAppointmentsIsCompleted(id);
+
+            if (appointment.Success)
+            {
+                return Ok(appointment);
+            }
+            else
+            {
+                return BadRequest(appointment);
+            }
+
+        }
     }
 }
