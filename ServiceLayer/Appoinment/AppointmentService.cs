@@ -227,9 +227,11 @@ public class AppointmentService : IAppointmentService
         try
         { 
             var m = unitOfWork.appoinmentRepository.GetById(AppointmentId);
+
             m.Status = "Completed";
             unitOfWork.appoinmentRepository.Update(m);
             await unitOfWork.SaveChangesAsync();
+            
             return new GeneralResponse<int>()
             {
                 Data     = 1,
