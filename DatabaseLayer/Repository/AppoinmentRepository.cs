@@ -31,6 +31,7 @@ public class AppoinmentRepository : BaseRepository<Appointment>, IAppoinmentRepo
     public async Task<List<Appointment>> GetByPatientIdIsCompleted(Guid PatientId)
     {
         var x = await FindAllAsync(s => s.PatientId == PatientId && s.Status == "Completed", new string[] { "Patient", "Doctor" });
+        x = x.OrderByDescending(m => m.AppointmentDate);
         return x.ToList();
     }
 }

@@ -27,6 +27,12 @@ namespace DatabaseLayer.Repository
             return x.ToList();
         }
 
+        public async Task<ApplicationUser> GetUserByDoctorIdAsync(Guid guid)
+        {
+           var x = await FindAllAsync(m => m.Id == guid, new string[] { "ApplicationUser" });
+            return x.First().ApplicationUser;
+        }
+
         public async Task<Doctor> addDoctor(Doctor doctor)
         {
             var doctor1 = await AddAsync(doctor);

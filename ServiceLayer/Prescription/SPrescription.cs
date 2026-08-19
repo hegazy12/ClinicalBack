@@ -70,14 +70,14 @@ namespace ServiceLayer.Prescription
                     };
                 }
             }
+            else
             {
                 return new GeneralResponse<PrescriptionDTO1>()
                 {
                     dateTime = DateTime.Now,
                     Success = false,
                     Message = "Prescription is created befor",
-                    Data =null
-                    
+                    Data = null
                 };
             }
         }

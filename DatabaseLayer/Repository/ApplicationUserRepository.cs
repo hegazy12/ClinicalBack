@@ -86,7 +86,6 @@ public class ApplicationUserRepository : BaseRepository<ApplicationUser>, IAppli
         if (userId != null)
         {
             var x = await _context.Doctors.FindAsync(userId);
-
             x.ApplicationUser = (x != null)? x.ApplicationUser = await _userManager.FindByIdAsync(userId): new ApplicationUser();
             return x;
         }
@@ -94,7 +93,5 @@ public class ApplicationUserRepository : BaseRepository<ApplicationUser>, IAppli
         {
             return new Doctor();
         }
-
-   
     }
 }

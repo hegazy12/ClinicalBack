@@ -80,7 +80,9 @@ public class AppointmentService : IAppointmentService
 
     public async Task<GeneralResponse<AppointmentDTO_2>> GetAllInfo(Guid AppointmentId)
     {
-        var appointment = await unitOfWork.appoinmentRepository.FindAsync(m => m.Id == AppointmentId, new string [] { "Patient", "Doctor" });
+        var appointment = await unitOfWork.appoinmentRepository.FindAsync(m => m.Id == AppointmentId, new string [] { "Patient" ,"Doctor" });
+        appointment.Doctor.ApplicationUser = await unitOfWork.doctorRepository.GetUserByDoctorIdAsync(appointment.Doctor.Id);
+
         if (appointment != null)
         {
             return new GeneralResponse<AppointmentDTO_2>()
@@ -185,24 +187,26 @@ public class AppointmentService : IAppointmentService
 
             return new GeneralResponse<AppointmentDTO_3>()
             {
+                Success = true,
+                Message = "data is retreved",
                 Data = new AppointmentDTO_3()
                 {
-                    AppointmentDate      = m.Data.AppointmentDate,
-                    examinationDTO1s     = d.Data,
-                    prescriptionDTO2s    = s.Data,
-                    Notes                = m.Data.Notes,
-                    Deposit              = m.Data.Deposit,
-                    DoctorFirstName      = m.Data.DoctorFirstName,
-                    PatientFirstName     = m.Data.PatientFirstName,
-                    DoctorLastName       = m.Data.DoctorLastName,
-                    DoctorDTO_1          = m.Data.DoctorDTO_1,
+                    AppointmentDate = m.Data.AppointmentDate,
+                    examinationDTO1s = d.Data,
+                    prescriptionDTO2s = s.Data,
+                    Notes = m.Data.Notes,
+                    Deposit = m.Data.Deposit,
+                    DoctorFirstName = m.Data.DoctorFirstName,
+                    PatientFirstName = m.Data.PatientFirstName,
+                    DoctorLastName = m.Data.DoctorLastName,
+                    DoctorDTO_1 = m.Data.DoctorDTO_1,
                     DoctorSpecialization = m.Data.DoctorSpecialization,
-                    Status               = m.Data.Status,
-                    DoctorID             = m.Data.DoctorID,
-                    Id                   = m.Data.Id,
-                    PatientDTO_1         = m.Data.PatientDTO_1,
-                    PatientID            = m.Data.PatientID,
-                    PatientLastName      = m.Data.PatientLastName,
+                    Status = m.Data.Status,
+                    DoctorID = m.Data.DoctorID,
+                    Id = m.Data.Id,
+                    PatientDTO_1 = m.Data.PatientDTO_1,
+                    PatientID = m.Data.PatientID,
+                    PatientLastName = m.Data.PatientLastName,
                 }
             };
         }
@@ -221,11 +225,11 @@ public class AppointmentService : IAppointmentService
     public async Task<GeneralResponse<int>> makeItComplete(Guid AppointmentId)
     {
         try
-        {
+        { 
             var m = unitOfWork.appoinmentRepository.GetById(AppointmentId);
             m.Status = "Completed";
             unitOfWork.appoinmentRepository.Update(m);
-            unitOfWork.SaveChangesAsync();
+            await unitOfWork.SaveChangesAsync();
             return new GeneralResponse<int>()
             {
                 Data     = 1,

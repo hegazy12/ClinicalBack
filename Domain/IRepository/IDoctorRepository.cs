@@ -15,5 +15,6 @@ namespace Domain.IRepository
         public Task<Doctor> updateDoctor(Doctor doctor);
         public Task<Doctor> deleteDoctor(Guid id);
         public Task<List<Doctor>> GetByIdsAsync(List<Guid> guids);
+        public Task<ApplicationUser> GetUserByDoctorIdAsync(Guid guid);
     }
 }
