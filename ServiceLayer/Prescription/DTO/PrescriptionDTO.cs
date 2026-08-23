@@ -20,6 +20,7 @@ namespace ServiceLayer.Prescription.DTO
         public int Frequency { get; set; }
         public int type { get; set; }
         public Guid DrugId { get; set; }
+        public int last { get; set; }
     }
 
     public class PrescriptionDTO1 : PrescriptionDTO
@@ -46,7 +47,8 @@ namespace ServiceLayer.Prescription.DTO
                 Frequency = prescription.Frequency,
                 from = prescription.from,
                 to = prescription.to,
-                type = prescription.type
+                type = prescription.type,
+                last = prescription.last,
             };
         }
 

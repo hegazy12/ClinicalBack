@@ -6,6 +6,7 @@ using Domain.IUnitOfWork;
 using Domain.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SericeLayer.Account.Login;
@@ -62,14 +63,16 @@ namespace ClinicalBackend2
             builder.Services.AddScoped<IClassificationExaminationsRepository, ClassificationExaminationsRepository>();
             builder.Services.AddScoped<IvitalSignsRepository, vitalSignsRepository>();
             builder.Services.AddScoped<IVitalSignMasterService, VitalSignMasterService>();
+            builder.Services.AddSingleton<IUserIdProvider, QueryStringUserIdProvider>();
 
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
                 {
-                    policy.AllowAnyOrigin()
+                    policy.SetIsOriginAllowed(_ => true)   // ✅ خليها هي بس، من غير AllowAnyOrigin
                           .AllowAnyMethod()
-                          .AllowAnyHeader();
+                          .AllowAnyHeader()
+                          .AllowCredentials();
                 });
             });
 
@@ -118,7 +121,7 @@ namespace ClinicalBackend2
             options.RoutePrefix = "swagger";
             });
 
-            app.MapHub<chat>("/chat");
+            app.MapHub<chat>("/hubs/chat");
             app.UseHttpsRedirection();
             app.UseCors("AllowAll");
             app.UseAuthentication(); 

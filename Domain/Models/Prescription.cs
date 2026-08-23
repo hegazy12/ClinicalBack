@@ -18,12 +18,11 @@ public class Prescription : BaseModule
     public DateOnly to { get; set; } 
     public int Frequency { get; set; } 
     public int type { get; set; } 
-
     public int dose { get; set; }
-
-
     [Required]
     [ForeignKey("Drug")]
     public Guid DrugId {get; set;}
     public Drug Drug {get; set;}
+
+    public int last { get; set; }
 }

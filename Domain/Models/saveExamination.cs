@@ -17,6 +17,7 @@ namespace Domain.Models
         [ForeignKey(nameof(medicalExamination))]
         public Guid ExaminationId {  get; set; }
         public medicalExamination medicalExamination { get; set; }
-
+        public int last { get; set; } = 0;
+        public List<string> ExaminationPhotos { get; set; }
     }
 }

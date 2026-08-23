@@ -22,7 +22,9 @@ namespace ServiceLayer.Prescription
 
         public async Task<GeneralResponse<PrescriptionDTO1>> CreatePrescriptionAsync(PrescriptionDTO prescription, Guid userId)
         {
-            var xx = unitOfWork.prescriptionRepository.Find(m => m.DrugId == prescription.DrugId && prescription.AppointmentId == m.AppointmentId);
+            var xx = unitOfWork.prescriptionRepository.Find(m => m.DrugId == prescription.DrugId && 
+                                                                 m.last == prescription.last && 
+                                                                 prescription.AppointmentId == m.AppointmentId);
             if (xx == null)
             {
                 Domain.Models.Prescription pres = new Domain.Models.Prescription()
@@ -34,6 +36,7 @@ namespace ServiceLayer.Prescription
                     to = prescription.to,
                     Notes = prescription.Notes,
                     type = prescription.type,
+                    last = prescription.last,
                 };
                 pres.Create(userId);
 
@@ -111,6 +114,7 @@ namespace ServiceLayer.Prescription
                     from = i.from,
                     to = i.to,
                     type = i.type,
+                    last = i.last,
                     drug = d.Where(m => m.Id == i.DrugId).First().ToDrugDto()
                 });
                 //i.Drug = d.Where(m => m.Id == i.DrugId).First();

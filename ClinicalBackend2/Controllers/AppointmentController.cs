@@ -119,7 +119,6 @@ namespace ClinicalBackend2.Controllers
             {
                 return BadRequest(appointment);
             }
-
         }
     }
 }
