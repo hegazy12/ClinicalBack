@@ -5,6 +5,7 @@ using Domain.IRepository;
 using Domain.IUnitOfWork;
 using Domain.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
@@ -75,7 +76,12 @@ namespace ClinicalBackend2
                           .AllowCredentials();
                 });
             });
-
+            
+            builder.Services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            });
+            
             builder.Services.AddSignalR();
             
             builder.Services.AddScoped<IJWTModule, JWTModule>(provider =>
@@ -121,9 +127,9 @@ namespace ClinicalBackend2
             options.RoutePrefix = "swagger";
             });
 
+            app.UseCors("AllowAll");
             app.MapHub<chat>("/hubs/chat");
             app.UseHttpsRedirection();
-            app.UseCors("AllowAll");
             app.UseAuthentication(); 
             app.UseAuthorization();
             app.MapControllers();

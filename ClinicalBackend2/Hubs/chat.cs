@@ -12,21 +12,27 @@ public class QueryStringUserIdProvider : IUserIdProvider
 
 public class chat : Hub
 {
-    // Called by a client to send a message to one specific user (by connectionId or userIdentifier)
     public async Task SendToUser(string targetUserId, string message)
     {
-        await Clients.User(targetUserId).SendAsync("ReceiveMessage", Context.UserIdentifier, message);
+        await Clients.User(targetUserId).SendAsync("ReceiveMessage", Context.UserIdentifier, new messages(){massage = message} );
     }
 
-    // Alternative: send directly by connection id instead of user identifier
     public async Task SendToConnection(string targetConnectionId, string message)
     {
         await Clients.Client(targetConnectionId).SendAsync("ReceiveMessage", Context.ConnectionId, message);
     }
-
+    
     public override async Task OnConnectedAsync()
     {
-        // Optional: log or track connection
         await base.OnConnectedAsync();
+    }
+}
+public class messages
+{
+  public DateTime time = DateTime.Now;
+  public string massage {get; set;}
+  public messages()
+    {
+    time = DateTime.Now; 
     }
 }
