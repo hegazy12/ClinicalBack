@@ -14,7 +14,8 @@ public class chat : Hub
 {
     public async Task SendToUser(string targetUserId, string message)
     {
-        await Clients.User(targetUserId).SendAsync("ReceiveMessage", Context.UserIdentifier, new messages(){massage = message} );
+        var x = new messages() { message = message };
+        await Clients.User(targetUserId).SendAsync("ReceiveMessage", Context.UserIdentifier, x );
     }
 
     public async Task SendToConnection(string targetConnectionId, string message)
@@ -29,10 +30,11 @@ public class chat : Hub
 }
 public class messages
 {
-  public DateTime time = DateTime.Now;
-  public string massage {get; set;}
-  public messages()
-    {
-    time = DateTime.Now; 
+  public DateTime time { get; set; }
+  public string message { get; set;}
+  public int num { get; set; }
+  public messages(){
+        time = DateTime.Now;
+        num = 1;
     }
 }

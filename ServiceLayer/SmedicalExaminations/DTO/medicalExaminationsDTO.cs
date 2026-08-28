@@ -39,7 +39,7 @@ namespace ServiceLayer.SmedicalExaminations.DTO
     {
         public Guid idExamination { get; set; }
         public Guid idAppointment { get; set; }
-
+        public int last { get; set; }
     }
     
 
@@ -49,6 +49,7 @@ namespace ServiceLayer.SmedicalExaminations.DTO
     public class saveExaminationDTO1 : saveExaminationDTO
     {
         public Guid id { get; set; }
+      
         public medicalExaminationsDTO1 medicalExaminationsDTO { get; set; }
         public DoctorDTO_1 DoctorDTO { get; set; }
     }

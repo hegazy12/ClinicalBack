@@ -4,6 +4,7 @@ using Domain.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace DatabaseLayer.Repository
 {
@@ -29,7 +30,9 @@ namespace DatabaseLayer.Repository
 
         public async Task<ApplicationUser> GetUserByDoctorIdAsync(Guid guid)
         {
-           var x = await FindAllAsync(m => m.Id == guid, new string[] { "ApplicationUser" });
+            var x = await FindAllAsync(m => m.Id == guid, new string[] { "ApplicationUser" });
+            //string sql = x.ToQueryString();
+            //Console.WriteLine(sql);
             return x.First().ApplicationUser;
         }
 

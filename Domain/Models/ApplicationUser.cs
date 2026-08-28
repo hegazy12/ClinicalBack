@@ -32,6 +32,8 @@ public class Patient : BaseModule
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string Address { get; set; } = string.Empty;
+
+    [MinLength(11),MaxLength(11)]
     public string PhoneNumber { get; set; } = string.Empty;
     public DateTime DateOfBirth { get; set; }
     public string gender { get; set; } = string.Empty;

@@ -85,8 +85,8 @@ public class ApplicationUserRepository : BaseRepository<ApplicationUser>, IAppli
     {
         if (userId != null)
         {
-            var x = await _context.Doctors.FindAsync(userId);
-            x.ApplicationUser = (x != null)? x.ApplicationUser = await _userManager.FindByIdAsync(userId): new ApplicationUser();
+            var x = _context.Doctors.First( m=> m.UserId  == userId);
+            x.ApplicationUser = (x != null)? x.ApplicationUser = await _userManager.FindByIdAsync(userId): null;
             return x;
         }
         else

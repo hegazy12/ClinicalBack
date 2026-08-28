@@ -111,9 +111,9 @@ public class AppointmentService : IAppointmentService
         throw new NotImplementedException();
     }
 
-    public async Task<GeneralResponse<List<AppointmentDTO_1>>> GetByCreatby(Guid Createby)
+    public async Task<GeneralResponse<List<AppointmentDTO_2>>> GetByCreatby(Guid Createby)
     {
-        return new GeneralResponse<List<AppointmentDTO_1>>();
+        return new GeneralResponse<List<AppointmentDTO_2>>();
     }
     
     public async Task<GeneralResponse<List<AppointmentDTO_1>>> GetByDoctor(Guid DoctorId)
@@ -149,13 +149,14 @@ public class AppointmentService : IAppointmentService
         };
     }
 
-    public async Task<GeneralResponse<List<AppointmentDTO_1>>> GetByPatient(Guid PatientId)
+
+    public async Task<GeneralResponse<List<AppointmentDTO_2>>> GetByPatient(Guid PatientId)
     {
         var appointments = await  unitOfWork.appoinmentRepository.GetByPatientId(PatientId);
         
         if ( appointments == null )
         {
-            return new GeneralResponse<List<AppointmentDTO_1>>()
+            return new GeneralResponse<List<AppointmentDTO_2>>()
             {
                 Success = false,
                 Data = null,
@@ -167,15 +168,22 @@ public class AppointmentService : IAppointmentService
                 dateTime = DateTime.Now
             };
         }
+        //appointments.Select(async m => m.Doctor.ApplicationUser = await unitOfWork.doctorRepository.GetUserByDoctorIdAsync(m.DoctorId));
+        //unitOfWork.doctorRepository.GetUserByDoctorIdAsync(m.DoctorId);
+        
+        foreach(var i in appointments)
+        {
+            i.Doctor.ApplicationUser = await unitOfWork.doctorRepository.GetUserByDoctorIdAsync(i.DoctorId);
+        }
 
-        List<AppointmentDTO_1> appointmentDTO_1s = appointments.Select(a => a.ToAppointmentDTO_1()).ToList();
-
-        return new GeneralResponse<List<AppointmentDTO_1>>() { 
+        List<AppointmentDTO_2> appointmentDTO_2s = appointments.Select(a => a.ToAppointmentDTO_2()).ToList();
+        return new GeneralResponse<List<AppointmentDTO_2>>() { 
             Success = true,
             Message = "Appointments retrieved successfully.",
             dateTime = DateTime.Now,
-            Data = appointmentDTO_1s };
+            Data = appointmentDTO_2s };
     }
+
 
     public async Task<GeneralResponse<AppointmentDTO_3>> GetHistoryAppointment(Guid id)
     {
@@ -281,6 +289,11 @@ public class AppointmentService : IAppointmentService
             Data = appointmentDTO_1s
         };
     }
+
+    //public async Task<GeneralResponse<int>> isHaveNextAppointment(Guid PatientId , Guid DoctorId)
+    //{
+
+    //}
 }
 
 

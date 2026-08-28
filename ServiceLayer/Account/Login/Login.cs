@@ -38,7 +38,13 @@ public class Login : ILogin
         var token = _jwtService.GenerateToken(new Guid(user.Id), user.UserName, user.Email);
 
         var roles = await _unitOfWork.AppUserRepository.GetuserRoles(Convert.ToString(user.Id));
-
+        var RolesStr = roles.Select(Ra => Ra.Name).ToList();
+        Guid? DoctorId=null;
+        if (RolesStr.Contains("Doctor"))
+        {
+           var Doctor =  await _unitOfWork.AppUserRepository.GetDoctorbyUserIdAsync(user.Id);
+           DoctorId = Doctor.Id;
+        }
         
         return await Task.FromResult(new GeneralResponse<ReturnLoginDTO>
         {
@@ -53,7 +59,8 @@ public class Login : ILogin
                 UserName = user.UserName,
                 jobTitle = user.jobTitle,
                 Token = token,
-                Roles = roles.Select(Ra => Ra.Name).ToList()
+                Roles = roles.Select(Ra => Ra.Name).ToList(),
+                DoctorId = DoctorId,
             }
 
         });

@@ -43,6 +43,7 @@ namespace ServiceLayer.SmedicalExaminations
                     {
                         DoctorDTO = doctors.Where(m=> m.UserId == i.CreatedBy).First().ToDoctorDTO_1(),
                         id = i.Id,
+                        last = i.last,
                         idAppointment = i.AppointmentId,
                         idExamination = i.ExaminationId,
                         medicalExaminationsDTO = i.medicalExamination.ToMedicalExaminationsDTO1()
@@ -108,11 +109,17 @@ namespace ServiceLayer.SmedicalExaminations
                     {
                         AppointmentId = dTO.idAppointment,
                         ExaminationId = dTO.idExamination,
+                        last =dTO.last
                     };
 
                     x.Create(Createby);
+                    
+                    x.ExaminationPhotos = new List<string>();
+
                     x = unitOfWork.saveExaminationsRepository.Add(x);
+                    
                     var m = await unitOfWork.SaveChangesAsync();
+                    
                     return new GeneralResponse<saveExaminationDTO1>()
                     {
                         Data = new saveExaminationDTO1()

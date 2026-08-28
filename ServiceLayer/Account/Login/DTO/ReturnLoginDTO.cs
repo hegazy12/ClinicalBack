@@ -11,4 +11,5 @@ public class ReturnLoginDTO
     public string Token { get; set; } = null!;
     public List<string> Roles { get; set; } = new List<string>();
     public string Error { get; set; } = null!;
+    public Guid? DoctorId { get; set; } = null!;
 }
