@@ -19,14 +19,14 @@ namespace DatabaseLayer.Repository
 
         public async Task<IEnumerable<saveExamination>> GetbyAppoitmentIDAsync(Guid id)
         {
-            var m = await FindAllAsync(m => m.AppointmentId == id , new string[] { "medicalExamination" , "Appointment" , "Created" });
+            var m = await FindAllAsync(m => m.AppointmentId == id && !m.IsDeleted  , new string[] { "medicalExamination" , "Appointment" , "Created" });
             
             return m;
         }
 
         public async Task<IEnumerable<saveExamination>> GetbyIdes(List<Guid> ids)
         {
-            var m = await FindAllAsync(m => ids.Contains(m.Id));
+            var m = await FindAllAsync(m => ids.Contains(m.Id) && !m.IsDeleted);
             return m;
         }
 

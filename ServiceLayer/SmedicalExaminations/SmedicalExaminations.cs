@@ -2,6 +2,7 @@
 using Domain.IUnitOfWork;
 using Domain.Models;
 using Domain.Response;
+using ServiceLayer.DiagnosService.DTO;
 using ServiceLayer.Doctor.DTO;
 using ServiceLayer.Prescription.DTO;
 using ServiceLayer.SmedicalExaminations.DTO;
@@ -21,9 +22,32 @@ namespace ServiceLayer.SmedicalExaminations
             this.unitOfWork = unitOfWork;
         }
 
-        public Task<GeneralResponse<saveExaminationDTO1>> Delete(Guid id, Guid userid)
+        public async Task<GeneralResponse<saveExaminationDTO1>> Delete(Guid id, Guid userid)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var saveExaminations = unitOfWork.saveExaminationsRepository.Find(m => m.Id == id);
+                saveExaminations.MarkAsDeleted(userid);
+                unitOfWork.saveExaminationsRepository.Update(saveExaminations);
+                await unitOfWork.SaveChangesAsync();
+                return new GeneralResponse<saveExaminationDTO1>()
+                {
+                    Data = saveExaminations.TosaveExaminationDTO1(),
+                    dateTime = DateTime.Now,
+                    Message = "The data was successfully completed",
+                    Success = true,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new GeneralResponse<saveExaminationDTO1>()
+                {
+                    Data = null,
+                    dateTime = DateTime.Now,
+                    Message = ex.Message,
+                    Success = false,
+                };
+            }
         }
 
         public async Task<GeneralResponse<IEnumerable<saveExaminationDTO1>>> GetByAppointmentIdAsync(Guid AppointmentId)

@@ -20,7 +20,7 @@ namespace DatabaseLayer.Repository
 
         public async Task<List<Drug>> GetbyIdsasync(List<Guid> guids)
         {
-            var x = await FindAllAsync(m => guids.Contains(m.Id));
+            var x = await FindAllAsync(m => guids.Contains(m.Id) && !m.IsDeleted);
             return x.ToList();
         }
     }

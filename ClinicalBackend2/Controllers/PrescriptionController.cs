@@ -49,7 +49,7 @@ namespace ClinicalBackend2.Controllers
         }
 
         [HttpDelete("{id:guid}")]
-        public async Task<IActionResult> DeletePrescription(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
             Guid userid = Guid.Parse(userIdStr);

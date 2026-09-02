@@ -1,6 +1,8 @@
-﻿using ServiceLayer.Patient.DTO;
+﻿using DatabaseLayer.UnitOfWork;
 using Domain.IUnitOfWork;
 using Domain.Response;
+using ServiceLayer.DiagnosService.DTO;
+using ServiceLayer.Patient.DTO;
 
 namespace ServiceLayer.Patient;
 
@@ -148,8 +150,31 @@ public class Patient : IPatient
         }
     }
 
-    public Task<GeneralResponse<PatientDTO_1>> Delete(Guid id, Guid userid)
+    public async Task<GeneralResponse<PatientDTO_1>> Delete(Guid id, Guid userid)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var diagnos = _unitOfWork.patientRepository.Find(m => m.Id == id);
+            diagnos.MarkAsDeleted(userid);
+            _unitOfWork.patientRepository.Update(diagnos);
+            await _unitOfWork.SaveChangesAsync();
+            return new GeneralResponse<PatientDTO_1>()
+            {
+                Data = diagnos.ToPatientDTO_1(),
+                dateTime = DateTime.Now,
+                Message = "The data was successfully completed",
+                Success = true,
+            };
+        }
+        catch (Exception ex)
+        {
+            return new GeneralResponse<PatientDTO_1>()
+            {
+                Data = null,
+                dateTime = DateTime.Now,
+                Message = ex.Message,
+                Success = false,
+            };
+        }
     }
 }

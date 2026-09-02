@@ -17,11 +17,11 @@ public class PatientRepository : BaseRepository<Patient>, IPatientRepository
 
     public async Task<IEnumerable<Patient>> GetPatientsByCreateByAsync(Guid createBy)
     {
-        return await FindAllAsync(p => p.CreatedBy == Convert.ToString(createBy));
+        return await FindAllAsync(p => p.CreatedBy == Convert.ToString(createBy) && !p.IsDeleted);
     }
 
     public async Task<IEnumerable<Patient>> GetPatientsNew()
     {
-        return await FindAllAsync(p => p.CreatedAt >= DateTime.UtcNow.AddDays(-7),30,0);
+        return await FindAllAsync(p => p.CreatedAt >= DateTime.UtcNow.AddDays(-7) && !p.IsDeleted,30,0);
     }
 }

@@ -24,13 +24,13 @@ namespace DatabaseLayer.Repository
             
             var stringGuids = guids.Select(g => g.ToString()).ToList();
 
-            var x = await FindAllAsync(m => stringGuids.Contains(m.UserId) , new string[] { "ApplicationUser" } );
+            var x = await FindAllAsync(m => stringGuids.Contains(m.UserId) && !m.IsDeleted, new string[] { "ApplicationUser" } );
             return x.ToList();
         }
 
         public async Task<ApplicationUser> GetUserByDoctorIdAsync(Guid guid)
         {
-            var x = await FindAllAsync(m => m.Id == guid, new string[] { "ApplicationUser" });
+            var x = await FindAllAsync(m => m.Id == guid && !m.IsDeleted, new string[] { "ApplicationUser" });
             //string sql = x.ToQueryString();
             //Console.WriteLine(sql);
             return x.First().ApplicationUser;
@@ -55,12 +55,12 @@ namespace DatabaseLayer.Repository
 
         public async Task<IEnumerable<Doctor>> GetDoctors()
         {
-            return await FindAllAsync(m=> false== false , new string[] { "ApplicationUser" });
+            return await FindAllAsync(m=> false== false && !m.IsDeleted, new string[] { "ApplicationUser" });
         }
 
         public async Task<IEnumerable<Doctor>> GetDoctorsBySpecialization(string specialization)
         {
-            return await FindAllAsync(d=> d.Specialization == specialization);
+            return await FindAllAsync(d=> d.Specialization == specialization && !d.IsDeleted);
         }
 
         public Task<Doctor> updateDoctor(Doctor doctor)

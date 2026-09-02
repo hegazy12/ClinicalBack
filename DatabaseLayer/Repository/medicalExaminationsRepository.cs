@@ -22,7 +22,7 @@ namespace DatabaseLayer.Repository
 
         public async Task<IEnumerable<medicalExamination>> GetSearchTearmAsync(string SearchTearm)
         {
-          return  await FindAllAsync(m => m.nameEn.Contains(SearchTearm), new string[] { "classification" });
+          return  await FindAllAsync(m => m.nameEn.Contains(SearchTearm) && !m.IsDeleted, new string[] { "classification" });
         }
     }
 }

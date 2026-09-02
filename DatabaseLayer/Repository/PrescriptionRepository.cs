@@ -21,14 +21,14 @@ namespace DatabaseLayer.Repository
 
         public async Task<IEnumerable<Prescription>> GetByAppointmentIdAsync(Guid appointmentId)
         {
-            var x = await FindAllAsync(m => m.AppointmentId == appointmentId , new string[] { "Drug" });
+            var x = await FindAllAsync(m => m.AppointmentId == appointmentId  && !m.IsDeleted, new string[] { "Drug" });
 
             return x;
         }
 
         public async Task<IEnumerable<Prescription>> GetByAppointmentIdWithLastAsync(Guid appointmentId)
         {
-            var x = await FindAllAsync(m => m.AppointmentId == appointmentId && m.last == 1, new string[] { "Drug" });
+            var x = await FindAllAsync(m => m.AppointmentId == appointmentId && m.last == 1 && !m.IsDeleted, new string[] { "Drug" });
 
             return x;
         }

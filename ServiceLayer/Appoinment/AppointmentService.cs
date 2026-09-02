@@ -6,6 +6,7 @@ using Domain.Models;
 using Domain.Response;
 using ServiceLayer.Appointment.DTO;
 using ServiceLayer.Patient;
+using ServiceLayer.Patient.DTO;
 using ServiceLayer.Prescription;
 using ServiceLayer.SmedicalExaminations;
 
@@ -290,9 +291,32 @@ public class AppointmentService : IAppointmentService
         };
     }
 
-    public Task<GeneralResponse<AppointmentDTO_1>> Delete(Guid id, Guid userid)
+    public async Task<GeneralResponse<AppointmentDTO_1>> Delete(Guid id, Guid userid)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var Appointment = unitOfWork.appoinmentRepository.Find(m => m.Id == id);
+            Appointment.MarkAsDeleted(userid);
+            unitOfWork.appoinmentRepository.Update(Appointment);
+            await unitOfWork.SaveChangesAsync();
+            return new GeneralResponse<AppointmentDTO_1>()
+            {
+                Data = Appointment.ToAppointmentDTO_1(),
+                dateTime = DateTime.Now,
+                Message = "The data was successfully completed",
+                Success = true,
+            };
+        }
+        catch (Exception ex)
+        {
+            return new GeneralResponse<AppointmentDTO_1>()
+            {
+                Data = null,
+                dateTime = DateTime.Now,
+                Message = ex.Message,
+                Success = false,
+            };
+        }
     }
 
     //public async Task<GeneralResponse<int>> isHaveNextAppointment(Guid PatientId , Guid DoctorId)

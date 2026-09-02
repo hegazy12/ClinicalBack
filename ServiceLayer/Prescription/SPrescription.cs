@@ -1,6 +1,8 @@
-﻿using Domain.IUnitOfWork;
+﻿using DatabaseLayer.Migrations;
+using Domain.IUnitOfWork;
 using Domain.Models;
 using Domain.Response;
+using ServiceLayer.DiagnosService.DTO;
 using ServiceLayer.Doctor.DTO;
 using ServiceLayer.Drug.Dtos;
 using ServiceLayer.Prescription.DTO;
@@ -85,9 +87,32 @@ namespace ServiceLayer.Prescription
             }
         }
 
-        public Task<GeneralResponse<PrescriptionDTO1>> Delete(Guid id, Guid userid)
+        public async Task<GeneralResponse<PrescriptionDTO1>> Delete(Guid id, Guid userid)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var prescription = unitOfWork.prescriptionRepository.Find(m => m.Id == id);
+                prescription.MarkAsDeleted(userid);
+                unitOfWork.prescriptionRepository.Update(prescription);
+                await unitOfWork.SaveChangesAsync();
+                return new GeneralResponse<PrescriptionDTO1>()
+                {
+                    Data = prescription.ToPrescriptionDTO1(),
+                    dateTime = DateTime.Now,
+                    Message = "The data was successfully completed",
+                    Success = true,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new GeneralResponse<PrescriptionDTO1>()
+                {
+                    Data = null,
+                    dateTime = DateTime.Now,
+                    Message = ex.Message,
+                    Success = false,
+                };
+            }
         }
 
         public Task<GeneralResponse<bool>> DeletePrescriptionAsync(Guid id)

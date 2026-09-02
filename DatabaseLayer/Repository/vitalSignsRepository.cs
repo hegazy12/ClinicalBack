@@ -15,7 +15,7 @@ namespace DatabaseLayer.Repository
         }
         public async Task<IEnumerable<VitalSign>> GetSearchTearmAsync(string SearchTearm)
         {
-            return await FindAllAsync(m => m.name.Contains(SearchTearm), new string[] { "VitalSignMaster" });
+            return await FindAllAsync(m => m.name.Contains(SearchTearm) && !m.IsDeleted, new string[] { "VitalSignMaster" });
         }
     }
 }

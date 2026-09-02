@@ -36,6 +36,23 @@ namespace ServiceLayer.Prescription.DTO
 
     public static partial class AdHocMapper
     {
+
+
+        public static PrescriptionDTO1 ToPrescriptionDTO1(this Domain.Models.Prescription prescription)
+        {
+            return new PrescriptionDTO1()
+            {
+                id = prescription.Id,
+                Notes = prescription.Notes,
+                AppointmentId = prescription.AppointmentId,
+                DrugId = prescription.DrugId,
+                Frequency = prescription.Frequency,
+                from = prescription.from,
+                to = prescription.to,
+                type = prescription.type,
+                last = prescription.last,
+            };
+        }
         public static PrescriptionDTO2 ToPrescriptionDTO2(this Domain.Models.Prescription prescription)
         {
             return new PrescriptionDTO2()
@@ -67,7 +84,6 @@ namespace ServiceLayer.Prescription.DTO
                 ScientificName = drug.ScientificName,
             };
         }
-
 
     }
 }

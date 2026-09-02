@@ -14,7 +14,7 @@ namespace DatabaseLayer.Repository
 
         public async Task<IEnumerable<DiagnosMaster>> GetSearchTearmAsync(string SearchTearm)
         {
-            return await FindAllAsync(m => m.Name.Contains(SearchTearm));
+            return await FindAllAsync(m => m.Name.Contains(SearchTearm) && !m.IsDeleted);
         }
     }
 }
