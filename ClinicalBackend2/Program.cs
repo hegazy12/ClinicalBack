@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using SericeLayer.Account.Login;
 using SericeLayer.Account.Rgistration;
 using ServiceLayer.Appointment;
+using ServiceLayer.DiagnosService;
 using ServiceLayer.Doctor;
 using ServiceLayer.Drug;
 using ServiceLayer.Drug.Interfaces;
@@ -38,10 +39,8 @@ namespace ClinicalBackend2
             
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
-            
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
             builder.Services.AddScoped<IPatientRepository, PatientRepository>();
             builder.Services.AddScoped<IPatient,ServiceLayer.Patient.Patient>();
             builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
@@ -65,12 +64,16 @@ namespace ClinicalBackend2
             builder.Services.AddScoped<IvitalSignsRepository, vitalSignsRepository>();
             builder.Services.AddScoped<IVitalSignMasterService, VitalSignMasterService>();
             builder.Services.AddSingleton<IUserIdProvider, QueryStringUserIdProvider>();
+            //builder.Services.AddScoped<IVitalSignMasterRepository, VitalSignMasterRepository>();
+            builder.Services.AddScoped<IDiagnosService, DiagnosService>();
+            builder.Services.AddScoped<IDiagnosMasterRepository, DiagnosMasterRepository>();
+            builder.Services.AddScoped<IDiagnosRepository, DiagnosRepository>();
 
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
                 {
-                    policy.SetIsOriginAllowed(_ => true)   // ✅ خليها هي بس، من غير AllowAnyOrigin
+                    policy.SetIsOriginAllowed(_ => true)  
                           .AllowAnyMethod()
                           .AllowAnyHeader()
                           .AllowCredentials();

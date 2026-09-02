@@ -290,6 +290,11 @@ public class AppointmentService : IAppointmentService
         };
     }
 
+    public Task<GeneralResponse<AppointmentDTO_1>> Delete(Guid id, Guid userid)
+    {
+        throw new NotImplementedException();
+    }
+
     //public async Task<GeneralResponse<int>> isHaveNextAppointment(Guid PatientId , Guid DoctorId)
     //{
 

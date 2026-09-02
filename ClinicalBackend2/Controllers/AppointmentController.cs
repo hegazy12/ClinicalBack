@@ -120,5 +120,22 @@ namespace ClinicalBackend2.Controllers
                 return BadRequest(appointment);
             }
         }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteAppointment(Guid id)
+        {
+            var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Guid userid = Guid.Parse(userIdStr);
+            var appointment = await appointmentService.Delete(id, userid);
+
+            if (appointment.Success)
+            {
+                return Ok(appointment);
+            }
+            else
+            {
+                return BadRequest(appointment);
+            }
+        }
     }
 }

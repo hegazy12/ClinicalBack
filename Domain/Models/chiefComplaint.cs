@@ -9,6 +9,7 @@ namespace Domain.Models
     public class chiefComplaint : BaseModule
     {
         public string Text { get; set; }
+        
         [Required]
         [ForeignKey("Appointment")]
         public Guid AppointmentId { get; set; }

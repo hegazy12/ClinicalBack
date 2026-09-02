@@ -48,5 +48,22 @@ namespace ClinicalBackend2.Controllers
             }
         }
 
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeletePrescription(Guid id)
+        {
+            var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Guid userid = Guid.Parse(userIdStr);
+            var prescription = await SPrescription.Delete(id, userid);
+
+            if (prescription.Success)
+            {
+                return Ok(prescription);
+            }
+            else
+            {
+                return BadRequest(prescription);
+            }
+        }
+
     }
 }

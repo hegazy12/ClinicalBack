@@ -15,6 +15,7 @@ namespace ServiceLayer.Prescription
         public Task<GeneralResponse<PrescriptionDTO1>> UpdatePrescriptionAsync(Guid id, PrescriptionDTO prescription);
         public Task<GeneralResponse<bool>> DeletePrescriptionAsync(Guid id);
         public Task<GeneralResponse<IEnumerable<PrescriptionDTO2>>> GetByAppoinmentAsync(Guid id);
-      //public Task<GeneralResponse<IEnumerable<PrescriptionDTO1>>> GetByAppoinmentAsync(Guid id);
+        public Task<GeneralResponse<PrescriptionDTO1>> Delete(Guid id, Guid userid);
+        //public Task<GeneralResponse<IEnumerable<PrescriptionDTO1>>> GetByAppoinmentAsync(Guid id);
     }
 }

@@ -65,5 +65,22 @@ namespace ClinicalBackend2.Controllers
                 return BadRequest(x);
             }
         }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteMedicalExamination(Guid id)
+        {
+            var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Guid userid = Guid.Parse(userIdStr);
+            var examination = await service.Delete(id, userid);
+
+            if (examination.Success)
+            {
+                return Ok(examination);
+            }
+            else
+            {
+                return BadRequest(examination);
+            }
+        }
     }
 }

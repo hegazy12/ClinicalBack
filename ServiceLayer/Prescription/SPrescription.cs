@@ -85,6 +85,11 @@ namespace ServiceLayer.Prescription
             }
         }
 
+        public Task<GeneralResponse<PrescriptionDTO1>> Delete(Guid id, Guid userid)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<GeneralResponse<bool>> DeletePrescriptionAsync(Guid id)
         {
             throw new NotImplementedException();

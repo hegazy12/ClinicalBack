@@ -147,4 +147,9 @@ public class Patient : IPatient
             });
         }
     }
+
+    public Task<GeneralResponse<PatientDTO_1>> Delete(Guid id, Guid userid)
+    {
+        throw new NotImplementedException();
+    }
 }

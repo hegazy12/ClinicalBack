@@ -36,12 +36,12 @@ public class BaseModule
    
     public void Create(Guid userId)
     {
-        Id= Guid.NewGuid();
+        Id        = Guid.NewGuid();
         IsUpdated = false;
-        IsActive = false;
+        IsActive  = false;
         IsDeleted = false;
         CreatedAt = DateTime.UtcNow;
-        CreatedBy =Convert.ToString(userId);
+        CreatedBy = Convert.ToString(userId);
     }
    
     public void MarkAsUpdated(Guid userId)
@@ -51,8 +51,6 @@ public class BaseModule
         UpdatedBy = Convert.ToString(userId);
     }
 
-    
-    
     public void MarkAsDeleted(Guid userId){
         IsDeleted = true;
         DeletedAt = DateTime.UtcNow;

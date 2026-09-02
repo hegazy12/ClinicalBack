@@ -19,6 +19,8 @@ namespace DatabaseLayer.UnitOfWork
         public IsaveExaminationsRepository saveExaminationsRepository {get; private set;}
         public IClassificationExaminationsRepository ClassificationExaminationsRepository { get; private set;}
         public IvitalSignsRepository vitalSignsRepository {get; private set;}
+        public IDiagnosMasterRepository diagnosMasterRepository { get; private set; }
+        public IDiagnosRepository diagnosRepository {get; private set;}
         public UnitOfWork(AppDbContext context , 
                         IApplicationUserRepository applicationUserRepository,
                         IDrugRepository drugRepository,
@@ -29,7 +31,9 @@ namespace DatabaseLayer.UnitOfWork
                         ImedicalExaminationsRepository _medicalExaminationsRepository,
                         IsaveExaminationsRepository _saveExaminationsRepository,
                         IClassificationExaminationsRepository _ClassificationExaminationsRepository,
-                        IvitalSignsRepository _vitalSignsRepository)
+                        IvitalSignsRepository _vitalSignsRepository,
+                        IDiagnosMasterRepository _diagnosMasterRepository,
+                        IDiagnosRepository _diagnosRepository)
                         {
                                 _context = context;
                                 AppUserRepository = applicationUserRepository;
@@ -41,7 +45,9 @@ namespace DatabaseLayer.UnitOfWork
                                 medicalExaminationsRepository = _medicalExaminationsRepository;
                                 saveExaminationsRepository = _saveExaminationsRepository;
                                 ClassificationExaminationsRepository = _ClassificationExaminationsRepository;
-                                vitalSignsRepository = _vitalSignsRepository; 
+                                vitalSignsRepository = _vitalSignsRepository;
+                                diagnosMasterRepository = _diagnosMasterRepository;
+                                diagnosRepository = _diagnosRepository;
                         }
         
         public void Dispose()

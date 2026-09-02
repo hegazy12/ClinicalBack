@@ -21,6 +21,11 @@ namespace ServiceLayer.SmedicalExaminations
             this.unitOfWork = unitOfWork;
         }
 
+        public Task<GeneralResponse<saveExaminationDTO1>> Delete(Guid id, Guid userid)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<GeneralResponse<IEnumerable<saveExaminationDTO1>>> GetByAppointmentIdAsync(Guid AppointmentId)
         {
             try
@@ -31,7 +36,6 @@ namespace ServiceLayer.SmedicalExaminations
                    ii.medicalExamination.classification = 
                          unitOfWork.ClassificationExaminationsRepository.GetById(ii.medicalExamination.classificationId);
                 }
-                
                  
                 var doctors = await unitOfWork.doctorRepository.GetByIdsAsync(data.Select(m => new Guid(m.CreatedBy)).ToList());
 
@@ -81,7 +85,7 @@ namespace ServiceLayer.SmedicalExaminations
                 {
                     Data = data.Select(m=> m.ToMedicalExaminationsDTO1()),
                     dateTime = DateTime.Now,
-                    Message = "Save Data",
+                    Message = "The data was successfully completed",
                     Success = true,
                 };
 

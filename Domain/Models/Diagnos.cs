@@ -5,13 +5,11 @@ namespace Domain.Models;
 public class Diagnos : BaseModule
 {
         public string Notes {get; set;}   
-
-
+        
         [Required]
         [ForeignKey("Appointment")]
         public Guid AppointmentId {get; set;}
         public Appointment Appointment {get; set;}
-
         
         [Required]
         [ForeignKey("DiagnosMaster")]

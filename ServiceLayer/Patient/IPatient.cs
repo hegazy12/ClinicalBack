@@ -11,4 +11,5 @@ public interface IPatient
   public Task<GeneralResponse<PatientDTO_1>> GetPatient(Guid id);
 
   public Task<GeneralResponse<PatientDTO_2>> GetAllInfo(Guid id);
+    public Task<GeneralResponse<PatientDTO_1>> Delete(Guid id, Guid userid);
 }

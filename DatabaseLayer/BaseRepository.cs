@@ -161,6 +161,4 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
         {
             return await _context.Set<T>().CountAsync(criteria);
         }
-
-
 }
