@@ -26,7 +26,7 @@ namespace ServiceLayer.Prescription
         {
             var xx = unitOfWork.prescriptionRepository.Find(m => m.DrugId == prescription.DrugId && 
                                                                  m.last == prescription.last && 
-                                                                 prescription.AppointmentId == m.AppointmentId);
+                                                                 prescription.AppointmentId == m.AppointmentId && m.IsDeleted == false && m.last == prescription.last);
             if (xx == null)
             {
                 Domain.Models.Prescription pres = new Domain.Models.Prescription()

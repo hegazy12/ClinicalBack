@@ -23,7 +23,7 @@ namespace ServiceLayer.DiagnosService
         {
             try
             {
-                var v = unitOfWork.diagnosMasterRepository.FindAll(m => m.Name == dTO.Name);
+                var v = unitOfWork.diagnosMasterRepository.FindAll(m => m.Name == dTO.Name && m.IsDeleted == false);
               
                 if (v.Count() == 0)
                 {

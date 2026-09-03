@@ -128,7 +128,8 @@ namespace ServiceLayer.SmedicalExaminations
 
         public async Task<GeneralResponse<saveExaminationDTO1>> saveExaminationAsync(saveExaminationDTO dTO , Guid Createby)
         {
-            var xx = unitOfWork.saveExaminationsRepository.Find(m => m.ExaminationId == dTO.idExamination && m.AppointmentId == dTO.idAppointment);
+            var xx = unitOfWork.saveExaminationsRepository.Find(m => m.ExaminationId == dTO.idExamination && m.AppointmentId == dTO.idAppointment && m.last == dTO.last 
+            && m.IsDeleted == false && m.last == dTO.last);
             if (xx == null)
             {
                 try
@@ -182,6 +183,5 @@ namespace ServiceLayer.SmedicalExaminations
             }
 
         }
-
     }
 }

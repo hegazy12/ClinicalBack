@@ -29,17 +29,17 @@ public class AppointmentService : IAppointmentService
     {
         try
         {
-           var xx = unitOfWork.appoinmentRepository.Find(m=> m.Doctor.Id == DTO_0.DoctorID && m.PatientId == DTO_0.PatientID && m.AppointmentDate == DTO_0.AppointmentDate);
+           var xx = unitOfWork.appoinmentRepository.Find(m=> m.Doctor.Id == DTO_0.DoctorID && m.PatientId == DTO_0.PatientID && !m.IsDeleted && m.AppointmentDate == DTO_0.AppointmentDate);
             if (xx == null)
             {
                 var Model = new Domain.Models.Appointment()
                 {
                     AppointmentDate = DTO_0.AppointmentDate,
-                    DoctorId = DTO_0.DoctorID,
-                    PatientId = DTO_0.PatientID,
-                    Deposit = DTO_0.Deposit,
-                    Status = DTO_0.Status,
-                    Notes = DTO_0.Notes
+                    DoctorId        = DTO_0.DoctorID,
+                    PatientId       = DTO_0.PatientID,
+                    Deposit         = DTO_0.Deposit,
+                    Status          = DTO_0.Status,
+                    Notes           = DTO_0.Notes
                 };
 
                 Model.Create(Createby);
@@ -318,11 +318,6 @@ public class AppointmentService : IAppointmentService
             };
         }
     }
-
-    //public async Task<GeneralResponse<int>> isHaveNextAppointment(Guid PatientId , Guid DoctorId)
-    //{
-
-    //}
 }
 
 
