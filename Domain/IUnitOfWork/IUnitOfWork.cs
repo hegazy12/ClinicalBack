@@ -16,6 +16,7 @@ namespace Domain.IUnitOfWork
         public IvitalSignsRepository vitalSignsRepository {  get; }
         public IDiagnosMasterRepository diagnosMasterRepository { get;}
         public IDiagnosRepository diagnosRepository { get; }
+        public IExaminationPhotoRepository examinationPhotoRepository { get; }
         Task<int> SaveChangesAsync();
 
     }

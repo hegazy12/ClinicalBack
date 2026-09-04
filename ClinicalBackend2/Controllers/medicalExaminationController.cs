@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Domain.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Drug.Interfaces;
 using ServiceLayer.SmedicalExaminations;
@@ -13,10 +14,11 @@ namespace ClinicalBackend2.Controllers
     public class medicalExaminationController : Controller
     {
         private readonly ImedicalExaminations service;
-
-        public medicalExaminationController(ImedicalExaminations _service)
+        private readonly IWebHostEnvironment _env;
+        public medicalExaminationController(ImedicalExaminations _service, IWebHostEnvironment env)
         {
             service = _service;
+            _env = env;
         }
 
 
@@ -81,6 +83,17 @@ namespace ClinicalBackend2.Controllers
             {
                 return BadRequest(examination);
             }
+        }
+
+        [HttpPost("{idExamination}")]
+        public async Task<IActionResult> UploadPhoto(Guid idExamination, [FromBody] UploadPhotoRequest request)
+        {   
+            var result = await service.uploadPhoto(idExamination, request.CreateBy, request, _env.ContentRootPath);
+            
+            if (!result.Success)
+                return BadRequest(result);
+            
+            return Ok(result);
         }
     }
 }

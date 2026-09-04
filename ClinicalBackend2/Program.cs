@@ -68,6 +68,7 @@ namespace ClinicalBackend2
             builder.Services.AddScoped<IDiagnosService, DiagnosService>();
             builder.Services.AddScoped<IDiagnosMasterRepository, DiagnosMasterRepository>();
             builder.Services.AddScoped<IDiagnosRepository, DiagnosRepository>();
+            builder.Services.AddScoped<IExaminationPhotoRepository, ExaminationPhotoRepository>();
 
             builder.Services.AddCors(options =>
             {

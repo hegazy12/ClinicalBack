@@ -21,6 +21,7 @@ namespace DatabaseLayer.UnitOfWork
         public IvitalSignsRepository vitalSignsRepository {get; private set;}
         public IDiagnosMasterRepository diagnosMasterRepository { get; private set; }
         public IDiagnosRepository diagnosRepository {get; private set;}
+        public IExaminationPhotoRepository examinationPhotoRepository { get; private set; }
         public UnitOfWork(AppDbContext context , 
                         IApplicationUserRepository applicationUserRepository,
                         IDrugRepository drugRepository,
@@ -33,7 +34,8 @@ namespace DatabaseLayer.UnitOfWork
                         IClassificationExaminationsRepository _ClassificationExaminationsRepository,
                         IvitalSignsRepository _vitalSignsRepository,
                         IDiagnosMasterRepository _diagnosMasterRepository,
-                        IDiagnosRepository _diagnosRepository)
+                        IDiagnosRepository _diagnosRepository,
+                        IExaminationPhotoRepository _examinationPhotoRepository )
                         {
                                 _context = context;
                                 AppUserRepository = applicationUserRepository;
@@ -48,7 +50,8 @@ namespace DatabaseLayer.UnitOfWork
                                 vitalSignsRepository = _vitalSignsRepository;
                                 diagnosMasterRepository = _diagnosMasterRepository;
                                 diagnosRepository = _diagnosRepository;
-                        }
+                                examinationPhotoRepository = _examinationPhotoRepository;
+                            }
         
         public void Dispose()
         {

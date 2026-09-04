@@ -1,26 +1,22 @@
-﻿using DatabaseLayer.Migrations;
+﻿using Domain.DTO;
 using Domain.IUnitOfWork;
 using Domain.Models;
 using Domain.Response;
-using ServiceLayer.DiagnosService.DTO;
 using ServiceLayer.Doctor.DTO;
-using ServiceLayer.Prescription.DTO;
 using ServiceLayer.SmedicalExaminations.DTO;
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Text;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ServiceLayer.SmedicalExaminations
 {
     public class medicalExaminations : ImedicalExaminations
     {
         public IUnitOfWork unitOfWork;
+     
         public medicalExaminations(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }
+
 
         public async Task<GeneralResponse<saveExaminationDTO1>> Delete(Guid id, Guid userid)
         {
@@ -143,7 +139,7 @@ namespace ServiceLayer.SmedicalExaminations
 
                     x.Create(Createby);
                     
-                    x.ExaminationPhotos = new List<string>();
+                   // x.ExaminationPhotos = new List<string>();
 
                     x = unitOfWork.saveExaminationsRepository.Add(x);
                     
@@ -182,6 +178,62 @@ namespace ServiceLayer.SmedicalExaminations
                 };
             }
 
+        }
+
+        public async Task<GeneralResponse<string>> uploadPhoto(Guid IdExamination, Guid CreateBy ,UploadPhotoRequest request, string uploadsRootPath)
+        {
+            if (string.IsNullOrEmpty(request.PhotoBase64))
+            {
+                return new GeneralResponse<string>
+                {
+                    Success = false,
+                    Message = "No photo provided.",
+                    Data = null
+                };
+            }
+
+            try
+            {
+                var Examination = unitOfWork.saveExaminationsRepository.GetById(IdExamination);
+                
+                var commaIndex = request.PhotoBase64.IndexOf(",");
+                var base64Data = commaIndex >= 0
+                    ? request.PhotoBase64.Substring(commaIndex + 1)
+                    : request.PhotoBase64;
+
+                var imageBytes = Convert.FromBase64String(base64Data);
+                var fileName = $"exam_{IdExamination}_{Guid.NewGuid()}.png";
+                var folderPath = Path.Combine(uploadsRootPath , "Uploads" , "MedicalExaminations");
+                Directory.CreateDirectory(folderPath);
+                var filePath = Path.Combine(folderPath, fileName);
+                await File.WriteAllBytesAsync(filePath, imageBytes);
+                saveExaminationPhotos photo = new saveExaminationPhotos()
+                {
+                    examinationId = IdExamination,
+                    photoPath = filePath,
+                    photoBase64 = request.PhotoBase64,
+                    imageBytes = imageBytes
+                };
+                photo.Create(CreateBy); 
+                unitOfWork.examinationPhotoRepository.Add(photo);
+                await unitOfWork.SaveChangesAsync();
+
+                return new GeneralResponse<string>
+                {
+                    Success = true,
+                    Message = "Photo uploaded successfully.",
+                    Data = fileName
+                };
+            }
+            catch (FormatException)
+            {
+                return new GeneralResponse<string>
+                {
+                    Success = false,
+                    Message = "Invalid base64 image data.",
+                    Data = null
+                };
+            }
         }
     }
 }

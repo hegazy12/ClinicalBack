@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+
 
 namespace Domain.Models
 {
@@ -18,6 +16,6 @@ namespace Domain.Models
         public Guid ExaminationId {  get; set; }
         public medicalExamination medicalExamination { get; set; }
         public int last { get; set; } 
-        public List<string> ExaminationPhotos { get; set; }
+        public  List<saveExaminationPhotos> ExaminationPhotos { get; set; }
     }
 }
