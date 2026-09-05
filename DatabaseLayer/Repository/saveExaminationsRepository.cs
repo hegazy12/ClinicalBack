@@ -1,5 +1,6 @@
 ﻿using Domain.IRepository;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 
 
@@ -7,8 +8,9 @@ namespace DatabaseLayer.Repository
 {
     public class saveExaminationsRepository : BaseRepository<saveExamination> , IsaveExaminationsRepository
     {
-        public saveExaminationsRepository(AppDbContext context) : base(context){ 
-
+        public saveExaminationsRepository(AppDbContext context) : base(context)
+        {
+            _context = context;
         }
 
         public async Task<saveExamination> Save(saveExamination x)
@@ -33,6 +35,18 @@ namespace DatabaseLayer.Repository
         public Task<IEnumerable<saveExamination>> GetbyAppoitmentID(Guid id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<saveExamination?> GetByIdFull(Guid id)
+        {
+            var examination = await _context.saveExamination
+                .Include(e => e.Appointment)
+                    .ThenInclude(a => a.Patient)
+                .Include(e => e.medicalExamination)
+                .Include(e => e.ExaminationPhotos)
+                .FirstOrDefaultAsync(e => e.Id == id);
+
+            return examination;
         }
     }
 }

@@ -5,6 +5,7 @@ using Domain.Response;
 using ServiceLayer.Doctor.DTO;
 using ServiceLayer.SmedicalExaminations.DTO;
 using System.Collections.Immutable;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ServiceLayer.SmedicalExaminations
 {
@@ -68,6 +69,7 @@ namespace ServiceLayer.SmedicalExaminations
                         DoctorDTO = doctors.Where(m=> m.UserId == i.CreatedBy).First().ToDoctorDTO_1(),
                         id = i.Id,
                         last = i.last,
+                        Note = i.Notes,
                         idAppointment = i.AppointmentId,
                         idExamination = i.ExaminationId,
                         medicalExaminationsDTO = i.medicalExamination.ToMedicalExaminationsDTO1()
@@ -94,6 +96,19 @@ namespace ServiceLayer.SmedicalExaminations
                     Success = false,
                 };
             }
+        }
+
+        public async Task<GeneralResponse<saveExaminationDTO1>> GetByIdFull(Guid id)
+        {
+          var x = await unitOfWork.saveExaminationsRepository.GetByIdFull(id);
+          x.TosaveExaminationDTO1();
+          return new GeneralResponse<saveExaminationDTO1>()
+          {
+                Data = x.TosaveExaminationDTO1(),
+                dateTime = DateTime.Now,
+                Message = "The data was successfully completed",
+                Success = true,
+          };
         }
 
         public async Task<GeneralResponse<IEnumerable<medicalExaminationsDTO1>>> GetbySearchTerm(string SearchTerm)
@@ -134,7 +149,8 @@ namespace ServiceLayer.SmedicalExaminations
                     {
                         AppointmentId = dTO.idAppointment,
                         ExaminationId = dTO.idExamination,
-                        last =dTO.last
+                        last =dTO.last,
+                        Notes = dTO.Note
                     };
 
                     x.Create(Createby);

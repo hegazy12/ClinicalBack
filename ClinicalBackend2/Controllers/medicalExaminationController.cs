@@ -1,7 +1,5 @@
 ﻿using Domain.DTO;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ServiceLayer.Drug.Interfaces;
 using ServiceLayer.SmedicalExaminations;
 using ServiceLayer.SmedicalExaminations.DTO;
 using System.Security.Claims;
@@ -20,8 +18,7 @@ namespace ClinicalBackend2.Controllers
             service = _service;
             _env = env;
         }
-
-
+        
         [HttpGet]
         public async Task<IActionResult> GetGetDrugs(string SearchTerm)
         {
@@ -35,11 +32,10 @@ namespace ClinicalBackend2.Controllers
                 return BadRequest(x);
             }
         }
-
+        
         [HttpGet]
         public async Task<IActionResult> GetByAppointmentId(Guid id)
         {
-
             var x = await service.GetByAppointmentIdAsync(id);
             if (x.Success)
             {
@@ -50,8 +46,7 @@ namespace ClinicalBackend2.Controllers
                 return BadRequest(x);
             }
         }
-
-
+        
         [HttpPost]
         public async Task<IActionResult> Add(saveExaminationDTO save)
         {
@@ -67,7 +62,7 @@ namespace ClinicalBackend2.Controllers
                 return BadRequest(x);
             }
         }
-
+          
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteMedicalExamination(Guid id)
         {
@@ -95,5 +90,18 @@ namespace ClinicalBackend2.Controllers
             
             return Ok(result);
         }
+
+        [HttpGet("{idExamination}")]
+        public async Task<IActionResult> GetByIdFull(Guid idExamination)
+        {
+            var result = await service.GetByIdFull(idExamination);
+
+            if (!result.Success)
+                return BadRequest(result);
+
+            return Ok(result);
+
+        }
+
     }
 }

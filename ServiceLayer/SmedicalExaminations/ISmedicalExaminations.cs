@@ -11,5 +11,6 @@ namespace ServiceLayer.SmedicalExaminations
         public Task<GeneralResponse<IEnumerable<saveExaminationDTO1>>> GetByAppointmentIdAsync(Guid Appointment);
         public Task<GeneralResponse<string>> uploadPhoto(Guid IdExamination, Guid CreateBy, UploadPhotoRequest request, string uploadsRootPath);
         public Task<GeneralResponse<saveExaminationDTO1>> Delete(Guid id, Guid userid);
+        public Task<GeneralResponse<saveExaminationDTO1>> GetByIdFull(Guid id);
     }
 }

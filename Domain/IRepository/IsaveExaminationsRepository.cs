@@ -11,5 +11,6 @@ namespace Domain.IRepository
         public Task<IEnumerable<saveExamination>> GetbyAppoitmentID(Guid id);
         public Task<IEnumerable<saveExamination>> GetbyIdes(List<Guid> ids);
         public Task<IEnumerable<saveExamination>> GetbyAppoitmentIDAsync(Guid appointmentId);
+        public Task<saveExamination> GetByIdFull(Guid id);
     }
 }

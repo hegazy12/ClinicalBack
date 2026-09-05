@@ -1,6 +1,7 @@
 ﻿using Domain.Models;
 using ServiceLayer.Appointment.DTO;
 using ServiceLayer.Doctor.DTO;
+using ServiceLayer.Patient.DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -33,25 +34,20 @@ namespace ServiceLayer.SmedicalExaminations.DTO
         public classificationExaminationDTO1 classificationExaminationDTO1 { get; set; }
     }
 
-
-
     public class saveExaminationDTO
     {
         public Guid idExamination { get; set; }
         public Guid idAppointment { get; set; }
+        public string Note { get; set; }
         public int last { get; set; }
     }
     
-
-
-
-
     public class saveExaminationDTO1 : saveExaminationDTO
     {
         public Guid id { get; set; }
-      
         public medicalExaminationsDTO1 medicalExaminationsDTO { get; set; }
         public DoctorDTO_1 DoctorDTO { get; set; }
+        public AppointmentDTO_2 AppointmentDTO_2 { get; set; }
     }
 
     public static partial class AdHocMapper
@@ -85,11 +81,14 @@ namespace ServiceLayer.SmedicalExaminations.DTO
             {
                 id = x.Id,
                 idAppointment = x.AppointmentId,
-                idExamination = x.AppointmentId,
+                idExamination = x.ExaminationId,
                 medicalExaminationsDTO = (x.medicalExamination != null)? x.medicalExamination.ToMedicalExaminationsDTO1() : null,
-                DoctorDTO = (x.Appointment.Doctor != null)? x.Appointment.Doctor.ToDoctorDTO_1():null
+                Note = x.Notes,
+                last = x.last,
+                DoctorDTO = (x.Appointment.Doctor != null)? x.Appointment.Doctor.ToDoctorDTO_1():null,
+                AppointmentDTO_2 = (x.Appointment != null)? x.Appointment.ToAppointmentDTO_2():null
+                
             };
         }
-
     }
 }
