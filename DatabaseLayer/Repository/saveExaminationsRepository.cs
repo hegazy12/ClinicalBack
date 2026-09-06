@@ -48,5 +48,11 @@ namespace DatabaseLayer.Repository
 
             return examination;
         }
+
+        public async Task<IEnumerable<saveExaminationPhotos>> GetExaminationsByIdPhotos(Guid id)
+        {
+            var x = await _context.saveExaminationPhotos.Where(m => m.examinationId == id && !m.IsDeleted).ToListAsync();
+            return x; 
+        }
     }
 }

@@ -4,8 +4,7 @@ using Domain.Models;
 using Domain.Response;
 using ServiceLayer.Doctor.DTO;
 using ServiceLayer.SmedicalExaminations.DTO;
-using System.Collections.Immutable;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace ServiceLayer.SmedicalExaminations
 {
@@ -137,6 +136,19 @@ namespace ServiceLayer.SmedicalExaminations
             }
         }
 
+        public async Task<GeneralResponse<IEnumerable<saveExaminationPhotosDTO1>>> GetExaminationsByIdPhotos(Guid Id)
+        {
+            var x = await unitOfWork.saveExaminationsRepository.GetExaminationsByIdPhotos(Id);
+            var y = x.Select(mm => mm.TosaveExaminationPhotosDTO1());
+            return new GeneralResponse<IEnumerable<saveExaminationPhotosDTO1>>()
+            {
+                Data = y,
+                dateTime = DateTime.Now,
+                Message = "save is done",
+                Success = true,
+            };
+        }
+
         public async Task<GeneralResponse<saveExaminationDTO1>> saveExaminationAsync(saveExaminationDTO dTO , Guid Createby)
         {
             var xx = unitOfWork.saveExaminationsRepository.Find(m => m.ExaminationId == dTO.idExamination && m.AppointmentId == dTO.idAppointment && m.last == dTO.last 
@@ -251,5 +263,7 @@ namespace ServiceLayer.SmedicalExaminations
                 };
             }
         }
+
+        
     }
 }

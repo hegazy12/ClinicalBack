@@ -103,5 +103,15 @@ namespace ClinicalBackend2.Controllers
 
         }
 
+        [HttpGet("{idExamination}")]
+        public async Task<IActionResult> GetExaminationsByIdPhotos(Guid idExamination)
+        {
+            var result = await service.GetExaminationsByIdPhotos(idExamination);
+            if (!result.Success)
+                return BadRequest(result);
+
+            return Ok(result);
+        }
+
     }
 }

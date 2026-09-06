@@ -4,6 +4,7 @@ using ServiceLayer.Doctor.DTO;
 using ServiceLayer.Patient.DTO;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 namespace ServiceLayer.SmedicalExaminations.DTO
@@ -50,6 +51,19 @@ namespace ServiceLayer.SmedicalExaminations.DTO
         public AppointmentDTO_2 AppointmentDTO_2 { get; set; }
     }
 
+    public class saveExaminationPhotosDTO
+    {
+        public Guid examinationId { get; set; }
+        public string? photoPath { get; set; }
+        public string? photoBase64 { get; set; }
+        public byte[]? imageBytes { get; set; } = null;
+    }
+
+    public class saveExaminationPhotosDTO1 : saveExaminationPhotosDTO
+    {
+        public Guid Id { get; set; }
+    }
+
     public static partial class AdHocMapper
     {
         public static medicalExaminationsDTO1 ToMedicalExaminationsDTO1(this medicalExamination data)
@@ -88,6 +102,19 @@ namespace ServiceLayer.SmedicalExaminations.DTO
                 DoctorDTO = (x.Appointment.Doctor != null)? x.Appointment.Doctor.ToDoctorDTO_1():null,
                 AppointmentDTO_2 = (x.Appointment != null)? x.Appointment.ToAppointmentDTO_2():null
                 
+            };
+        }
+
+        public static saveExaminationPhotosDTO1 TosaveExaminationPhotosDTO1(this saveExaminationPhotos photos)
+        {
+
+            return new saveExaminationPhotosDTO1()
+            {
+                examinationId = photos.examinationId,
+                Id = photos.Id,
+                imageBytes = photos.imageBytes,
+                photoBase64 = photos.photoBase64,
+                photoPath = photos.photoPath,
             };
         }
     }
