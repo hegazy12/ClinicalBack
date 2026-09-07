@@ -28,9 +28,9 @@ public static partial class AdHocMapper
             Status = appointment.Status,
             Notes = appointment.Notes,
             Deposit = appointment.Deposit ,
-            DoctorSpecialization = (appointment.Doctor != null)?  appointment.Doctor.Specialization : null,
-            PatientFirstName     = (appointment.Patient != null)? appointment.Patient.FirstName     : null,
-            PatientLastName      = (appointment.Patient != null)? appointment.Patient.LastName      : null
+            DoctorSpecialization = (appointment.Doctor != null)?  appointment.Doctor.Specialization : "",
+            PatientFirstName     = (appointment.Patient != null)? appointment.Patient.FirstName     : "",
+            PatientLastName      = (appointment.Patient != null)? appointment.Patient.LastName      : ""
         };
         return i;
     }
@@ -62,11 +62,11 @@ public static partial class AdHocMapper
             Status               = appointment.Status,
             Notes                = appointment.Notes,
             Deposit              = appointment.Deposit,
-            DoctorFirstName      = (appointment.Doctor != null)? (appointment.Doctor.ApplicationUser != null)? appointment.Doctor.ApplicationUser.FirstName : null : null,
-            DoctorLastName       = (appointment.Doctor != null)? (appointment.Doctor.ApplicationUser != null)? appointment.Doctor.ApplicationUser.LastName  : null : null,
-            DoctorSpecialization = (appointment.Doctor  != null)? appointment.Doctor.Specialization : null,
-            PatientFirstName     = (appointment.Patient != null)? appointment.Patient.FirstName : null,
-            PatientLastName      = (appointment.Patient != null)? appointment.Patient.LastName : null,
+            DoctorFirstName      = (appointment.Doctor != null)? (appointment.Doctor.ApplicationUser != null)? appointment.Doctor.ApplicationUser.FirstName : "" : "",
+            DoctorLastName       = (appointment.Doctor != null)? (appointment.Doctor.ApplicationUser != null)? appointment.Doctor.ApplicationUser.LastName  : "" : "",
+            DoctorSpecialization = (appointment.Doctor  != null)? appointment.Doctor.Specialization : "",
+            PatientFirstName     = (appointment.Patient != null)? appointment.Patient.FirstName : "",
+            PatientLastName      = (appointment.Patient != null)? appointment.Patient.LastName : "",
             DoctorDTO_1          = (appointment.Doctor  != null)? appointment.Doctor.ToDoctorDTO_1() : null,
             PatientDTO_1         = (appointment.Patient != null)? appointment.Patient.ToPatientDTO_1() : null
         };

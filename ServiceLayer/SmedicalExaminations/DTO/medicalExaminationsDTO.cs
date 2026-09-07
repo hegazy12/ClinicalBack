@@ -112,9 +112,9 @@ namespace ServiceLayer.SmedicalExaminations.DTO
             {
                 examinationId = photos.examinationId,
                 Id = photos.Id,
-                imageBytes = photos.imageBytes,
+                imageBytes =  null,
                 photoBase64 = photos.photoBase64,
-                photoPath = photos.photoPath,
+                photoPath = "",
             };
         }
     }

@@ -28,9 +28,9 @@ namespace ServiceLayer.Doctor.DTO
                 ClinicAddress = doctor.ClinicAddress,
                 ClinicPhoneNumber = doctor.ClinicPhoneNumber,
                 ClinicEmail = doctor.ClinicEmail ,
-                FristName = (doctor.ApplicationUser != null) ?  doctor.ApplicationUser.FirstName : null ,
-                LastName  = (doctor.ApplicationUser != null) ? doctor.ApplicationUser.LastName   : null ,
-                Email = (doctor.ApplicationUser != null) ? doctor.ApplicationUser.Email : null
+                FristName = (doctor.ApplicationUser != null) ?  doctor.ApplicationUser.FirstName : "" ,
+                LastName  = (doctor.ApplicationUser != null) ? doctor.ApplicationUser.LastName   : "" ,
+                Email = (doctor.ApplicationUser != null) ? doctor.ApplicationUser.Email : ""
 
             };
         }

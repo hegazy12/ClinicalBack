@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+
 
 namespace Domain.Models
 {
@@ -11,10 +9,9 @@ namespace Domain.Models
         [Required]
         [ForeignKey(nameof(VitalSign))]
         public Guid VitalSignId { get; set; }
-        public VitalSignMaster VitalSign { get; set; }
-
+        public VitalSign VitalSign { get; set; }
         [Required]
-        [ForeignKey("Appointment")]
+        [ForeignKey(nameof(Appointment))]
         public Guid AppointmentId { get; set; }
         public Appointment Appointment { get; set; }
         public string value { get; set; }
