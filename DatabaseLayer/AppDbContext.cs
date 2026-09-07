@@ -24,7 +24,9 @@ namespace DatabaseLayer
         public DbSet<saveExamination> saveExamination {get; set;}
         public DbSet<saveVitalSign> saveVitalSigns {get; set;}
         public DbSet<saveExaminationPhotos> saveExaminationPhotos { get; set; }
-
+        public DbSet<Sheet> sheets {get; set;}
+        public DbSet<Question> questions {get; set;}
+        public DbSet<saveQuestion> saveQuestions {get; set;} 
         public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
         {
         }
