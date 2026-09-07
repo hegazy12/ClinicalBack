@@ -23,6 +23,11 @@ namespace DatabaseLayer.UnitOfWork
         public IDiagnosRepository diagnosRepository {get; private set;}
         public IExaminationPhotoRepository examinationPhotoRepository { get; private set; }
         public IsaveVitalSignRepository saveVitalSignRepository {get; private set;}
+
+        public IsaveQuestionRepository saveQuestionRepository { get; }
+        public IQuestionRepository questionRepository { get; }
+        public ISheetRepository sheetRepository { get; }
+
         public UnitOfWork(AppDbContext context , 
                         IApplicationUserRepository applicationUserRepository,
                         IDrugRepository drugRepository,
@@ -37,7 +42,10 @@ namespace DatabaseLayer.UnitOfWork
                         IDiagnosMasterRepository _diagnosMasterRepository,
                         IDiagnosRepository _diagnosRepository,
                         IExaminationPhotoRepository _examinationPhotoRepository,
-                        IsaveVitalSignRepository _saveVitalSignRepository)
+                        IsaveVitalSignRepository _saveVitalSignRepository,
+                        IsaveQuestionRepository _saveQuestionRepository,
+                        IQuestionRepository _questionRepository,
+                        ISheetRepository _sheetRepository)
                         {
                                 _context = context;
                                 AppUserRepository = applicationUserRepository;
@@ -54,6 +62,9 @@ namespace DatabaseLayer.UnitOfWork
                                 diagnosRepository = _diagnosRepository;
                                 examinationPhotoRepository = _examinationPhotoRepository;
                                 saveVitalSignRepository = _saveVitalSignRepository;
+                                saveQuestionRepository = _saveQuestionRepository;
+                                questionRepository = _questionRepository;
+                                sheetRepository = _sheetRepository;
                             }
         
         public void Dispose()

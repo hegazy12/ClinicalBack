@@ -54,11 +54,11 @@ namespace DatabaseLayer.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SheetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     QuestionBody = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    description  = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     dataTypeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    maxValue = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    minValue = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    requeried = table.Column<bool>(type: "bit", nullable: false),
+                    maxValue   = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    minValue   = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    requeried  = table.Column<bool>(type: "bit", nullable: false),
                     listValues = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     QuestionDependId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -69,7 +69,7 @@ namespace DatabaseLayer.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     DeletedBy = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    IsActive  = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
