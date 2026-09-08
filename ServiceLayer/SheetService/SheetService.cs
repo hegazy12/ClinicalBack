@@ -21,9 +21,9 @@ namespace ServiceLayer.SheetService
         {
             try
             {
-                var Sheet = unitOfWork.saveExaminationsRepository.Find(m => m.Id == SheetId);
+                var Sheet = unitOfWork.sheetRepository.Find(m => m.Id == SheetId);
                 Sheet.MarkAsDeleted(userId);
-                unitOfWork.saveExaminationsRepository.Update(Sheet);
+                unitOfWork.sheetRepository.Update(Sheet);
                 await unitOfWork.SaveChangesAsync();
 
                 return new GeneralResponse<bool>()
@@ -79,7 +79,7 @@ namespace ServiceLayer.SheetService
             else
             {
                 await unitOfWork.sheetRepository.AddAsync(Sheet);
-                unitOfWork.SaveChangesAsync();
+                await unitOfWork.SaveChangesAsync();
                 return new GeneralResponse<SheetDTO1>()
                 {
                     Data = null,

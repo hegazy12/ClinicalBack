@@ -15,7 +15,7 @@ namespace DatabaseLayer.Repository
 
         public async Task<bool> IsSavedBefor(Sheet Sheet)
         {
-            var x = await FindAllAsync(m=> m.Name == Sheet.Name);
+            var x = await FindAllAsync(m=> m.Name == Sheet.Name && !m.IsDeleted);
             if (x.Count() > 0)
             {
                 return true;

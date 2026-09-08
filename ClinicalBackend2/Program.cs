@@ -21,6 +21,7 @@ using ServiceLayer.JWT;
 using ServiceLayer.Patient;
 using ServiceLayer.Prescription;
 using ServiceLayer.SheetService;
+using ServiceLayer.SheetService.QuestionService;
 using ServiceLayer.SmedicalExaminations;
 using ServiceLayer.vitalSignMaster.Interfaces;
 using ServiceLayer.VitalSignMaster.Interfaces;
@@ -75,6 +76,7 @@ namespace ClinicalBackend2
             builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
             builder.Services.AddScoped<IsaveQuestionRepository, saveQuestionRepository>();
             builder.Services.AddScoped<ISheetService, SheetService>();
+            builder.Services.AddScoped<IQuestionService, QuestionService>();
 
             builder.Services.AddCors(options =>
             {

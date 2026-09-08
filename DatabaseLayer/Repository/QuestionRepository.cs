@@ -12,5 +12,18 @@ namespace DatabaseLayer.Repository
         {
             _context = context;
         }
+
+        public async Task<bool> IsCreatBefor(Question x)
+        {
+            var S = await FindAllAsync(m => m.SheetId == x.SheetId && m.QuestionBody == x.QuestionBody && !m.IsDeleted);
+            if (S.Count() > 0) 
+            {
+                return true;
+            }
+            else 
+            {  
+                return false;
+            }
+        }
     }
 }

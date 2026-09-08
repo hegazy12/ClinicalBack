@@ -11,6 +11,7 @@ namespace DatabaseLayer.Repository
     {
         public PrescriptionRepository(AppDbContext context) : base(context)
         {
+            _context = context;
         }
 
         public async Task<Prescription> CreateAsync(Prescription prescription)
