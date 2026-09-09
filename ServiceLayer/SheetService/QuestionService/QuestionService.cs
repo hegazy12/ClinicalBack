@@ -48,7 +48,7 @@ namespace ServiceLayer.SheetService.QuestionService
             else
             {
                 await unitOfWork.questionRepository.AddAsync(question);
-                unitOfWork.SaveChangesAsync();
+                await unitOfWork.SaveChangesAsync();
                 return new GeneralResponse<QuestionDTO1>()
                 {
                     Data = null,
@@ -67,7 +67,7 @@ namespace ServiceLayer.SheetService.QuestionService
                 var question = unitOfWork.questionRepository.Find(m => m.Id == QuestionID);
                 question.MarkAsDeleted(userId);
                 unitOfWork.questionRepository.Update(question);
-                 unitOfWork.SaveChangesAsync();
+                await unitOfWork.SaveChangesAsync();
 
                 return new GeneralResponse<bool>()
                 {
@@ -89,14 +89,32 @@ namespace ServiceLayer.SheetService.QuestionService
             }
         }
 
-        public Task<GeneralResponse<List<QuestionDTO1>>> GetbyDepndOnQuestionID(Guid questionId)
+        public async Task<GeneralResponse<List<QuestionDTO1>>> GetbyDepndOnQuestionID(Guid questionId)
         {
-            throw new NotImplementedException();
+            var x = await unitOfWork.questionRepository.FindAllAsync(m => m.QuestionDependId == questionId);
+            var m = x.Select(x => x.ToQuestionDTO1());
+            return new GeneralResponse<List<QuestionDTO1>>()
+            {
+                Data = (List<QuestionDTO1>)m,
+                dateTime = DateTime.Now,
+                Message = "The data was successfully completed",
+                Success = true,
+            };
         }
 
-        public Task<GeneralResponse<List<QuestionDTO1>>> GetbySheetId(Guid sheetId)
+        public async Task<GeneralResponse<List<QuestionDTO1>>> GetbySheetId(Guid sheetId)
         {
-            throw new NotImplementedException();
+            var x = await unitOfWork.questionRepository.FindAllAsync(m => m.SheetId == sheetId);
+            var m = x.Select(x => x.ToQuestionDTO1());
+            return new GeneralResponse<List<QuestionDTO1>>()
+            {
+                Data = (List<QuestionDTO1>)m,
+                dateTime = DateTime.Now,
+                Message = "The data was successfully completed",
+                Success = true,
+            };
         }
+
+
     }
 }

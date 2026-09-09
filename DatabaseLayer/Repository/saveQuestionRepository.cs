@@ -12,5 +12,10 @@ namespace DatabaseLayer.Repository
         {
             _context = context;
         }
+
+        public Task<bool> IsCreatBefor(Question x)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
