@@ -16,7 +16,7 @@ namespace ServiceLayer.SheetService.QuestionService.DTO
         public string minValue { get; set; }
         public bool requeried { get; set; }
         public List<string> listValues { get; set; }
-        public Guid QuestionDependId { get; set; }
+        public Guid? QuestionDependId { get; set; }
     }
 
     public class QuestionDTO1 : QuestionDTO
@@ -37,7 +37,7 @@ namespace ServiceLayer.SheetService.QuestionService.DTO
                 listValues = DTO.listValues,
                 minValue = DTO.minValue,
                 QuestionBody = DTO.QuestionBody,
-                QuestionDependId = DTO.QuestionDependId,
+                QuestionDependId = (Guid)DTO.QuestionDependId,
                 requeried = DTO.requeried,
                 SheetId = DTO.SheetId
             };

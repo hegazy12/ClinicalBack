@@ -20,9 +20,10 @@ namespace Domain.Models
         public List<string> listValues { get; set; }
 
         [ForeignKey("QuestionDepend")]
-        public Guid QuestionDependId { get; set; }
-        public Question QuestionDepend { get; set; }
         
-        public List<Question> questionsDependOnMe { get; set; }
+        public Guid? QuestionDependId { get; set; }
+        public Question? QuestionDepend { get; set; }
+        
+        public List<Question>? questionsDependOnMe { get; set; }
     }
 }

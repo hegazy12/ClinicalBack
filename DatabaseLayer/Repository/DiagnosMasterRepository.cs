@@ -10,6 +10,7 @@ namespace DatabaseLayer.Repository
     {
         public DiagnosMasterRepository(AppDbContext context) : base(context)
         {
+            _context = context;
         }
 
         public async Task<IEnumerable<DiagnosMaster>> GetSearchTearmAsync(string SearchTearm)

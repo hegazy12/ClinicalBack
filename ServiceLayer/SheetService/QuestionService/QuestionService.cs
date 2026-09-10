@@ -2,9 +2,6 @@
 using Domain.Models;
 using Domain.Response;
 using ServiceLayer.SheetService.QuestionService.DTO;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ServiceLayer.SheetService.QuestionService
 {
@@ -53,8 +50,8 @@ namespace ServiceLayer.SheetService.QuestionService
                 {
                     Data = null,
                     dateTime = DateTime.Now,
-                    Message = "you are save this item befor",
-                    Success = false
+                    Message = "The data was successfully completed",
+                    Success = true
                 };
             }
 
@@ -64,7 +61,7 @@ namespace ServiceLayer.SheetService.QuestionService
         {
             try
             {
-                var question = unitOfWork.questionRepository.Find(m => m.Id == QuestionID);
+                var question = unitOfWork.questionRepository.Find(m => m.Id == QuestionID && !m.IsDeleted);
                 question.MarkAsDeleted(userId);
                 unitOfWork.questionRepository.Update(question);
                 await unitOfWork.SaveChangesAsync();
@@ -89,11 +86,11 @@ namespace ServiceLayer.SheetService.QuestionService
             }
         }
 
-        public async Task<GeneralResponse<List<QuestionDTO1>>> GetbyDepndOnQuestionID(Guid questionId)
+        public async Task<GeneralResponse<IEnumerable<QuestionDTO1>>> GetbyDepndOnQuestionID(Guid questionId)
         {
-            var x = await unitOfWork.questionRepository.FindAllAsync(m => m.QuestionDependId == questionId);
+            var x = await unitOfWork.questionRepository.FindAllAsync(m => m.QuestionDependId == questionId && !m.IsDeleted);
             var m = x.Select(x => x.ToQuestionDTO1());
-            return new GeneralResponse<List<QuestionDTO1>>()
+            return new GeneralResponse<IEnumerable<QuestionDTO1>>()
             {
                 Data = (List<QuestionDTO1>)m,
                 dateTime = DateTime.Now,
@@ -102,13 +99,13 @@ namespace ServiceLayer.SheetService.QuestionService
             };
         }
 
-        public async Task<GeneralResponse<List<QuestionDTO1>>> GetbySheetId(Guid sheetId)
+        public async Task<GeneralResponse<IEnumerable<QuestionDTO1>>> GetbySheetId(Guid sheetId)
         {
-            var x = await unitOfWork.questionRepository.FindAllAsync(m => m.SheetId == sheetId);
+            var x = await unitOfWork.questionRepository.FindAllAsync(m => m.SheetId == sheetId && !m.IsDeleted);
             var m = x.Select(x => x.ToQuestionDTO1());
-            return new GeneralResponse<List<QuestionDTO1>>()
+            return new GeneralResponse<IEnumerable<QuestionDTO1>>()
             {
-                Data = (List<QuestionDTO1>)m,
+                Data = m,
                 dateTime = DateTime.Now,
                 Message = "The data was successfully completed",
                 Success = true,

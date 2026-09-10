@@ -27,27 +27,28 @@ namespace DatabaseLayer
         public DbSet<Sheet> sheets {get; set;}
         public DbSet<Question> questions {get; set;}
         public DbSet<saveQuestion> saveQuestions {get; set;} 
+        public DbSet<Specialization> specializationNames { get; set;}
         public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
         {
         }
           
-            protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
             {
-               if (!optionsBuilder.IsConfigured)
-               {
-                    var connectionString = "Server=192.168.0.148;Database=ClinicalBackend2;User Id=sa;Password=Abdo7gazy123456##AS;TrustServerCertificate=True;";
-                    //var connectionString = "Server=localhost,1433;Database=mvcx;User Id=sa;Password=Abdo7gazy123456##AS;TrustServerCertificate=True;";
-                    if (!string.IsNullOrWhiteSpace(connectionString))
-                   {
-                       optionsBuilder.UseSqlServer(connectionString);
-                   }
-               }
-            }
-          
-            protected override void OnModelCreating(ModelBuilder modelBuilder)
-            {
-                // Configure your entity mappings here
-                base.OnModelCreating(modelBuilder);
+                var connectionString = "Server=192.168.0.148;Database=ClinicalBackend2;User Id=sa;Password=Abdo7gazy123456##AS;TrustServerCertificate=True;";
+                //var connectionString = "Server=localhost,1433;Database=mvcx;User Id=sa;Password=Abdo7gazy123456##AS;TrustServerCertificate=True;";
+                if (!string.IsNullOrWhiteSpace(connectionString))
+                {
+                    optionsBuilder.UseSqlServer(connectionString);
+                }
             }
         }
+          
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Configure your entity mappings here
+            base.OnModelCreating(modelBuilder);
+        }
+    }
 }

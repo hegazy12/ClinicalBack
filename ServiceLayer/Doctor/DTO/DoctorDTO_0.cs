@@ -15,6 +15,17 @@ namespace ServiceLayer.Doctor.DTO
         public string ClinicEmail { get; set; } = string.Empty;
     }
 
+    public class SpecializationDTO
+    {
+        public string SpecializationName { get; set; }
+    }
+
+    public class SpecializationDTO1 : SpecializationDTO
+    {
+        public Guid id { get; set; }
+    }
+
+
     public static partial class AdHocMapper
     {
         public static DoctorDTO_1 ToDoctorDTO_1(this Domain.Models.Doctor doctor)
@@ -46,6 +57,15 @@ namespace ServiceLayer.Doctor.DTO
                 ClinicAddress = doctorDTO.ClinicAddress,
                 ClinicPhoneNumber = doctorDTO.ClinicPhoneNumber,
                 ClinicEmail = doctorDTO.ClinicEmail
+            };
+        }
+
+        public static SpecializationDTO1 ToSpecializationDTO1(this Specialization DTO)
+        {
+            return new SpecializationDTO1
+            {
+                id = DTO.Id,
+                SpecializationName = DTO.SpecializationName,
             };
         }
     }

@@ -10,6 +10,7 @@ namespace DatabaseLayer.Repository
     {
         public ClassificationExaminationsRepository(AppDbContext context) : base(context)
         {
+            _context = context;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace DatabaseLayer.Repository
     {
         public DrugRepository(AppDbContext context) : base(context)
         {
+            _context = context;
         }
 
         public async Task<Drug> GetByIdasync(Guid id)

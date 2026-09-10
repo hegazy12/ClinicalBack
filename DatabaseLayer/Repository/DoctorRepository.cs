@@ -1,6 +1,7 @@
 ﻿using Domain.IRepository;
 using Domain.Models;
 using Domain.Response;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,6 +13,7 @@ namespace DatabaseLayer.Repository
     {
         public DoctorRepository(AppDbContext context) : base(context)
         {
+           _context = context;
         }
 
         public async Task<List<Doctor>> GetByIdsAsync(List<Guid> guids)
@@ -66,6 +68,11 @@ namespace DatabaseLayer.Repository
         public Task<Doctor> updateDoctor(Doctor doctor)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Specialization>> GetSpecializationsAsync()
+        {
+            return await _context.specializationNames.ToListAsync();
         }
     }
 }

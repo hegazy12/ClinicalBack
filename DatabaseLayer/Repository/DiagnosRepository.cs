@@ -10,6 +10,7 @@ namespace DatabaseLayer.Repository
     {
         public DiagnosRepository(AppDbContext context) : base(context)
         {
+            _context = context;
         }
         public async Task<IEnumerable<Diagnos>> GetByAppointmentIdAsync(Guid appointmentId)
         {

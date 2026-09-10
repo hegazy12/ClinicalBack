@@ -4,6 +4,7 @@ using DatabaseLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatabaseLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260909193505_nullableQuestionDependId")]
+    partial class nullableQuestionDependId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -710,54 +713,6 @@ namespace DatabaseLayer.Migrations
                     b.HasIndex("UpdatedBy");
 
                     b.ToTable("sheets");
-                });
-
-            modelBuilder.Entity("Domain.Models.Specialization", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsUpdated")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SpecializationName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("DeletedBy");
-
-                    b.HasIndex("UpdatedBy");
-
-                    b.ToTable("specializationNames");
                 });
 
             modelBuilder.Entity("Domain.Models.VitalSign", b =>
@@ -1603,27 +1558,6 @@ namespace DatabaseLayer.Migrations
                 });
 
             modelBuilder.Entity("Domain.Models.Sheet", b =>
-                {
-                    b.HasOne("Domain.Models.ApplicationUser", "Created")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy");
-
-                    b.HasOne("Domain.Models.ApplicationUser", "Deleted")
-                        .WithMany()
-                        .HasForeignKey("DeletedBy");
-
-                    b.HasOne("Domain.Models.ApplicationUser", "Updated")
-                        .WithMany()
-                        .HasForeignKey("UpdatedBy");
-
-                    b.Navigation("Created");
-
-                    b.Navigation("Deleted");
-
-                    b.Navigation("Updated");
-                });
-
-            modelBuilder.Entity("Domain.Models.Specialization", b =>
                 {
                     b.HasOne("Domain.Models.ApplicationUser", "Created")
                         .WithMany()
