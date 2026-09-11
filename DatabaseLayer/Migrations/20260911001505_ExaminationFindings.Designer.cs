@@ -4,6 +4,7 @@ using DatabaseLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatabaseLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260911001505_ExaminationFindings")]
+    partial class ExaminationFindings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1314,9 +1317,6 @@ namespace DatabaseLayer.Migrations
                     b.Property<Guid>("QuestionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("SheetId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -1336,8 +1336,6 @@ namespace DatabaseLayer.Migrations
                     b.HasIndex("DeletedBy");
 
                     b.HasIndex("QuestionId");
-
-                    b.HasIndex("SheetId");
 
                     b.HasIndex("UpdatedBy");
 
@@ -2090,12 +2088,6 @@ namespace DatabaseLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Sheet", "Sheet")
-                        .WithMany()
-                        .HasForeignKey("SheetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Models.ApplicationUser", "Updated")
                         .WithMany()
                         .HasForeignKey("UpdatedBy");
@@ -2107,8 +2099,6 @@ namespace DatabaseLayer.Migrations
                     b.Navigation("Deleted");
 
                     b.Navigation("Question");
-
-                    b.Navigation("Sheet");
 
                     b.Navigation("Updated");
                 });

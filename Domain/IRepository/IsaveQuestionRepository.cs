@@ -7,6 +7,6 @@ namespace Domain.IRepository
 {
     public interface IsaveQuestionRepository : IBaseRepository<saveQuestion>
     {
-        public Task<Boolean> IsCreatBefor(Question x);
+        public Task<Boolean> IsCreatBefor(saveQuestion x);
     }
 }

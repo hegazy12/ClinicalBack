@@ -12,6 +12,7 @@ namespace DatabaseLayer.Repository
     {
         public medicalExaminationsRepository(AppDbContext context) : base(context)
         {
+            _context = context;
 
         }
 

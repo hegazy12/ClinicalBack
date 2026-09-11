@@ -28,6 +28,9 @@ namespace DatabaseLayer
         public DbSet<Question> questions {get; set;}
         public DbSet<saveQuestion> saveQuestions {get; set;} 
         public DbSet<Specialization> specializationNames { get; set;}
+        public DbSet<ExaminationFinding> ExaminationFindings { get; set; }
+        public DbSet<saveExaminationFinding> saveExaminationFinding { get; set; }
+        public DbSet<chifComplaint> chifComplaints { get; set;}
         public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
         {
         }

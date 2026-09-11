@@ -23,7 +23,6 @@ namespace DatabaseLayer.UnitOfWork
         public IDiagnosRepository diagnosRepository {get; private set;}
         public IExaminationPhotoRepository examinationPhotoRepository { get; private set; }
         public IsaveVitalSignRepository saveVitalSignRepository {get; private set;}
-
         public IsaveQuestionRepository saveQuestionRepository { get; }
         public IQuestionRepository questionRepository { get; }
         public ISheetRepository sheetRepository { get; }

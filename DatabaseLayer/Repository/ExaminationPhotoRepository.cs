@@ -10,6 +10,7 @@ namespace DatabaseLayer.Repository
     {
         public ExaminationPhotoRepository(AppDbContext context) : base(context)
         {
+            _context = context;
         }
     }
 }

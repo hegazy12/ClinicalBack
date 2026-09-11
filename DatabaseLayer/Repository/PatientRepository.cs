@@ -8,6 +8,7 @@ public class PatientRepository : BaseRepository<Patient>, IPatientRepository
 {
     public PatientRepository(AppDbContext context) : base(context)
     {
+        _context = context;
     }
 
     public async Task<Patient> GetByIdAsync(Guid id)

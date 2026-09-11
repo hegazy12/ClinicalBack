@@ -6,7 +6,7 @@ namespace Domain.Models
 {
     public class saveExamination :BaseModule
     {
-        public string? Notes { get; set; } = string.Empty;
+        public string? Notes { get; set; } 
         [Required]
         [ForeignKey("Appointment")]
         public Guid AppointmentId { get; set; }

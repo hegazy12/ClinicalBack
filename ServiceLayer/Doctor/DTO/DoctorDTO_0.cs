@@ -65,7 +65,7 @@ namespace ServiceLayer.Doctor.DTO
             return new SpecializationDTO1
             {
                 id = DTO.Id,
-                SpecializationName = DTO.SpecializationName,
+                SpecializationName = DTO.SpecializationName
             };
         }
     }

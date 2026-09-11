@@ -84,7 +84,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
         var m = x.ToQueryString();
         Console.WriteLine(m);
         Console.WriteLine("__________________________________________________________222");
-        return x.ToList();
+        return  await x.ToListAsync();
         }
 
         public async Task<IEnumerable<T>> FindAllAsync(Expression<Func<T, bool>> criteria, int take, int skip)

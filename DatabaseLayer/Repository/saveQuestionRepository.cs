@@ -13,9 +13,17 @@ namespace DatabaseLayer.Repository
             _context = context;
         }
 
-        public Task<bool> IsCreatBefor(Question x)
+        public async Task<bool> IsCreatBefor(saveQuestion x)
         {
-            throw new NotImplementedException();
+            var S = await FindAllAsync(m => m.AppointmentId == x.AppointmentId && m.QuestionId == m.QuestionId && !m.IsDeleted);
+            if (S.Count() > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
