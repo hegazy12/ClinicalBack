@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Domain.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,5 +9,6 @@ namespace Domain.IRepository
     public interface IsaveQuestionRepository : IBaseRepository<saveQuestion>
     {
         public Task<Boolean> IsCreatBefor(saveQuestion x);
+        public Task<IEnumerable<Sheet>> GetSheetsInAppointmentSaved(Guid Appointment);
     }
 }

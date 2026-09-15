@@ -112,6 +112,17 @@ namespace ServiceLayer.SheetService.QuestionService
             };
         }
 
-
+        public async Task<GeneralResponse<IEnumerable<QuestionDTO1>>> GetbySheetId(Guid sheetId, Guid AppointmentId)
+        {
+            var x = await unitOfWork.questionRepository.GetbySheetId(sheetId, AppointmentId);
+            var m = x.Select(x => x.ToQuestionDTO1());
+            return new GeneralResponse<IEnumerable<QuestionDTO1>>()
+            {
+                Data = m,
+                dateTime = DateTime.Now,
+                Message = "The data was successfully completed",
+                Success = true,
+            };
+        }
     }
 }

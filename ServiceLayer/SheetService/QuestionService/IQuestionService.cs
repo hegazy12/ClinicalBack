@@ -10,6 +10,7 @@ namespace ServiceLayer.SheetService.QuestionService
     {
         public Task<GeneralResponse<QuestionDTO1>> Add(QuestionDTO DTO , Guid userId);
         public Task<GeneralResponse<IEnumerable<QuestionDTO1>>> GetbySheetId(Guid sheetId);
+        public Task<GeneralResponse<IEnumerable<QuestionDTO1>>> GetbySheetId(Guid sheetId,Guid AppointmentId);
         public Task<GeneralResponse<IEnumerable<QuestionDTO1>>> GetbyDepndOnQuestionID(Guid questionId);
         public Task<GeneralResponse<Boolean>> Delete(Guid QuestionID, Guid userId);
 

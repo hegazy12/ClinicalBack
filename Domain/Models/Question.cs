@@ -17,7 +17,7 @@ namespace Domain.Models
         public string minValue { get; set; }
 
         public bool requeried { get; set; }
-        public List<string> listValues { get; set; }
+        public List<string>? listValues { get; set; }
 
         [ForeignKey("QuestionDepend")]
         

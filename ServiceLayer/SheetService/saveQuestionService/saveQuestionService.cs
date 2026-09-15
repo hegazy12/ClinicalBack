@@ -94,9 +94,9 @@ namespace ServiceLayer.SheetService.saveQuestionService
             };
         }
 
-        public async Task<GeneralResponse<IEnumerable<saveQuestionDTO2>>> GetBySheetID(Guid SheetId)
+        public async Task<GeneralResponse<IEnumerable<saveQuestionDTO2>>> GetBySheetID(Guid SheetId, Guid AppointmentID)
         {
-            var savedQuestions = await unitOfWork.saveQuestionRepository.FindAllAsync(m => m.SheetId == SheetId && !m.IsDeleted, new string[] { "Question", "Sheet" });
+            var savedQuestions = await unitOfWork.saveQuestionRepository.FindAllAsync(m => m.SheetId == SheetId && m.AppointmentId == AppointmentID && !m.IsDeleted, new string[] { "Question", "Sheet" });
             var x = savedQuestions.Select(m => m.TosaveQuestionDTO2());
 
             return new GeneralResponse<IEnumerable<saveQuestionDTO2>>()
@@ -108,9 +108,17 @@ namespace ServiceLayer.SheetService.saveQuestionService
             };
         }
 
-        public Task<GeneralResponse<IEnumerable<SheetDTO1>>> GetSheetsInAppointmentSaved(Guid Appointment)
+        public async Task<GeneralResponse<IEnumerable<SheetDTO1>>> GetSheetsInAppointmentSaved(Guid Appointment)
         {
-            throw new NotImplementedException();
+            var savedsheets = await unitOfWork.saveQuestionRepository.GetSheetsInAppointmentSaved(Appointment);
+            
+            return new GeneralResponse<IEnumerable<SheetDTO1>>()
+            {
+                Data = savedsheets.Select(m=> m.ToSheetDTO1()),
+                dateTime = DateTime.UtcNow,
+                Success = true,
+                Message = "The data was successfully completed"
+            };
         }
 
         public async Task<GeneralResponse<saveQuestionDTO1>> Add(saveQuestionDTO DTO, Guid userId)

@@ -68,6 +68,21 @@ namespace ClinicalBackend2.Controllers
             }
         }
 
+        [HttpGet("{id:guid}/{appointmentid:guid}")]
+        public async Task<IActionResult> getbysheetid(Guid id, Guid appointmentid)
+        {
+            var x = await service.GetbySheetId(id, appointmentid);
+
+            if (x.Success)
+            {
+                return Ok(x);
+            }
+            else
+            {
+                return BadRequest(x);
+            }
+        }
+
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetbyDepndOnQuestionID(Guid id)
         {
