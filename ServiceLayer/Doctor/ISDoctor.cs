@@ -14,5 +14,7 @@ namespace ServiceLayer.Doctor
         public Task<GeneralResponse<DTO.DoctorDTO_1>> addDoctor(DTO.DoctorDTO_1 doctor);
         public Task<GeneralResponse<DTO.DoctorDTO_1>> updateDoctor(DTO.DoctorDTO_1 doctor);
         public Task<GeneralResponse<DTO.DoctorDTO_1>> deleteDoctor(Guid id);
+
+        public Task<GeneralResponse<IEnumerable<string>>> GetAllSpecialization();
     }
 }

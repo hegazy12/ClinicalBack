@@ -17,6 +17,7 @@ using ServiceLayer.DiagnosService;
 using ServiceLayer.Doctor;
 using ServiceLayer.Drug;
 using ServiceLayer.Drug.Interfaces;
+using ServiceLayer.ExaminationFindingService;
 using ServiceLayer.JWT;
 using ServiceLayer.Patient;
 using ServiceLayer.Prescription;
@@ -79,6 +80,9 @@ namespace ClinicalBackend2
             builder.Services.AddScoped<ISheetService, SheetService>();
             builder.Services.AddScoped<IQuestionService, QuestionService>();
             builder.Services.AddScoped<IsaveQuestionService, SaveQuestionService>();
+            builder.Services.AddScoped<IExaminationFindingRepository, ExaminationFindingRepository>();
+            builder.Services.AddScoped<IsaveExaminationFindingRepository, saveExaminationFindingRepository>();
+            builder.Services.AddScoped<IExaminationFindingService, ExaminationFindingService>();
 
             builder.Services.AddCors(options =>
             {

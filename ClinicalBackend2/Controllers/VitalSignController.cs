@@ -9,7 +9,7 @@ using System.Security.Claims;
 namespace ClinicalBackend2.Controllers
 {
     [Route("[controller]/[action]")]
-    //[Authorize(Roles = "Doctor")]
+    [Authorize(Roles = "Doctor")]
     [ApiController]
     public class VitalSignController : ControllerBase
     {

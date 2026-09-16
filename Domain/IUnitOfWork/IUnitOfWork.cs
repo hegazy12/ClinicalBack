@@ -21,6 +21,8 @@ namespace Domain.IUnitOfWork
         public IsaveQuestionRepository saveQuestionRepository { get; }
         public IQuestionRepository questionRepository { get; }
         public ISheetRepository sheetRepository { get; }
+        public IExaminationFindingRepository examinationFindingRepository { get; }
+        public IsaveExaminationFindingRepository saveExaminationFindingRepository  { get; }
         Task<int> SaveChangesAsync();
 
     }

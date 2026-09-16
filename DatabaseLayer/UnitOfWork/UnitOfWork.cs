@@ -27,6 +27,10 @@ namespace DatabaseLayer.UnitOfWork
         public IQuestionRepository questionRepository { get; }
         public ISheetRepository sheetRepository { get; }
 
+        public IExaminationFindingRepository examinationFindingRepository { get; private set; }
+
+        public IsaveExaminationFindingRepository saveExaminationFindingRepository { get; private set; }
+
         public UnitOfWork(AppDbContext context , 
                         IApplicationUserRepository applicationUserRepository,
                         IDrugRepository drugRepository,

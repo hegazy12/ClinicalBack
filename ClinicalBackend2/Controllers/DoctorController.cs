@@ -28,5 +28,20 @@ namespace ClinicalBackend2.Controllers
                 return BadRequest(response);
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllSpecialization()
+        {
+
+            var response = await doctor.GetAllSpecialization();
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
+        }
     }
 }

@@ -24,6 +24,20 @@ namespace ServiceLayer.Doctor
             throw new NotImplementedException();
         }
 
+        public async Task<GeneralResponse<IEnumerable<string>>> GetAllSpecialization()
+        {
+            var x = await unitOfWork.doctorRepository.GetSpecializationsAsync();
+            var  m = x.Select(m => m.SpecializationName);
+            return new GeneralResponse<IEnumerable<string>>()
+            {
+                Data = m,
+                Message = "Specialization retrieved successfully.",
+                dateTime = DateTime.Now,
+                Success = false
+            };
+
+        }
+
         public Task<GeneralResponse<DoctorDTO_1>> GetDoctor(Guid id)
         {
             throw new NotImplementedException();

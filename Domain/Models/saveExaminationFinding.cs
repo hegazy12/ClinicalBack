@@ -17,5 +17,6 @@ namespace Domain.Models
         [ForeignKey(nameof(ExaminationFinding))]
         public Guid ExaminationFindingId { get; set; }
         public ExaminationFinding ExaminationFinding { get; set; }
+        public string Value { get; set; }
     }
 }

@@ -57,7 +57,5 @@ namespace ClinicalBackend2.Controllers
             
             return Ok(result);
         }
-
-
     }
 }
