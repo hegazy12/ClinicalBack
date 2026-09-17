@@ -11,7 +11,6 @@ namespace ServiceLayer.ExaminationFindingService
         public Task<GeneralResponse<ExaminationFindingDTO1>> Add(ExaminationFindingDTO DTO, Guid CreateBy);
         public Task<GeneralResponse<Boolean>> Delete(Guid ID, Guid CreateBy);
         public Task<GeneralResponse<IEnumerable<ExaminationFindingDTO1>>> GetAll();
-
         public Task<GeneralResponse<IEnumerable<ExaminationFindingDTO1>>> GetSearchTearmAsync(string SearchTearm);
     }
 }

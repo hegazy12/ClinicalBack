@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ServiceLayer.DiagnosService.DTO;
-using ServiceLayer.ExaminationFindingService;
 using ServiceLayer.ExaminationFindingService.DTO;
+using ServiceLayer.ExaminationFindingService.Save;
+using ServiceLayer.ExaminationFindingService.Save.DTO;
+using ServiceLayer.SheetService.QuestionService;
+using ServiceLayer.SheetService.saveQuestionService;
 using System.Security.Claims;
 
 namespace ClinicalBackend2.Controllers
@@ -11,21 +13,19 @@ namespace ClinicalBackend2.Controllers
     [Route("[controller]/[action]")]
     [ApiController]
     [Authorize(Roles = "Admin,User,BaseUser")]
-    public class ExaminationFindingController : ControllerBase
+    public class SaveExaminationFindingController : ControllerBase
     {
-        private IExaminationFindingService Service;
-        public ExaminationFindingController(IExaminationFindingService _Service)
+        IsaveExaminationFinding service { get; set; }
+        public SaveExaminationFindingController(IsaveExaminationFinding _service)
         {
-            this.Service = _Service;
+            service = _service;
         }
-
-
         [HttpPost]
-        public async Task<IActionResult> Add(ExaminationFindingDTO DTO )
+        public async Task<IActionResult> Add(saveExaminationFindingDTO DTO)
         {
             var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
             Guid userid = Guid.Parse(userIdStr);
-            var x = await Service.Add(DTO, userid);
+            var x = await service.Add(DTO, userid);
             if (x.Success)
             {
                 return Ok(x);
@@ -42,7 +42,7 @@ namespace ClinicalBackend2.Controllers
         {
             var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
             Guid userid = Guid.Parse(userIdStr);
-            var x = await Service.Delete(ID, userid);
+            var x = await service.Delete(ID, userid);
             if (x.Success)
             {
                 return Ok(x);
@@ -53,24 +53,11 @@ namespace ClinicalBackend2.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpGet("{appointmentid:guid}")]
+        public async Task<IActionResult> GetByAppointmentId(Guid appointmentid)
         {
-            var x = await Service.GetAll();
-            if (x.Success)
-            {
-                return Ok(x);
-            }
-            else
-            {
-                return BadRequest(x);
-            }
-        }
+            var x = await service.GetByAppointmentIdAsync(appointmentid);
 
-        [HttpGet]
-        public async Task<IActionResult> GetSearchTearm(string SearchTerm)
-        {
-            var x = await Service.GetSearchTearmAsync(SearchTerm);
             if (x.Success)
             {
                 return Ok(x);

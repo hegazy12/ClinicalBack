@@ -48,7 +48,9 @@ namespace DatabaseLayer.UnitOfWork
                         IsaveVitalSignRepository _saveVitalSignRepository,
                         IsaveQuestionRepository _saveQuestionRepository,
                         IQuestionRepository _questionRepository,
-                        ISheetRepository _sheetRepository)
+                        ISheetRepository _sheetRepository,
+                        IExaminationFindingRepository _examinationFindingRepository,
+                        IsaveExaminationFindingRepository _saveExaminationFindingRepository)
                         {
                                 _context = context;
                                 AppUserRepository = applicationUserRepository;
@@ -68,6 +70,8 @@ namespace DatabaseLayer.UnitOfWork
                                 saveQuestionRepository = _saveQuestionRepository;
                                 questionRepository = _questionRepository;
                                 sheetRepository = _sheetRepository;
+                                examinationFindingRepository = _examinationFindingRepository;
+                                saveExaminationFindingRepository = _saveExaminationFindingRepository;
                             }
         
         public void Dispose()
