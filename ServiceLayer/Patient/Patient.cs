@@ -177,4 +177,28 @@ public class Patient : IPatient
             };
         }
     }
+
+    public async Task<GeneralResponse<IEnumerable<PatientDTO_1>>> GetAll()
+    {
+        try
+        {
+            var patients = await _unitOfWork.patientRepository.GetAllAsync();
+            var patientDTOs = patients.OrderBy(m => m.CreatedAt).Select(p => p.ToPatientDTO_1()).ToList();
+            return new GeneralResponse<IEnumerable<PatientDTO_1>>()
+            {
+                Success = true,
+                Data = patientDTOs,
+                Message = "Patients retrieved successfully."
+            };
+        }
+        catch (Exception ex)
+        {
+            return new GeneralResponse<IEnumerable<PatientDTO_1>>()
+            {
+                Success = false,
+                Data = null,
+                Message = ex.Message
+            };
+        }
+    }
 }

@@ -51,6 +51,18 @@ namespace ClinicalBackend2.Controllers
             return BadRequest(response);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var response = await patient.GetAll();
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            return BadRequest(response);
+        }
+
+
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetPatient(Guid id)
         {
