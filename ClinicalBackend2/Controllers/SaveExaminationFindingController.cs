@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ServiceLayer.ExaminationFindingService.DTO;
 using ServiceLayer.ExaminationFindingService.Save;
 using ServiceLayer.ExaminationFindingService.Save.DTO;
-using ServiceLayer.SheetService.QuestionService;
-using ServiceLayer.SheetService.saveQuestionService;
 using System.Security.Claims;
 
 namespace ClinicalBackend2.Controllers

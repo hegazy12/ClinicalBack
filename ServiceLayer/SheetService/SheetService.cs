@@ -2,10 +2,7 @@
 using Domain.Models;
 using Domain.Response;
 using ServiceLayer.SheetService.DTO;
-using ServiceLayer.SmedicalExaminations.DTO;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace ServiceLayer.SheetService
 {
@@ -48,7 +45,7 @@ namespace ServiceLayer.SheetService
 
         public async Task<GeneralResponse<IList<SheetDTO1>>> GetAll()
         {
-           var x = await unitOfWork.sheetRepository.GetAllAsync();
+           var x = await unitOfWork.sheetRepository.FindAllAsync(m=> !m.IsDeleted);
            return new GeneralResponse<IList<SheetDTO1>>()
             {
                 Data = x.Select(m=> m.ToSheetDTO1()).ToList(),

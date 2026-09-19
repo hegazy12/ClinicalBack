@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ServiceLayer.DiagnosService.DTO;
 using ServiceLayer.ExaminationFindingService;
 using ServiceLayer.ExaminationFindingService.DTO;
 using System.Security.Claims;

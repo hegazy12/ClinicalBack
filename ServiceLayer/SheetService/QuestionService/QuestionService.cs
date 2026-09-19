@@ -38,7 +38,7 @@ namespace ServiceLayer.SheetService.QuestionService
                 {
                     Data = null,
                     dateTime = DateTime.Now,
-                    Message = "you are save this item befor",
+                    Message = "you are save this Question befor",
                     Success = false
                 };
             }
@@ -50,7 +50,7 @@ namespace ServiceLayer.SheetService.QuestionService
                 {
                     Data = null,
                     dateTime = DateTime.Now,
-                    Message = "The data was successfully completed",
+                    Message = "The data was successfully saved completed",
                     Success = true
                 };
             }
@@ -70,7 +70,7 @@ namespace ServiceLayer.SheetService.QuestionService
                 {
                     Data = true,
                     dateTime = DateTime.Now,
-                    Message = "The data was successfully completed",
+                    Message = "The data was successfully Deleted completed",
                     Success = true,
                 };
             }

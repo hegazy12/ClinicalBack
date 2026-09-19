@@ -11,7 +11,7 @@ namespace ClinicalBackend2.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
-   // [Authorize(Roles = "Admin,User,BaseUser")]
+    [Authorize(Roles = "Admin,User,BaseUser")]
     public class saveQuestionController : ControllerBase
     {
         IsaveQuestionService saveQuestionService;

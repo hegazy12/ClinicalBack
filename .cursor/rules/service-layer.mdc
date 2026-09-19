@@ -1,0 +1,62 @@
+---
+description: Service layer conventions for interfaces, IUnitOfWork, DTOs, and GeneralResponse
+globs: ServiceLayer/**/*.cs
+alwaysApply: false
+---
+
+# Service Layer
+
+Keep each feature in its own folder: interface, implementation, and `DTO/` (or `Dtos/`) types together. Register the pair as `AddScoped<IFoo, Foo>` in `Program.cs`.
+
+## Structure
+
+- Inject `IUnitOfWork` in the constructor. Call repositories through it; do not use `DbContext` from services.
+- Public methods are `async` and return `Task<GeneralResponse<T>>`. Never return domain entities to callers.
+- Map with existing `ToXxx()` helpers. Keep request/response DTOs in the feature `DTO` folder.
+
+```csharp
+public class QuestionService : IQuestionService
+{
+    public IUnitOfWork unitOfWork;
+    public QuestionService(IUnitOfWork unitOfWork) { this.unitOfWork = unitOfWork; }
+
+    public async Task<GeneralResponse<IEnumerable<QuestionDTO1>>> GetbySheetId(Guid sheetId)
+    {
+        var rows = await unitOfWork.questionRepository.FindAllAsync(m => m.SheetId == sheetId && !m.IsDeleted);
+        return new GeneralResponse<IEnumerable<QuestionDTO1>> {
+            Success = true, Data = rows.Select(x => x.ToQuestionDTO1()),
+            dateTime = DateTime.Now, Message = "The data was successfully completed"
+        };
+    }
+}
+```
+
+## Writes and deletes
+
+- New entities: `entity.Create(userId)`, then `Add` / `AddAsync`, then `await unitOfWork.SaveChangesAsync()`.
+- Soft delete: `Find` (not deleted), `MarkAsDeleted(userId)`, `Update`, `SaveChangesAsync()`. Do not hard-delete.
+- Guard duplicates before insert; on conflict return `Success = false` and a clear message.
+
+## GeneralResponse
+
+- Success: `Success = true`, mapped `Data`, `dateTime = DateTime.Now`, user-facing `Message`.
+- Failure: catch `Exception`, return `Success = false`, `Data = null`, `Message = ex.Message`. Do not throw to the controller.
+- Never mark a successful query as `Success = false`.
+
+```csharp
+// ❌ BAD
+return new GeneralResponse<IEnumerable<string>> { Data = names, Success = false };
+
+// ✅ GOOD
+try {
+    var data = await unitOfWork.doctorRepository.GetDoctors();
+    return new GeneralResponse<IEnumerable<DoctorDTO_1>> {
+        Success = true, Data = data.Select(d => d.ToDoctorDTO_1()),
+        dateTime = DateTime.Now, Message = "Doctors retrieved successfully."
+    };
+} catch (Exception ex) {
+    return new GeneralResponse<IEnumerable<DoctorDTO_1>> {
+        Success = false, Data = null, dateTime = DateTime.Now, Message = ex.Message
+    };
+}
+```

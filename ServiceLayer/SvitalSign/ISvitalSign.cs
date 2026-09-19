@@ -6,6 +6,7 @@ namespace ServiceLayer.SvitalSign
 {
     public interface ISvitalSign
     {
+        
 
     }
 }

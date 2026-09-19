@@ -3,8 +3,6 @@ using SericeLayer.Account.Rgistration;
 using SericeLayer.Account.Login;
 using SericeLayer.Account.Login.DTO;
 using SericeLayer.Account.Rgistration.DTO;
-using ServiceLayer.JWT;
-using SericeLayer;
 
 
 namespace ClinicalBackend2.Controllers

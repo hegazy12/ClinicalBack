@@ -1,6 +1,5 @@
 ﻿
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Drug.Dtos;
 using ServiceLayer.Drug.Interfaces; 

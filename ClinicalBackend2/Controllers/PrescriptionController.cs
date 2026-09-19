@@ -1,5 +1,4 @@
-﻿using Domain.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.Prescription;
 using ServiceLayer.Prescription.DTO;
