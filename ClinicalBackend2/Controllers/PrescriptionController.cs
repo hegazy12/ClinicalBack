@@ -28,7 +28,8 @@ namespace ClinicalBackend2.Controllers
             {
                 return Ok(x);
             }
-            else {
+            else 
+            {
                 return BadRequest(x);
             }
         }

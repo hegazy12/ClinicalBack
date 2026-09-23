@@ -23,6 +23,7 @@ namespace Domain.IUnitOfWork
         public ISheetRepository sheetRepository { get; }
         public IExaminationFindingRepository examinationFindingRepository { get; }
         public IsaveExaminationFindingRepository saveExaminationFindingRepository  { get; }
+        public IChiefComplaintRepository chiefComplaintRepository { get; }
         Task<int> SaveChangesAsync();
 
     }

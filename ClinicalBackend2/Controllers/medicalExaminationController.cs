@@ -9,7 +9,7 @@ namespace ClinicalBackend2.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    [Authorize(Roles = "Admin,User,BaseUser")]
+    //[Authorize(Roles = "Admin,User,BaseUser")]
     public class medicalExaminationController : Controller
     {
         private readonly ImedicalExaminations service;

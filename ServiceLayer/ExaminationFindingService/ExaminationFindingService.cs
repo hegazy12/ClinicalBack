@@ -2,10 +2,7 @@
 using Domain.Models;
 using Domain.Response;
 using ServiceLayer.ExaminationFindingService.DTO;
-using ServiceLayer.VitalSignMaster.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace ServiceLayer.ExaminationFindingService
 {

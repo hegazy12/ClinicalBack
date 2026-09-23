@@ -30,6 +30,9 @@ namespace DatabaseLayer.UnitOfWork
         public IExaminationFindingRepository examinationFindingRepository { get; private set; }
 
         public IsaveExaminationFindingRepository saveExaminationFindingRepository { get; private set; }
+        public IChiefComplaintRepository chiefComplaintRepository {  get; private set; }
+
+        //public IChiefComplaintRepository chiefComplaintRepository ;
 
         public UnitOfWork(AppDbContext context , 
                         IApplicationUserRepository applicationUserRepository,
@@ -50,7 +53,8 @@ namespace DatabaseLayer.UnitOfWork
                         IQuestionRepository _questionRepository,
                         ISheetRepository _sheetRepository,
                         IExaminationFindingRepository _examinationFindingRepository,
-                        IsaveExaminationFindingRepository _saveExaminationFindingRepository)
+                        IsaveExaminationFindingRepository _saveExaminationFindingRepository,
+                        IChiefComplaintRepository _ChiefComplaintRepository)
                         {
                                 _context = context;
                                 AppUserRepository = applicationUserRepository;
@@ -72,6 +76,7 @@ namespace DatabaseLayer.UnitOfWork
                                 sheetRepository = _sheetRepository;
                                 examinationFindingRepository = _examinationFindingRepository;
                                 saveExaminationFindingRepository = _saveExaminationFindingRepository;
+                                chiefComplaintRepository = _ChiefComplaintRepository;
                             }
         
         public void Dispose()

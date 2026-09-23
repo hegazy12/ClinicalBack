@@ -66,7 +66,7 @@ namespace ServiceLayer.SheetService.QuestionService
                 unitOfWork.questionRepository.Update(question);
                 await unitOfWork.SaveChangesAsync();
 
-                return new GeneralResponse<bool>()
+                return new GeneralResponse<bool>()  
                 {
                     Data = true,
                     dateTime = DateTime.Now,

@@ -30,7 +30,7 @@ namespace DatabaseLayer
         public DbSet<Specialization> specializationNames { get; set;}
         public DbSet<ExaminationFinding> ExaminationFindings { get; set; }
         public DbSet<saveExaminationFinding> saveExaminationFinding { get; set; }
-        public DbSet<chifComplaint> chifComplaints { get; set;}
+        public DbSet<chiefComplaint> chiefComplaints { get; set;}
         public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
         {
         }

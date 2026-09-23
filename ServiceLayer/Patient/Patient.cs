@@ -1,7 +1,6 @@
-﻿using DatabaseLayer.UnitOfWork;
+﻿
 using Domain.IUnitOfWork;
 using Domain.Response;
-using ServiceLayer.DiagnosService.DTO;
 using ServiceLayer.Patient.DTO;
 
 namespace ServiceLayer.Patient;

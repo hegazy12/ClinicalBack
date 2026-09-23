@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using SericeLayer.Account.Login;
 using SericeLayer.Account.Rgistration;
 using ServiceLayer.Appointment;
+using ServiceLayer.cheifComplaneService;
 using ServiceLayer.DiagnosService;
 using ServiceLayer.Doctor;
 using ServiceLayer.Drug;
@@ -85,6 +86,8 @@ namespace ClinicalBackend2
             builder.Services.AddScoped<IsaveExaminationFindingRepository, saveExaminationFindingRepository>();
             builder.Services.AddScoped<IExaminationFindingService, ExaminationFindingService>();
             builder.Services.AddScoped<IsaveExaminationFinding, ServiceLayer.ExaminationFindingService.Save.saveExaminationFinding>();
+            builder.Services.AddScoped<IChiefComplaintRepository, chiefComplaintRepository>();
+            builder.Services.AddScoped<IcheifComplaneService, cheifComplaneService>();
 
             builder.Services.AddCors(options =>
             {

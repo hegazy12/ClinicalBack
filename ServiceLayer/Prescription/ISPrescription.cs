@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Domain.Models;
-using ServiceLayer.Prescription.DTO;
+﻿using ServiceLayer.Prescription.DTO;
 using Domain.Response;
 
 namespace ServiceLayer.Prescription
