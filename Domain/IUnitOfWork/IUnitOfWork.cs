@@ -24,6 +24,10 @@ namespace Domain.IUnitOfWork
         public IExaminationFindingRepository examinationFindingRepository { get; }
         public IsaveExaminationFindingRepository saveExaminationFindingRepository  { get; }
         public IChiefComplaintRepository chiefComplaintRepository { get; }
+        public IMainQuestionRepository mainQuestionRepository { get; }
+        public IsaveMainQuestionRepository saveMainQuestionRepository { get; }
+        public IServiceRepository serviceRepository { get; }
+        public IsaveServiceRepository saveServiceRepository { get; }
         Task<int> SaveChangesAsync();
 
     }

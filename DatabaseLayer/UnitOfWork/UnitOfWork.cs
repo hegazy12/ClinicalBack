@@ -31,6 +31,10 @@ namespace DatabaseLayer.UnitOfWork
 
         public IsaveExaminationFindingRepository saveExaminationFindingRepository { get; private set; }
         public IChiefComplaintRepository chiefComplaintRepository {  get; private set; }
+        public IMainQuestionRepository mainQuestionRepository { get; private set; }
+        public IsaveMainQuestionRepository saveMainQuestionRepository { get; private set; }
+        public IServiceRepository serviceRepository { get; private set; }
+        public IsaveServiceRepository saveServiceRepository { get; private set; }
 
         //public IChiefComplaintRepository chiefComplaintRepository ;
 
@@ -54,7 +58,11 @@ namespace DatabaseLayer.UnitOfWork
                         ISheetRepository _sheetRepository,
                         IExaminationFindingRepository _examinationFindingRepository,
                         IsaveExaminationFindingRepository _saveExaminationFindingRepository,
-                        IChiefComplaintRepository _ChiefComplaintRepository)
+                        IChiefComplaintRepository _ChiefComplaintRepository,
+                        IMainQuestionRepository _mainQuestionRepository,
+                        IsaveMainQuestionRepository _saveMainQuestionRepository,
+                        IServiceRepository _serviceRepository,
+                        IsaveServiceRepository _saveServiceRepository)
                         {
                                 _context = context;
                                 AppUserRepository = applicationUserRepository;
@@ -77,6 +85,10 @@ namespace DatabaseLayer.UnitOfWork
                                 examinationFindingRepository = _examinationFindingRepository;
                                 saveExaminationFindingRepository = _saveExaminationFindingRepository;
                                 chiefComplaintRepository = _ChiefComplaintRepository;
+                                mainQuestionRepository = _mainQuestionRepository;
+                                saveMainQuestionRepository = _saveMainQuestionRepository;
+                                serviceRepository = _serviceRepository;
+                                saveServiceRepository = _saveServiceRepository;
                             }
         
         public void Dispose()

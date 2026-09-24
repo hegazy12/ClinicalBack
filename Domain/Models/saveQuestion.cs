@@ -13,15 +13,12 @@ namespace Domain.Models
         [ForeignKey("Appointment")]
         public Guid AppointmentId { get; set; }
         public Appointment Appointment { get; set; }
-
         [ForeignKey(nameof(Question))]
         public Guid QuestionId { get; set; }
         public Question Question { get; set; }
-
         [ForeignKey(nameof(Sheet))]
         public Guid SheetId { get; set; }
         public Sheet Sheet { get; set; }
-
         public string value { get; set; }
     }
 }

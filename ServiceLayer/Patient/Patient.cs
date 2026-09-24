@@ -181,7 +181,7 @@ public class Patient : IPatient
     {
         try
         {
-            var patients = await _unitOfWork.patientRepository.GetAllAsync();
+            var patients = await _unitOfWork.patientRepository.FindAllAsync(m=> !m.IsDeleted);
             var patientDTOs = patients.OrderBy(m => m.CreatedAt).Select(p => p.ToPatientDTO_1()).ToList();
             return new GeneralResponse<IEnumerable<PatientDTO_1>>()
             {

@@ -32,6 +32,8 @@ public class Appointment : BaseModule
         public string? Notes { get; set; }
         [Required]
         public double Deposit {get; set;}
+
+       
         //public Prescription? Prescription {get; set;}
         // public List<VitalSign>? VitalSigns { get; set; } 
 }

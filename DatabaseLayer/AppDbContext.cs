@@ -31,6 +31,10 @@ namespace DatabaseLayer
         public DbSet<ExaminationFinding> ExaminationFindings { get; set; }
         public DbSet<saveExaminationFinding> saveExaminationFinding { get; set; }
         public DbSet<chiefComplaint> chiefComplaints { get; set;}
+        public DbSet<saveMainQuestion> saveMainQuestions { get; set;} 
+        public DbSet<MainQuestion> mainQuestions {get; set;}
+        public DbSet<Service> services { get; set;}
+        public DbSet<saveService> saveServices {  get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
         {
         }

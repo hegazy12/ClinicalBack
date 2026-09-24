@@ -4,6 +4,7 @@ using DatabaseLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatabaseLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260923180014_saveMainQuestionForPatient")]
+    partial class saveMainQuestionForPatient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -531,6 +534,9 @@ namespace DatabaseLayer.Migrations
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("age")
+                        .HasColumnType("int");
+
                     b.Property<string>("dataTypeName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -546,15 +552,9 @@ namespace DatabaseLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("maxage")
-                        .HasColumnType("int");
-
                     b.Property<string>("minValue")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("minage")
-                        .HasColumnType("int");
 
                     b.Property<bool>("requer")
                         .HasColumnType("bit");
@@ -795,67 +795,6 @@ namespace DatabaseLayer.Migrations
                     b.HasIndex("UpdatedBy");
 
                     b.ToTable("questions");
-                });
-
-            modelBuilder.Entity("Domain.Models.Service", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<Guid?>("ExaminationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsUpdated")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("medicalExaminationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("DeletedBy");
-
-                    b.HasIndex("UpdatedBy");
-
-                    b.ToTable("services");
                 });
 
             modelBuilder.Entity("Domain.Models.Sheet", b =>
@@ -1547,63 +1486,6 @@ namespace DatabaseLayer.Migrations
                     b.ToTable("saveQuestions");
                 });
 
-            modelBuilder.Entity("Domain.Models.saveService", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AppointmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsUpdated")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ServiceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppointmentId");
-
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("DeletedBy");
-
-                    b.HasIndex("ServiceId");
-
-                    b.HasIndex("UpdatedBy");
-
-                    b.ToTable("saveServices");
-                });
-
             modelBuilder.Entity("Domain.Models.saveVitalSign", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2075,27 +1957,6 @@ namespace DatabaseLayer.Migrations
                     b.Navigation("Updated");
                 });
 
-            modelBuilder.Entity("Domain.Models.Service", b =>
-                {
-                    b.HasOne("Domain.Models.ApplicationUser", "Created")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy");
-
-                    b.HasOne("Domain.Models.ApplicationUser", "Deleted")
-                        .WithMany()
-                        .HasForeignKey("DeletedBy");
-
-                    b.HasOne("Domain.Models.ApplicationUser", "Updated")
-                        .WithMany()
-                        .HasForeignKey("UpdatedBy");
-
-                    b.Navigation("Created");
-
-                    b.Navigation("Deleted");
-
-                    b.Navigation("Updated");
-                });
-
             modelBuilder.Entity("Domain.Models.Sheet", b =>
                 {
                     b.HasOne("Domain.Models.ApplicationUser", "Created")
@@ -2448,43 +2309,6 @@ namespace DatabaseLayer.Migrations
                     b.Navigation("Question");
 
                     b.Navigation("Sheet");
-
-                    b.Navigation("Updated");
-                });
-
-            modelBuilder.Entity("Domain.Models.saveService", b =>
-                {
-                    b.HasOne("Domain.Models.Appointment", "Appointment")
-                        .WithMany()
-                        .HasForeignKey("AppointmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.ApplicationUser", "Created")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy");
-
-                    b.HasOne("Domain.Models.ApplicationUser", "Deleted")
-                        .WithMany()
-                        .HasForeignKey("DeletedBy");
-
-                    b.HasOne("Domain.Models.Service", "Service")
-                        .WithMany()
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.ApplicationUser", "Updated")
-                        .WithMany()
-                        .HasForeignKey("UpdatedBy");
-
-                    b.Navigation("Appointment");
-
-                    b.Navigation("Created");
-
-                    b.Navigation("Deleted");
-
-                    b.Navigation("Service");
 
                     b.Navigation("Updated");
                 });
