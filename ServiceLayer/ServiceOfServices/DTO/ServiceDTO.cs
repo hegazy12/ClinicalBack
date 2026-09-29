@@ -7,6 +7,8 @@ namespace ServiceLayer.ServiceOfServices.DTO
         public string name { get; set; }
         public string description { get; set; }
         public decimal price { get; set; }
+        public Guid? ExaminationId { get; set; }
+        public Guid? medicalExaminationId { get; set; }
     }
 
     public class ServiceDTO1 : ServiceDTO
@@ -23,7 +25,9 @@ namespace ServiceLayer.ServiceOfServices.DTO
                 Id = service.Id,
                 name = service.name,
                 description = service.description,
-                price = service.price
+                price = service.price,
+                ExaminationId = service.ExaminationId,
+                medicalExaminationId = service.ExaminationId
             };
         }
     }

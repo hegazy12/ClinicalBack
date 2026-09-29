@@ -12,5 +12,7 @@ namespace ServiceLayer.SheetService
         public Task<GeneralResponse<Boolean>> Delete(Guid SheetId, Guid userId);
         public Task<GeneralResponse<IList<SheetDTO1>>> GetAll();
 
+        public Task<GeneralResponse<IEnumerable<SheetDTO1>>> GetByPtinetId(Guid patientid);
+
     }
 }

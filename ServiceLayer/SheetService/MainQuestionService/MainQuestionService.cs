@@ -121,5 +121,18 @@ namespace ServiceLayer.SheetService.MainQuestionService
                 Success = mainQuestion != null,
             };
         }
+
+        public async Task<GeneralResponse<IEnumerable<MainQuestionDTO1>>> GetByPatientId(Guid Id)
+        {
+            var x = await unitOfWork.mainQuestionRepository.GetbyPatientId(Id);
+            var m = x.Select(x => x.ToMainQuestionDTO1()).ToList();
+            return new GeneralResponse<IEnumerable<MainQuestionDTO1>>()
+            {
+                Data = m,
+                dateTime = DateTime.Now,
+                Message = "The data was successfully completed",
+                Success = true,
+            };
+        }
     }
 }

@@ -6,5 +6,7 @@ namespace Domain.IRepository
     {
         public Task<bool> IsCreatBefor(MainQuestion x);
         public Task<IEnumerable<MainQuestion>> GetbyPatientId(Guid PatientId);
+
+       // public Task<IEnumerable<MainQuestion>> GetByPatientId();
     }
 }

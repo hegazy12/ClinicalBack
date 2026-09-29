@@ -65,5 +65,7 @@ namespace ClinicalBackend2.Controllers
                 return BadRequest(x);
             }
         }
+
+
     }
 }

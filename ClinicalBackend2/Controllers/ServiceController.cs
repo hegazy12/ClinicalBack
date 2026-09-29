@@ -22,9 +22,7 @@ namespace ClinicalBackend2.Controllers
         {
             var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
             Guid userid = Guid.Parse(userIdStr);
-
             var x = await service.Add(DTO, userid);
-
             if (x.Success)
             {
                 return Ok(x);
@@ -39,7 +37,6 @@ namespace ClinicalBackend2.Controllers
         public async Task<IActionResult> search([FromQuery] string? name)
         {
             var x = await service.Search(name);
-
             if (x.Success)
             {
                 return Ok(x);
@@ -54,7 +51,6 @@ namespace ClinicalBackend2.Controllers
         public async Task<IActionResult> getById(Guid id)
         {
             var x = await service.GetById(id);
-
             if (x.Success)
             {
                 return Ok(x);
@@ -70,9 +66,7 @@ namespace ClinicalBackend2.Controllers
         {
             var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
             Guid userid = Guid.Parse(userIdStr);
-
             var x = await service.Delete(id, userid);
-
             if (x.Success)
             {
                 return Ok(x);

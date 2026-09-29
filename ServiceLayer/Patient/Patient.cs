@@ -14,7 +14,6 @@ public class Patient : IPatient
     {
         _unitOfWork = unitOfWork;
     }
-
     public async Task<GeneralResponse<PatientDTO_1>> CreatPatient(PatientDTO_0 patientDTO_0, Guid Createby)
     {
 

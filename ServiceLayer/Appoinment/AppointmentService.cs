@@ -318,6 +318,22 @@ public class AppointmentService : IAppointmentService
             };
         }
     }
+
+    public async Task<GeneralResponse<IEnumerable<AppointmentDTO_1>>> GetAllAppoinmentByDoctor(Guid DoctorId)
+    {
+        //var user = unitOfWork.AppUserRepository.Find(m => m.Id == Convert.ToString(DoctorId));
+        //var id = unitOfWork.doctorRepository.Find(m => m.ApplicationUser.Id == user.Id).Id;
+        var appointments = await unitOfWork.appoinmentRepository.GetAllAppoinmentByDoctor(DoctorId);
+        List<AppointmentDTO_1> appointmentDTO_1s = appointments.Select(a => a.ToAppointmentDTO_1()).ToList();
+
+        return new GeneralResponse<IEnumerable<AppointmentDTO_1>>()
+        {
+            Success = true,
+            Message = "Appointments retrieved successfully.",
+            dateTime = DateTime.Now,
+            Data = appointmentDTO_1s
+        };
+    }
 }
 
 

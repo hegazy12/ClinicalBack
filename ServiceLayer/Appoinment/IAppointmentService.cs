@@ -13,4 +13,6 @@ public interface IAppointmentService
     public Task<GeneralResponse<AppointmentDTO_3>> GetHistoryAppointment(Guid AppointmentId);
     public Task<GeneralResponse<int>> makeItComplete(Guid AppointmentId);
     public Task<GeneralResponse<AppointmentDTO_1>> Delete(Guid id, Guid userid);
+
+    public Task<GeneralResponse<IEnumerable<AppointmentDTO_1>>> GetAllAppoinmentByDoctor(Guid DoctorId);
 }

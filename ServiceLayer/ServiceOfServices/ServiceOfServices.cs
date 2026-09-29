@@ -31,9 +31,13 @@ namespace ServiceLayer.ServiceOfServices
                 name = DTO.name.Trim(),
                 description = DTO.description,
                 price = DTO.price,
+                medicalExaminationId = DTO.medicalExaminationId,
+                ExaminationId = DTO.ExaminationId
             };
 
+
             service.Create(userId);
+
             var IsCreatBefor = await unitOfWork.serviceRepository.IsCreatBefor(service);
 
             if (IsCreatBefor)
@@ -50,6 +54,7 @@ namespace ServiceLayer.ServiceOfServices
             {
                 await unitOfWork.serviceRepository.AddAsync(service);
                 await unitOfWork.SaveChangesAsync();
+
                 return new GeneralResponse<ServiceDTO1>()
                 {
                     Data = service.ToServiceDTO1(),

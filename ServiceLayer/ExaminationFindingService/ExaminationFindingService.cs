@@ -37,6 +37,9 @@ namespace ServiceLayer.ExaminationFindingService
             {
                 examinationFinding.Create(CreateBy);
                 unitOfWork.examinationFindingRepository.Add(examinationFinding);
+
+                //unitOfWork.serviceRepository.FindById(m=>m. == examinationFinding.Id);
+
                 await unitOfWork.SaveChangesAsync();
                 return new GeneralResponse<ExaminationFindingDTO1>()
                 {

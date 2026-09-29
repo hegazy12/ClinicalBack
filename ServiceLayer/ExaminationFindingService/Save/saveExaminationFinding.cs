@@ -1,4 +1,5 @@
 ﻿using Domain.IUnitOfWork;
+using Domain.Models;
 using Domain.Response;
 using ServiceLayer.ExaminationFindingService.Save.DTO;
 
@@ -26,6 +27,7 @@ namespace ServiceLayer.ExaminationFindingService.Save
             };
 
             var x = await unitOfWork.saveExaminationFindingRepository.IsCreatBefor(saveExaminationFinding);
+           
             if (x)
             {
                 return new GeneralResponse<saveExaminationFindingDTO1>()
@@ -40,6 +42,22 @@ namespace ServiceLayer.ExaminationFindingService.Save
             {
                 saveExaminationFinding.Create(CreateBy);
                 unitOfWork.saveExaminationFindingRepository.Add(saveExaminationFinding);
+
+                var ExaminationFindingService = unitOfWork.serviceRepository.Find(m => m.ExaminationId == saveExaminationFinding.ExaminationFindingId);
+
+                if (ExaminationFindingService != null)
+                {
+                    var saveService = new saveService()
+                    {
+                        AppointmentId = saveExaminationFinding.AppointmentId,
+                        ServiceId     = ExaminationFindingService.Id,
+                        Notes = "ExaminationFinding"
+                    };
+
+                    saveService.Create(CreateBy);
+                    unitOfWork.saveServiceRepository.Add(saveService);
+                }
+
                 await unitOfWork.SaveChangesAsync();
                 return new GeneralResponse<saveExaminationFindingDTO1>()
                 {
@@ -58,6 +76,7 @@ namespace ServiceLayer.ExaminationFindingService.Save
                 var examinationFinding = unitOfWork.saveExaminationFindingRepository.Find(m => m.Id == ID);
                 examinationFinding.MarkAsDeleted(CreateBy);
                 unitOfWork.saveExaminationFindingRepository.Update(examinationFinding);
+
                 await unitOfWork.SaveChangesAsync();
 
                 return new GeneralResponse<bool>()

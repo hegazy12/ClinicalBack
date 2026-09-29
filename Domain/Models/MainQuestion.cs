@@ -13,8 +13,9 @@ namespace Domain.Models
         public string dataTypeName { get; set; }
         public string maxValue { get; set; }
         public string minValue { get; set; }
-        public bool requeried { get; set; }
+        
         public List<string>? listValues { get; set; }
+        public bool requeried { get; set; }
         public int Gendar {  get; set; }
         public int minage { get; set; }
         public int maxage { get; set; }

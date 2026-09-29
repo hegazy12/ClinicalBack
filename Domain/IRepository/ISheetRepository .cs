@@ -8,6 +8,7 @@ namespace Domain.IRepository
     public interface ISheetRepository : IBaseRepository<Sheet>
     {
         public Task<Boolean> IsSavedBefor(Sheet Sheet);
+        public Task<IEnumerable<Sheet>> GetByPtinetId(Guid patientid);
 
     }
 }

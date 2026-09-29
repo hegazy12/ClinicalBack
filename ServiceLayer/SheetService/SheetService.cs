@@ -54,6 +54,17 @@ namespace ServiceLayer.SheetService
             };
         }
 
+        public async Task<GeneralResponse<IEnumerable<SheetDTO1>>> GetByPtinetId(Guid patientid)
+        {
+            var Sheet = await unitOfWork.sheetRepository.GetByPtinetId(patientid);
+            return new GeneralResponse<IEnumerable<SheetDTO1>>()
+            {
+                Data = Sheet.Select(m => m.ToSheetDTO1()).ToList(),
+                Success = true,
+                Message = "The data was successfully completed"
+            };
+        }
+
         public async Task<GeneralResponse<SheetDTO1>> save(SheetDTO SheetDTO , Guid userId)
         {
             Sheet Sheet = new Sheet()

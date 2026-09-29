@@ -25,7 +25,24 @@ namespace ServiceLayer.SmedicalExaminations
                 var saveExaminations = unitOfWork.saveExaminationsRepository.Find(m => m.Id == id);
                 saveExaminations.MarkAsDeleted(userid);
                 unitOfWork.saveExaminationsRepository.Update(saveExaminations);
+
+                var service = unitOfWork.serviceRepository.Find(m => m.medicalExaminationId == saveExaminations.ExaminationId);
+                
+                if (service != null)
+                {
+                    var saveService =
+                        unitOfWork
+                        .saveServiceRepository
+                        .Find(m=> m.AppointmentId == saveExaminations.AppointmentId && m.ServiceId == service.Id && !m.IsDeleted);
+
+                    saveService.MarkAsDeleted(userid);
+                    
+                    unitOfWork.saveServiceRepository.Update(saveService);
+
+                }
+
                 await unitOfWork.SaveChangesAsync();
+
                 return new GeneralResponse<saveExaminationDTO1>()
                 {
                     Data = saveExaminations.TosaveExaminationDTO1(),
@@ -33,6 +50,7 @@ namespace ServiceLayer.SmedicalExaminations
                     Message = "The data was successfully completed",
                     Success = true,
                 };
+
             }
             catch (Exception ex)
             {
@@ -171,7 +189,21 @@ namespace ServiceLayer.SmedicalExaminations
                    // x.ExaminationPhotos = new List<string>();
 
                     x = unitOfWork.saveExaminationsRepository.Add(x);
+                    var service = unitOfWork.serviceRepository.Find(m=>m.medicalExaminationId == x.ExaminationId);
                     
+                    if (service != null)
+                    {
+                        var LabExaminationService = new saveService()
+                        {
+
+                            AppointmentId = x.AppointmentId,
+                            ServiceId = service.Id,
+                            Notes = "LabExamination"
+                        };
+                        LabExaminationService.Create(Createby);
+                        unitOfWork.saveServiceRepository.Add(LabExaminationService);
+                    }
+
                     var m = await unitOfWork.SaveChangesAsync();
                     
                     return new GeneralResponse<saveExaminationDTO1>()

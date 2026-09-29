@@ -82,5 +82,20 @@ namespace ClinicalBackend2.Controllers
                 return NotFound(x);
             }
         }
+
+        [HttpGet("{patientid:guid}")]
+        public async Task<IActionResult> GetByPatientId(Guid patientid)
+        {
+            var x = await service.GetByPatientId(patientid);
+
+            if (x.Success)
+            {
+                return Ok(x);
+            }
+            else
+            {
+                return BadRequest(x);
+            }
+        }
     }
 }

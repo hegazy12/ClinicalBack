@@ -34,4 +34,10 @@ public class AppoinmentRepository : BaseRepository<Appointment>, IAppoinmentRepo
         x = x.OrderByDescending(m => m.AppointmentDate);
         return x.ToList();
     }
+
+    public async Task<IEnumerable<Appointment>> GetAllAppoinmentByDoctor(Guid DoctorId)
+    {
+        var x = await FindAllAsync(s => s.DoctorId == DoctorId);
+        return x.ToList();
+    }
 }

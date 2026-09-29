@@ -8,7 +8,7 @@ namespace ClinicalBackend2.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    [Authorize(Roles = "Admin,User,BaseUser")]
+    // [Authorize(Roles = "Admin,User,BaseUser")]
     public class AppointmentController : Controller
     {
         private IAppointmentService appointmentService;
@@ -127,6 +127,21 @@ namespace ClinicalBackend2.Controllers
             var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
             Guid userid = Guid.Parse(userIdStr);
             var appointment = await appointmentService.Delete(id, userid);
+
+            if (appointment.Success)
+            {
+                return Ok(appointment);
+            }
+            else
+            {
+                return BadRequest(appointment);
+            }
+        }
+
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> getallappoinmentbydoctor(Guid id)
+        {
+            var appointment = await appointmentService.GetAllAppoinmentByDoctor(id);
 
             if (appointment.Success)
             {
