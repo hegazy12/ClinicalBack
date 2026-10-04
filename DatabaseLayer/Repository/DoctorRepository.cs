@@ -51,13 +51,14 @@ namespace DatabaseLayer.Repository
 
         public async Task<Doctor> GetDoctor(Guid id)
         {
-            var doctor = await GetByIdAsync(id);
+           // Find(m => m.Id == id, new string[] { "ApplicationUser" });
+            var doctor = await FindAsync(m => m.Id == id && !m.IsDeleted, new string[] { "ApplicationUser" });
             return doctor;
         }
 
         public async Task<IEnumerable<Doctor>> GetDoctors()
         {
-            return await FindAllAsync(m=> false== false && !m.IsDeleted, new string[] { "ApplicationUser" });
+            return await FindAllAsync(m=> !m.IsDeleted, new string[] { "ApplicationUser" });
         }
 
         public async Task<IEnumerable<Doctor>> GetDoctorsBySpecialization(string specialization)

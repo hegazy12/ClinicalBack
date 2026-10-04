@@ -13,6 +13,7 @@ namespace ServiceLayer.Doctor.DTO
         public string ClinicAddress { get; set; } = string.Empty;
         public string ClinicPhoneNumber { get; set; } = string.Empty;
         public string ClinicEmail { get; set; } = string.Empty;
+        public string UserId { get; set; } = string.Empty;
     }
 
     public class SpecializationDTO
@@ -56,7 +57,23 @@ namespace ServiceLayer.Doctor.DTO
                 ClinicName = doctorDTO.ClinicName,
                 ClinicAddress = doctorDTO.ClinicAddress,
                 ClinicPhoneNumber = doctorDTO.ClinicPhoneNumber,
-                ClinicEmail = doctorDTO.ClinicEmail
+                ClinicEmail = doctorDTO.ClinicEmail,
+                UserId = doctorDTO.UserId
+            };
+        }
+
+        public static Domain.Models.Doctor ToDoctor(this DoctorDTO_0 doctorDTO)
+        {
+            if (doctorDTO == null) return null;
+            return new Domain.Models.Doctor
+            {
+                Id = Guid.NewGuid(),
+                Specialization = doctorDTO.Specialization,
+                ClinicName = doctorDTO.ClinicName,
+                ClinicAddress = doctorDTO.ClinicAddress,
+                ClinicPhoneNumber = doctorDTO.ClinicPhoneNumber,
+                ClinicEmail = doctorDTO.ClinicEmail,
+                UserId = doctorDTO.UserId
             };
         }
 

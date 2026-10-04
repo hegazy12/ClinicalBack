@@ -11,5 +11,6 @@ namespace ServiceLayer.Doctor.DTO
         public string jobTitle { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public Guid Id { get; set; }
+        public string UserId { get; set; } = string.Empty;
     }
 }

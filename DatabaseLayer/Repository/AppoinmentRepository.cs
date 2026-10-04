@@ -18,7 +18,7 @@ public class AppoinmentRepository : BaseRepository<Appointment>, IAppoinmentRepo
     public async Task<List<Appointment>> GetByDoctorId(Guid DoctorId)
     {
         var x = await FindAllAsync(s => s.DoctorId == DoctorId && s.Status == "Pending" && !s.IsDeleted, new string[] { "Patient", "Doctor" });
-        return x.ToList();
+        return x.OrderBy(m => m.CreatedAt).ToList();
     }
 
 

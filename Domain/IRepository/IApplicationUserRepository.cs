@@ -15,5 +15,7 @@ public interface IApplicationUserRepository : IBaseRepository<ApplicationUser>
     public Task<bool> CheckPasswordAsync(ApplicationUser user, string password);
     public Task<ApplicationUser> GetUserIdAsync(string userId);
     public Task<Doctor> GetDoctorbyUserIdAsync(string userId);
+    public Task<IEnumerable<ApplicationUser>> GetAll();
 
+    public Task<IEnumerable<IdentityRole>> GetRoleAsync();
 }

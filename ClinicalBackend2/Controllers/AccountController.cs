@@ -28,6 +28,12 @@ namespace ClinicalBackend2.Controllers
                 return BadRequest(ModelState);
             }
 
+            // Only an authenticated admin may choose roles; anonymous sign-ups always get the default role.
+            if (!User.IsInRole("Admin"))
+            {
+                request.Roles.Clear();
+            }
+
             var result = await _registrationService.RegisterAsync(request);
 
             if (result == null)
@@ -53,6 +59,29 @@ namespace ClinicalBackend2.Controllers
                 return BadRequest(result);
             }
             
+            return Ok(result);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetUsers()
+        {
+            var result = await _registrationService.GetList();
+            if (result == null)
+            {
+                return BadRequest("Failed to retrieve users.");
+            }
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetRoles()
+        {
+            var result = await _registrationService.GetRoles();
+            if (result == null)
+            {
+                return BadRequest("Failed to retrieve roles.");
+            }
             return Ok(result);
         }
     }

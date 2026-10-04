@@ -56,6 +56,8 @@ public class ApplicationUserRepository : BaseRepository<ApplicationUser>, IAppli
         return roles;
     }
 
+    
+
     public async Task<bool> AddRoleAsync(string userId, string roleName)
     {
         var user = await _userManager.FindByIdAsync(userId);
@@ -93,5 +95,16 @@ public class ApplicationUserRepository : BaseRepository<ApplicationUser>, IAppli
         {
             return new Doctor();
         }
+    }
+
+    public async Task<IEnumerable<ApplicationUser>> GetAll()
+    {
+        return await _context.ApplicationUsers.ToListAsync();
+    }
+
+    public async Task<IEnumerable<IdentityRole>> GetRoleAsync()
+    {
+        var roles = await _context.Roles.ToListAsync();
+        return roles;
     }
 }
